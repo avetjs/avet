@@ -1,0 +1,6 @@
+{
+  "extends": "eslint-config-egg/react",
+  "rules": {
+    "react/jsx-filename-extension": 0
+  }
+}

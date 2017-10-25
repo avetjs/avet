@@ -1,0 +1,19 @@
+# build output
+dist
+.avet
+.vscode
+.tmp
+
+# dependencies
+node_modules
+
+# logs
+*.log
+
+# coverage
+.nyc_output
+coverage
+
+# test output
+test/**/out
+.DS_Store
