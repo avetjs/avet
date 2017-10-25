@@ -1,9 +1,0 @@
-menu:
-  guide: 指南
-  api: API
-  tutorials: 教程
-  plugins: 插件
-  release: 发布日志
-
-guide_toc:
-  Intro: 新手指南

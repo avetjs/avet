@@ -3,6 +3,7 @@ dist
 .avet
 .vscode
 .tmp
+.site
 
 # dependencies
 node_modules
@@ -17,3 +18,4 @@ coverage
 # test output
 test/**/out
 .DS_Store
+run/
