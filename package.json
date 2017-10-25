@@ -11,7 +11,8 @@
     "release:core": "taskr release",
     "doc:start": "bisheng start -c ./docs/bisheng.config.js",
     "doc:build": "bisheng build --ssr -c ./docs/bisheng.config.js",
-    "doc:deploy": "bisheng gh-pages --ssr -c ./docs/bisheng.config.js"
+    "doc:deploy": "bisheng gh-pages --ssr -c ./docs/bisheng.config.js",
+    "prepublish": "release:core"
   },
   "files": [
     "bin",

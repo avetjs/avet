@@ -13,7 +13,6 @@ import Head, { defaultHead } from '../shared/head';
 import App from '../shared/app';
 import ErrorDebug from '../shared/error-debug';
 import { flushChunks } from '../shared/dynamic';
-import startI18n from '../shared/i18n';
 
 import xssFilters from 'xss-filters';
 
@@ -82,7 +81,6 @@ async function doRender(
   ]);
 
   const translations = await getTranslation(lang, join(dir, 'asset'));
-  const i18n = startI18n(translations, lang);
 
   Component = Component.default || Component;
   Document = Document.default || Document;
