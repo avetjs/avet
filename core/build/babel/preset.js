@@ -1,8 +1,7 @@
 const { strUpperCamelize } = require('../../../common/utils');
 
-const relativeResolve = require('../root-module-relative-path').default(
-  require
-);
+const relativeResolve = require('../root-module-relative-path').default(require);
+const absoluteResolve = require('../absolute-path').default(require);
 
 const moduleAliasPath = require('../module-alias-path').default;
 
@@ -39,7 +38,9 @@ module.exports = ({ dir, config, buildExtends }) => {
         require.resolve('babel-plugin-module-resolver'),
         {
           alias: {
-            'babel-runtime': relativeResolve('babel-runtime/package'),
+            'babel-runtime': absoluteResolve('babel-runtime/package'),
+            'react': absoluteResolve('react'),
+            'react-dom': absoluteResolve('react-dom'),
             '@link': relativeResolve('../../shared/link'),
             '@dynamic': relativeResolve('../../shared/dynamic'),
             '@head': relativeResolve('../../shared/head'),
