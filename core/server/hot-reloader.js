@@ -296,10 +296,7 @@ async function getAppWebpackDevMiddlewareConfig(
 
   if (Array.isArray(webpackDevMiddlewareFnList)) {
     for (const fn of webpackDevMiddlewareFnList) {
-      await new Promise((resolve, reject) => {
-        ret = fn(ret, webpack, config);
-        resolve();
-      });
+      ret = await fn(ret, webpack, config);
     }
   }
 
@@ -315,10 +312,7 @@ async function getAppWebpackHotMiddlewareConfig(
 
   if (Array.isArray(webpackHotMiddlewareFnList)) {
     for (const fn of webpackHotMiddlewareFnList) {
-      await new Promise((resolve, reject) => {
-        ret = fn(ret, webpack, config);
-        resolve();
-      });
+      ret = await fn(ret, webpack, config);
     }
   }
 

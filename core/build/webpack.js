@@ -318,10 +318,7 @@ async function getAppWebpackConfig(webpackConfig = {}, webpackFnList, initConfig
   let ret = extend(true, initConfig, webpackConfig);
   if (Array.isArray(webpackFnList)) {
     for (const fn of webpackFnList) {
-      await new Promise((resolve, reject) => {
-        ret = fn(ret, webpack, appConfig);
-        resolve();
-      });
+      ret = await fn(ret, webpack, appConfig);
     }
   }
 
