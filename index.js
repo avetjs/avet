@@ -36,7 +36,7 @@ class Application extends AvetCore {
     await generatePluginInfomation(
       this.config.server.dir,
       this.config.build.distDir,
-      this.extends,
+      this.extends
     );
 
     this.hasInit = true;

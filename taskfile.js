@@ -38,7 +38,7 @@ export async function build(task, opts) {
   notify('Compiled build files');
 }
 
-export async function copy(task) {
+export async function page(task) {
   await task
     .source('core/page/**/*.js')
     .target('dist/page');
@@ -66,15 +66,14 @@ export async function plugin(task) {
 }
 
 export async function main(task) {
-  await task.serial(['copy', 'compile']);
+  await task.serial(['page', 'compile']);
 }
 
 export default async function (task) {
   await task.start('main');
   await task.watch('core/avet.js', 'avet');
   await task.watch('core/plugin.js', 'plugin');
-  await task.watch('core/bin/*', 'bin');
-  await task.watch('core/page/**/*.js', 'copy');
+  await task.watch('core/page/**/*.js', 'page');
   await task.watch('core/server/**/*.js', 'server');
   await task.watch('core/client/**/*.js', 'client');
   await task.watch('core/shared/**/*.js', 'shared');
