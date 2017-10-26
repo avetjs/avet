@@ -182,14 +182,16 @@ export default class HotReloader {
     if (this.config._webpackDevMiddlewareFnList) {
       webpackDevMiddlewareConfig = await getAppWebpackDevMiddlewareConfig(
         this.config._webpackDevMiddlewareFnList,
-        webpackDevMiddlewareConfig
+        webpackDevMiddlewareConfig,
+        this.config
       );
     }
 
     if (this.config._webpackHotMiddlewareFnList) {
       webpackHotMiddlewareConfig = await getAppWebpackHotMiddlewareConfig(
         this.config._webpackHotMiddlewareFnList,
-        webpackHotMiddlewareConfig
+        webpackHotMiddlewareConfig,
+        this.config
       );
     }
 
@@ -276,13 +278,17 @@ function toRoute(file) {
   return ('/' + f).replace(/(\/index)?\.js$/, '') || '/';
 }
 
-async function getAppWebpackDevMiddlewareConfig(webpackDevMiddlewareFnList, webpackDevMiddlewareConfig) {
+async function getAppWebpackDevMiddlewareConfig(
+  webpackDevMiddlewareFnList,
+  webpackDevMiddlewareConfig,
+  config
+) {
   let ret = webpackDevMiddlewareConfig
 
   if (Array.isArray(webpackDevMiddlewareFnList)) {
     for (const fn of webpackDevMiddlewareFnList) {
       await new Promise((resolve, reject) => {
-        ret = fn(ret);
+        ret = fn(ret, webpack, config);
         resolve();
       });
     }
@@ -291,13 +297,17 @@ async function getAppWebpackDevMiddlewareConfig(webpackDevMiddlewareFnList, webp
   return ret;
 }
 
-async function getAppWebpackHotMiddlewareConfig(webpackHotMiddlewareFnList, webpackHotMiddlewareConfig) {
+async function getAppWebpackHotMiddlewareConfig(
+  webpackHotMiddlewareFnList,
+  webpackHotMiddlewareConfig,
+  config
+) {
   let ret = webpackHotMiddlewareConfig
 
   if (Array.isArray(webpackHotMiddlewareFnList)) {
     for (const fn of webpackHotMiddlewareFnList) {
       await new Promise((resolve, reject) => {
-        ret = fn(ret);
+        ret = fn(ret, webpack, config);
         resolve();
       });
     }

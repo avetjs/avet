@@ -88,6 +88,9 @@ export default async function createCompiler(
         customInterpolateName(url, name, opts) {
           return interpolateNames.get(this.resourcePath) || url;
         },
+        resolve: {
+          extensions: ['.ts', '.tsx', '.js']
+        }
       },
     }),
     new WriteFilePlugin({
@@ -299,19 +302,25 @@ export default async function createCompiler(
   };
 
   if (config.webpack) {
-    webpackConfig = await getAppWebpackConfig(config.webpack, config._webpackFnList, webpackConfig);
+    webpackConfig = await getAppWebpackConfig(
+      config.webpack,
+      config._webpackFnList,
+      webpackConfig,
+      webpack,
+      config
+    );
   }
 
   return webpack(webpackConfig);
 }
 
-async function getAppWebpackConfig(webpackConfig, webpackFnList, initConfig) {
+async function getAppWebpackConfig(webpackConfig, webpackFnList, initConfig, webpack, config) {
   let ret = extend(true, initConfig, webpackConfig);
 
   if (Array.isArray(webpackFnList)) {
     for (const fn of webpackFnList) {
       await new Promise((resolve, reject) => {
-        ret = fn(ret);
+        ret = fn(ret, webpack, config);
         resolve();
       });
     }
