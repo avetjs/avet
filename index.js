@@ -67,13 +67,12 @@ async function generatePluginInfomation(dir, distDir, buildextends) {
 export default () => <div>${avetExtendComponents}</div>
   `;
 
-  const pluginDir = 'dist';
   const tmp = path.join(__dirname, '.tmp');
   const tmpPlugin = path.join(tmp, 'plugin.js');
   const distPlugin = path.join(__dirname, 'dist');
 
   mkdir(tmp);
-  mkdir(pluginDir);
+  mkdir(distPlugin);
 
   await writeFile(tmpPlugin, avetExtendPre + avetExtendImport + avetExtendList);
   await new Promise((resolve, reject) => {
