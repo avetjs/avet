@@ -1,6 +1,6 @@
 {
   "name": "avet",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "a graceful framework for build web",
   "main": "dist/shared/avet.js",
   "scripts": {
