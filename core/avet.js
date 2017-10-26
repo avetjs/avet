@@ -79,12 +79,13 @@ export default class AvetCore {
     const serverConfig = this.config.server;
     const buildConfig = this.config.build;
 
-    this.server = new Server(
-      serverConfig,
-      buildConfig,
-      this.extends,
-      this.middlewares,
-    );
+    this.server = new Server({
+      serverOptions: serverConfig,
+      buildOptions: buildConfig,
+      extendOptions: this.extends,
+      middlewares: this.middlewares,
+      appConfig: this.config
+    });
 
     this.server.start(serverConfig.port).then(() => {
       if (!process.env.NOW) {

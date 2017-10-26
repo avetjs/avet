@@ -30,7 +30,7 @@ const relativeResolve = rootModuleRelativePath(require);
 
 export default async function createCompiler(
   dir,
-  { dev = false, quiet = false, buildDir, buildExtends = {}, config = {} } = {}
+  { dev = false, quiet = false, buildDir, buildExtends = {}, config = {}, appConfig = {} } = {}
 ) {
 
   dir = resolve(dir);
@@ -301,26 +301,25 @@ export default async function createCompiler(
     performance: { hints: false },
   };
 
-  if (config.webpack) {
+  if (config.webpack || config._webpackFnList) {
     webpackConfig = await getAppWebpackConfig(
       config.webpack,
       config._webpackFnList,
       webpackConfig,
       webpack,
-      config
+      appConfig
     );
   }
 
   return webpack(webpackConfig);
 }
 
-async function getAppWebpackConfig(webpackConfig, webpackFnList, initConfig, webpack, config) {
+async function getAppWebpackConfig(webpackConfig = {}, webpackFnList, initConfig, webpack, appConfig) {
   let ret = extend(true, initConfig, webpackConfig);
-
   if (Array.isArray(webpackFnList)) {
     for (const fn of webpackFnList) {
       await new Promise((resolve, reject) => {
-        ret = fn(ret, webpack, config);
+        ret = fn(ret, webpack, appConfig);
         resolve();
       });
     }

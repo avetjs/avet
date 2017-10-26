@@ -29,7 +29,13 @@ const blockedPages = {
 };
 
 export default class Server {
-  constructor(serverOptions = {}, buildOptions = {}, extendOptions = {}, middlewares = []) {
+  constructor({
+    serverOptions = {},
+    buildOptions = {},
+    extendOptions = {},
+    middlewares = [],
+    appConfig = {}
+  }) {
     if (serverOptions.dev) {
       // require('source-map-support').install({
       //   hookRequire: true
@@ -41,7 +47,7 @@ export default class Server {
     this.quiet = serverOptions.quiet;
     this.router = new Router();
     this.hotReloader = serverOptions.dev
-      ? this.getHotReloader({ serverOptions, buildOptions, extendOptions })
+      ? this.getHotReloader({ serverOptions, buildOptions, extendOptions, appConfig })
       : null;
     this.http = null;
     this.config = buildOptions
@@ -50,6 +56,7 @@ export default class Server {
       ? require(join(this.dir, this.dist, 'build-stats.json'))
       : null;
     this.buildId = !serverOptions.dev ? this.readBuildId() : '-';
+
     this.renderOpts = {
       dev: serverOptions.dev,
       staticMarkup: serverOptions.staticMarkup,
@@ -63,6 +70,7 @@ export default class Server {
     };
 
     this.middlewares = middlewares;
+    this.appConfig = appConfig;
 
     this.defineRoutes();
   }

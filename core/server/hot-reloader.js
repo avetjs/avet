@@ -7,7 +7,7 @@ import clean from '../build/clean';
 import { IS_BUNDLED_PAGE } from './utils';
 
 export default class HotReloader {
-  constructor({ serverOptions, buildOptions, extendOptions } = {}) {
+  constructor({ serverOptions, buildOptions, extendOptions, appConfig } = {}) {
     this.dir = serverOptions.dir;
     this.quiet = serverOptions.quiet;
     this.middlewares = [];
@@ -23,6 +23,7 @@ export default class HotReloader {
 
     this.config = buildOptions;
     this.extends = extendOptions;
+    this.appConfig = appConfig;
   }
 
   async run(req, res) {
@@ -38,7 +39,15 @@ export default class HotReloader {
 
   async start() {
     const [ compiler ] = await Promise.all([
-      webpack(this.dir, { dev: true, quiet: this.quiet, config: this.config, buildExtends: this.extends }),
+      webpack(this.dir,
+        {
+          dev: true,
+          quiet: this.quiet,
+          config: this.config,
+          appConfig: this.appConfig,
+          buildExtends: this.extends
+        }
+      ),
       clean(this.dir, this.config.distDir),
     ]);
 
@@ -183,7 +192,7 @@ export default class HotReloader {
       webpackDevMiddlewareConfig = await getAppWebpackDevMiddlewareConfig(
         this.config._webpackDevMiddlewareFnList,
         webpackDevMiddlewareConfig,
-        this.config
+        this.appConfig
       );
     }
 
@@ -191,7 +200,7 @@ export default class HotReloader {
       webpackHotMiddlewareConfig = await getAppWebpackHotMiddlewareConfig(
         this.config._webpackHotMiddlewareFnList,
         webpackHotMiddlewareConfig,
-        this.config
+        this.appConfig
       );
     }
 
