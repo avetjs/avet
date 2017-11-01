@@ -25,6 +25,7 @@ exports.build = {
     heartbeat: 2500,
   },
   babel: null,
+  onDemandEntries: null,
   // exportPathMap: await () => {}
 }
 
