@@ -25,6 +25,7 @@ exports.build = {
     heartbeat: 2500,
   },
   babel: null,
+  onDemandEntries: null,
   // exportPathMap: await () => {}
 }
 
@@ -36,7 +37,6 @@ exports.server = {
   staticMarkup: false,
   quite: false,
   proxy: null,
-  poweredByHeader: true,
   configOrigin: 'default',
   useFileSystemPublicRoutes: true,
 };
