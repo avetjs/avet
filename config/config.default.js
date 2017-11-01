@@ -36,7 +36,6 @@ exports.server = {
   staticMarkup: false,
   quite: false,
   proxy: null,
-  poweredByHeader: true,
   configOrigin: 'default',
   useFileSystemPublicRoutes: true,
 };
