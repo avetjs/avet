@@ -2,27 +2,22 @@
   "name": "avet",
   "version": "0.2.5",
   "description": "a graceful framework for build web",
-  "main": "dist/shared/avet.js",
   "scripts": {
-    "dev": "npm run build:core",
     "lint": "eslint .",
     "autod": "autod",
-    "build:core": "taskr",
-    "release:core": "taskr release",
     "doc:start": "bisheng start -c ./docs/bisheng.config.js",
     "doc:build": "bisheng build --ssr -c ./docs/bisheng.config.js",
     "doc:deploy": "bisheng gh-pages --ssr -c ./docs/bisheng.config.js"
   },
   "files": [
-    "bin",
     "config",
     "lib",
     "index.js"
   ],
   "dependencies": {
-    "avet-core": "^0.1.0",
-    "avet-server": "^0.2.0",
-    "avet-utils": "^0.5.0"
+    "avet-core": "^0.2.1",
+    "avet-server": "^0.3.0",
+    "avet-utils": "^0.6.1"
   },
   "devDependencies": {
     "autod": "^2.10.1",
