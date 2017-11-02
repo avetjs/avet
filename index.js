@@ -1,4 +1,5 @@
 'use strict';
 
 exports.Application = require('./lib/avet');
-exports.startServer = require('./lib/start-server');
+exports.startApp = require('./lib/app-start');
+exports.buildApp = require('./lib/app-build');

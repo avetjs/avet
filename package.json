@@ -15,8 +15,9 @@
     "index.js"
   ],
   "dependencies": {
-    "avet-core": "^0.2.1",
-    "avet-server": "^0.3.0",
+    "avet-build": "^0.5.0",
+    "avet-core": "^0.2.2",
+    "avet-server": "^0.3.4",
     "avet-utils": "^0.6.1"
   },
   "devDependencies": {
