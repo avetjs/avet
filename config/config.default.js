@@ -24,7 +24,7 @@ exports.build = {
     log: false,
     heartbeat: 2500,
   },
-  babel: null,
+  babel: {},
   onDemandEntries: null,
   // exportPathMap: await () => {}
 }
