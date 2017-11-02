@@ -3,6 +3,6 @@ exports.build = {
   distDir: 'asset-prod'
 }
 
-exports.server = {
+exports.avet = {
   dev: false
 }

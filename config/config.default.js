@@ -29,8 +29,8 @@ exports.build = {
   // exportPathMap: await () => {}
 }
 
-// Setting server
-exports.server = {
+// Setting avet
+exports.avet = {
   dir: path.join(process.cwd(), ''),
   dev: true,
   port: 3000,
