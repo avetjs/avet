@@ -27,6 +27,7 @@
     "bisheng-theme-one": "^0.2.24",
     "eslint": "^4.9.0",
     "eslint-config-egg": "^5.1.1",
+    "koa-proxy": "^0.9.0",
     "react-addons-test-utils": "^15.6.2",
     "react-copy-to-clipboard": "^5.0.1",
     "react-document-title": "^2.0.3",
