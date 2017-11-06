@@ -16,8 +16,8 @@
   ],
   "dependencies": {
     "avet-build": "^0.6.1",
-    "avet-core": "^0.4.0",
-    "avet-server": "^0.4.0",
+    "avet-core": "^0.4.2",
+    "avet-server": "^0.4.1",
     "avet-utils": "^0.6.1"
   },
   "devDependencies": {
