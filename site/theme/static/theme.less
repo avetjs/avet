@@ -1,8 +1,51 @@
 @primary-color: #ff3171;
 @theme-color: #ff3171;
 
+@primary-1: color(~`colorPalette("@{primary-color}", 1)`);  // replace tint(@primary-color, 90%)
+@primary-2: color(~`colorPalette("@{primary-color}", 2)`);  // replace tint(@primary-color, 80%)
+@primary-3: color(~`colorPalette("@{primary-color}", 3)`);  // unused
+@primary-4: color(~`colorPalette("@{primary-color}", 4)`);  // unused
+@primary-5: color(~`colorPalette("@{primary-color}", 5)`);  // color used to control the text color in many active and hover states, replace tint(@primary-color, 20%)
+@primary-6: @primary-color;                                 // color used to control the text color of active buttons, don't use, use @primary-color
+@primary-7: color(~`colorPalette("@{primary-color}", 7)`);  // replace shade(@primary-color, 5%)
+@primary-8: color(~`colorPalette("@{primary-color}", 8)`);  // unused
+@primary-9: color(~`colorPalette("@{primary-color}", 9)`);  // unused
+@primary-10: color(~`colorPalette("@{primary-color}", 10)`);  // unused
+
+@link-hover-color: @primary-5;
+
 a {
   color: @theme-color;
+
+  &:hover {
+    color: @link-hover-color
+  }
+}
+
+.ant-menu-horizontal > .ant-menu-item > a:hover, .ant-menu-horizontal > .ant-menu-submenu > a:hover {
+  color: @theme-color;
+}
+
+.ant-menu-item-selected > a, .ant-menu-item-selected > a:hover {
+  color: @theme-color;
+}
+
+.ant-btn-ghost:hover, .ant-btn-ghost:focus {
+  color: @theme-color;
+  background-color: transparent;
+  border-color: @theme-color;
+}
+
+.ant-menu-item-selected {
+  color: @theme-color;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: @primary-1;
+}
+
+.ant-menu-inline .ant-menu-item:after, .ant-menu-vertical .ant-menu-item:after {
+  border-right: 3px solid @theme-color;
 }
 
 .ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover, .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-item-open, .ant-menu-horizontal > .ant-menu-submenu-open, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected {
