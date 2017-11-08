@@ -51,11 +51,6 @@ class Footer extends React.Component {
                 <FormattedMessage id="app.footer.issues" />
               </a>
             </div>
-            <div>
-              <a target="_blank" rel="noopener noreferrer" href="http://stackoverflow.com/questions/tagged/avet">
-                <FormattedMessage id="app.footer.stackoverflow" />
-              </a>
-            </div>
           </li>
           <li>
             <h2>Copyright © {new Date().getFullYear()}</h2>
