@@ -9,6 +9,7 @@ import Footer from './Footer';
 import enLocale from '../../en-US';
 import cnLocale from '../../zh-CN';
 import * as utils from '../utils';
+import 'antd/lib/style/index.less';
 
 if (typeof window !== 'undefined') {
   /* eslint-disable global-require */

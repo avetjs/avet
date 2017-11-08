@@ -1,6 +1,8 @@
 'use strict';
 
 const path = require('path');
+const enLocale = require('./en-US');
+const cnLocale = require('./zh-CN');
 
 const homeTmpl = './template/Avet';
 const contentTmpl = './template/Content/index';
@@ -19,6 +21,8 @@ function pickerGenerator(module) {
 }
 
 module.exports = {
+  enLocale,
+  cnLocale,
   lazyLoad(nodePath, nodeValue) {
     if (typeof nodeValue === 'string') {
       return true;
@@ -26,13 +30,6 @@ module.exports = {
     return nodePath.endsWith('/demo');
   },
   pick: {
-    changelog(markdownData) {
-      if (/CHANGELOG/.test(markdownData.meta.filename)) {
-        return {
-          meta: markdownData.meta,
-        };
-      }
-    },
     'docs/resource': pickerGenerator('resource'),
     'docs/spec': pickerGenerator('spec'),
   },
@@ -56,7 +53,7 @@ module.exports = {
       }, {
         path: 'docs/resource/:children',
         component: contentTmpl,
-      }
+      },
     ],
   },
 };

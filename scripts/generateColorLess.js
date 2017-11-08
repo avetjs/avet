@@ -53,13 +53,9 @@ const reducePlugin = postcss.plugin('reducePlugin', () => {
 const projectRoot = path.resolve(__dirname, '..');
 const antd = require.resolve('antd').replace('index.js', '');
 const entry = path.join(antd, 'style/index.less');
-let content = `
-  @import "${glob.sync(path.join(antd, 'style/themes/default.less'))}";
-  @import "${glob.sync(path.join(antd, 'style/core/index.less'))}";
-`;
-content += '\n';
-
+let content = fs.readFileSync(entry).toString();
 const styles = glob.sync(path.join(antd, '*/style/index.less'));
+content += '\n';
 styles.forEach(style => {
   content += `@import "${style}";\n`;
 });
