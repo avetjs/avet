@@ -64,7 +64,7 @@ styles.forEach(style => {
   content += `@import "${style}";\n`;
 });
 
-content += `@import "${path.join(projectRoot, 'docs/theme/static/index.less')}";\n`;
+content += `@import "${path.join(projectRoot, 'site/theme/static/index.less')}";\n`;
 
 less.render.call(less, content, {
   paths: [ path.join(antd, 'style') ],

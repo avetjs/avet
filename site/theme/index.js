@@ -37,6 +37,8 @@ module.exports = {
     'docs/spec': pickerGenerator('spec'),
   },
   plugins: [
+    'bisheng-plugin-description',
+    'bisheng-plugin-toc?maxDepth=2&keepElem',
     'bisheng-plugin-antd',
     'bisheng-plugin-react?lang=__react',
   ],
@@ -46,18 +48,15 @@ module.exports = {
     indexRoute: { component: homeTmpl },
     childRoutes: [
       {
-        path: '/index-cn',
+        path: 'index-cn',
         component: homeTmpl,
       }, {
-        path: '/docs/spec/:children',
+        path: 'docs/spec/:children',
         component: contentTmpl,
       }, {
-        path: '/docs/resource/:children',
+        path: 'docs/resource/:children',
         component: contentTmpl,
-      }, {
-        path: '/404',
-        component: './template/NotFound',
-      },
+      }
     ],
   },
 };

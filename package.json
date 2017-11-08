@@ -5,9 +5,9 @@
   "scripts": {
     "lint": "eslint .",
     "autod": "autod",
-    "doc:start": "node ./scripts/generateColorLess.js && NODE_ENV=development bisheng start -c ./docs/bisheng.config.js",
-    "doc:build": "bisheng build --ssr -c ./docs/bisheng.config.js",
-    "doc:deploy": "bisheng gh-pages --ssr -c ./docs/bisheng.config.js"
+    "doc:start": "node ./scripts/generateColorLess.js && NODE_ENV=development bisheng start -c ./site/bisheng.config.js",
+    "doc:build": "bisheng build --ssr -c ./site/bisheng.config.js",
+    "doc:deploy": "bisheng gh-pages --ssr -c ./site/bisheng.config.js"
   },
   "files": [
     "config",

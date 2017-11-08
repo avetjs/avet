@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('path');
 const CSSSplitWebpackPlugin = require('css-split-webpack-plugin').default;
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -9,14 +8,10 @@ const usePreact = process.env.REACT_ENV === 'preact';
 module.exports = {
   port: 8001,
   source: {
-    docs: './docs/source',
+    docs: './docs',
   },
-  theme: './docs/theme',
-  htmlTemplate: './docs/theme/static/template.html',
-  plugins: [
-    'bisheng-plugin-react?lang=__react',
-    'bisheng-plugin-antd',
-  ],
+  theme: './site/theme',
+  htmlTemplate: './site/theme/static/template.html',
   filePathMapper(filePath) {
     if (filePath === '/index.html') {
       return [ '/index.html', '/index-cn.html' ];
