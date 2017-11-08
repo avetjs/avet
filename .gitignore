@@ -19,3 +19,5 @@ coverage
 test/**/out
 .DS_Store
 run/
+
+_site

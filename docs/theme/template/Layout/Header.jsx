@@ -119,35 +119,16 @@ export default class Header extends React.Component {
     const docVersions = { ...themeConfig.docVersions, [antdVersion]: antdVersion };
     const versionOptions = Object.keys(docVersions)
       .map(version => <Option value={docVersions[version]} key={version}>{version}</Option>);
-    const { components } = picked;
+
     const module = location.pathname.replace(/(^\/|\/$)/g, '').split('/').slice(0, -1).join('/');
     let activeMenuItem = module || 'home';
-    if (activeMenuItem === 'components' || location.pathname === 'changelog') {
+    if (location.pathname === 'changelog') {
       activeMenuItem = 'docs/react';
     }
 
     const { locale } = this.context.intl;
     const isZhCN = locale === 'zh-CN';
     const excludedSuffix = isZhCN ? 'en-US.md' : 'zh-CN.md';
-    const options = components
-      .filter(({ meta }) => !meta.filename.endsWith(excludedSuffix))
-      .map(({ meta }) => {
-        const pathSnippet = meta.filename.split('/')[1];
-        const url = `/components/${pathSnippet}`;
-        const { subtitle } = meta;
-        return (
-          <Option value={url} key={url} data-label={`${meta.title.toLowerCase()} ${subtitle || ''}`}>
-            <strong>{meta.title}</strong>
-            {subtitle && <span className="ant-component-decs">{subtitle}</span>}
-          </Option>
-        );
-      });
-
-    options.push(
-      <Option key="searchEngine" value={searchEngine} data-label={searchEngine}>
-        <FormattedMessage id="app.header.search" />
-      </Option>
-    );
 
     const headerClassName = classNames({
       clearfix: true,
@@ -158,17 +139,6 @@ export default class Header extends React.Component {
       <Button className="lang" type="ghost" size="small" onClick={this.handleLangChange} key="lang">
         <FormattedMessage id="app.header.lang" />
       </Button>,
-      <Select
-        key="version"
-        className="version"
-        size="small"
-        dropdownMatchSelectWidth={false}
-        defaultValue={antdVersion}
-        onChange={this.handleVersionChange}
-        getPopupContainer={trigger => trigger.parentNode}
-      >
-        {versionOptions}
-      </Select>,
       <Menu mode={menuMode} selectedKeys={[activeMenuItem]} id="nav" key="nav">
         <Menu.Item key="home">
           <Link to={utils.getLocalizedPathname('/', isZhCN)}>
@@ -180,30 +150,16 @@ export default class Header extends React.Component {
             <FormattedMessage id="app.header.menu.spec" />
           </Link>
         </Menu.Item>
-        <Menu.Item key="docs/react">
-          <Link to={utils.getLocalizedPathname('/docs/react/introduce', isZhCN)}>
-            <FormattedMessage id="app.header.menu.components" />
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="docs/pattern">
-          <Link to={utils.getLocalizedPathname('/docs/pattern/navigation', isZhCN)}>
-            <FormattedMessage id="app.header.menu.pattern" />
-          </Link>
-        </Menu.Item>
         <Menu.Item key="docs/resource">
           <Link to={utils.getLocalizedPathname('/docs/resource/download', isZhCN)}>
             <FormattedMessage id="app.header.menu.resource" />
           </Link>
         </Menu.Item>
-        <Menu.Item key="mobile">
-          <a href="//mobile.ant.design">
-            <FormattedMessage id="app.header.menu.mobile" />
-          </a>
-        </Menu.Item>
       </Menu>,
     ];
 
-    const searchPlaceholder = locale === 'zh-CN' ? '搜索组件...' : 'Search Components...';
+    const searchPlaceholder = locale === 'zh-CN' ? '搜索...' : 'Search...';
+
     return (
       <header id="header" className={headerClassName}>
         {menuMode === 'inline' ? (
@@ -226,14 +182,12 @@ export default class Header extends React.Component {
         <Row>
           <Col lg={4} md={5} sm={24} xs={24}>
             <Link to={utils.getLocalizedPathname('/', isZhCN)} id="logo">
-              <img alt="logo" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg" />
-              <span>Ant Design</span>
+              <span>Avet</span>
             </Link>
           </Col>
           <Col lg={20} md={19} sm={0} xs={0}>
             <div id="search-box">
               <AutoComplete
-                dataSource={options}
                 value={inputValue}
                 dropdownClassName="component-select"
                 placeholder={searchPlaceholder}

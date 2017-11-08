@@ -2,6 +2,7 @@
 
 const path = require('path');
 
+const homeTmpl = './template/Avet';
 const contentTmpl = './template/Content/index';
 
 function pickerGenerator(module) {
@@ -24,8 +25,6 @@ module.exports = {
     }
     return nodePath.endsWith('/demo');
   },
-  path: '/',
-  component: './template/Layout/index',
   pick: {
     changelog(markdownData) {
       if (/CHANGELOG/.test(markdownData.meta.filename)) {
@@ -41,17 +40,24 @@ module.exports = {
     'bisheng-plugin-antd',
     'bisheng-plugin-react?lang=__react',
   ],
-  routes: [{
-    path: '/index-cn',
-    component: './template/Avet',
-  }, {
-    path: '/docs/spec/:children',
-    component: contentTmpl,
-  }, {
-    path: '/docs/resource/:children',
-    component: contentTmpl,
-  }, {
-    path: '/404',
-    component: './template/NotFound',
-  }],
+  routes: {
+    path: '/',
+    component: './template/Layout/index',
+    indexRoute: { component: homeTmpl },
+    childRoutes: [
+      {
+        path: '/index-cn',
+        component: homeTmpl,
+      }, {
+        path: '/docs/spec/:children',
+        component: contentTmpl,
+      }, {
+        path: '/docs/resource/:children',
+        component: contentTmpl,
+      }, {
+        path: '/404',
+        component: './template/NotFound',
+      },
+    ],
+  },
 };
