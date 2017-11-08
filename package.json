@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint .",
     "autod": "autod",
-    "doc:start": "node ./scripts/generateColorLess.js && cross-env NODE_ENV=development && bisheng start -c ./site/bisheng.config.js",
+    "doc:start": "cross-env NODE_ENV=development && bisheng start -c ./site/bisheng.config.js",
     "doc:build": "bisheng build --ssr -c ./site/bisheng.config.js",
     "doc:deploy": "bisheng gh-pages --ssr -c ./site/bisheng.config.js"
   },
@@ -40,6 +40,7 @@
     "koa-proxy": "^0.9.0",
     "preact": "^8.2.5",
     "preact-compat": "^3.17.0",
+    "rc-queue-anim": "^1.3.1",
     "react": "^15.0.0",
     "react-addons-test-utils": "^15.6.2",
     "react-copy-to-clipboard": "^5.0.1",

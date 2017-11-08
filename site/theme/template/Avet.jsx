@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import { injectIntl } from 'react-intl';
 import DocumentTitle from 'react-document-title';
+import QueueAnim from 'rc-queue-anim';
+import { FormattedMessage } from 'react-intl';
 
 function getStyle() {
   return `
@@ -18,6 +20,11 @@ function getStyle() {
       border-radius: 0;
       padding: 0;
       min-height: 600px;
+    }
+    .content {
+      background: #333;
+      height: 90vh;
+
     }
     #header {
       position: fixed;
@@ -109,11 +116,27 @@ function getStyle() {
   `;
 }
 
+function typeFunc(a) {
+  if (a.key === 'line') {
+    return 'right';
+  } else if (a.key === 'button') {
+    return 'bottom';
+  }
+  return 'left';
+}
+
 function Home(props) {
   return (
     <DocumentTitle title={`Avet - ${props.intl.formatMessage({ id: 'app.home.slogan' })}`}>
       <div className="main-wrapper">
-        Avet
+        <div className="content">
+          <QueueAnim className="banner-text-wrapper" type={typeFunc} delay={300} key="banner">
+            <h2 key="h2">AVET</h2>
+            <p key="content">
+              <FormattedMessage id="app.home.slogan" />
+            </p>
+          </QueueAnim>
+        </div>
         <style dangerouslySetInnerHTML={{ __html: getStyle() }} />
       </div>
     </DocumentTitle>

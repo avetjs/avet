@@ -45,6 +45,11 @@
     margin-right: auto;
     float: none;
     display: block;
+    text-align: center;
+
+    span {
+      float: none;
+    }
   }
 
   .banner-entry {
@@ -79,25 +84,25 @@
     height: 300px;
   }
 
-  .banner-text-wrapper {
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    .start-button {
-      text-align: center;
-      > a {
-        margin: 0 4px;
-      }
-    }
-    .github-btn {
-      text-align: center;
-      float: none;
-      display: inline-block;
-    }
-    .line {
-      display: none;
-    }
-  }
+  // .banner-text-wrapper {
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   text-align: center;
+  //   .start-button {
+  //     text-align: center;
+  //     > a {
+  //       margin: 0 4px;
+  //     }
+  //   }
+  //   .github-btn {
+  //     text-align: center;
+  //     float: none;
+  //     display: inline-block;
+  //   }
+  //   .line {
+  //     display: none;
+  //   }
+  // }
 
   button.lang {
     display: block;
@@ -132,6 +137,11 @@
       &-content {
         padding: 0;
       }
+    }
+    .githubBtn {
+      margin: 16px auto;
+      display: block;
+      float: none;
     }
   }
 

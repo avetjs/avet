@@ -4,12 +4,13 @@ import { Link } from 'bisheng/router';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import { Select, Menu, Row, Col, Icon, Button, Popover, AutoComplete, Input } from 'antd';
+import GitHubButton from 'react-github-button';
 import * as utils from '../utils';
-import { version as antdVersion } from '../../../../package.json';
+import { version as avetVersion } from '../../../../package.json';
 
 const { Option } = AutoComplete;
 const searchEngine = 'Google';
-const searchLink = 'https://www.google.com/#q=site:ant.design+';
+const searchLink = 'https://www.google.com/#q=site:avetjs+';
 
 export default class Header extends React.Component {
   static contextTypes = {
@@ -116,7 +117,7 @@ export default class Header extends React.Component {
     const {
       location, picked, isFirstScreen, themeConfig,
     } = this.props;
-    const docVersions = { ...themeConfig.docVersions, [antdVersion]: antdVersion };
+    const docVersions = { ...themeConfig.docVersionsavet };
     const versionOptions = Object.keys(docVersions)
       .map(version => <Option value={docVersions[version]} key={version}>{version}</Option>);
 
@@ -136,6 +137,14 @@ export default class Header extends React.Component {
     });
 
     const menu = [
+      <div className="githubBtn">
+        <GitHubButton
+          key="github-button"
+          type="stargazers"
+          namespace="avetjs"
+          repo="avet"
+        />
+      </div>,
       <Button className="lang" type="ghost" size="small" onClick={this.handleLangChange} key="lang">
         <FormattedMessage id="app.header.lang" />
       </Button>,
