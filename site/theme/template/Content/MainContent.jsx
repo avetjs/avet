@@ -149,6 +149,9 @@ export default class MainContent extends React.Component {
     const topLevel = this.generateSubMenuItems(menuItems.topLevel);
     const result = [...topLevel];
 
+    let arr = new Array(100);
+    result.forEach((v, i)=> arr[i] = v);
+
     categories.forEach((cat, i) => {
       const insertOrder = themeConfig.categoryOrder[cat];
 
@@ -158,12 +161,14 @@ export default class MainContent extends React.Component {
             {this.generateSubMenuItems(menuItems[cat])}
           </SubMenu>
         );
-        result.splice(insertOrder + 1, 0, target);
+        arr.splice(insertOrder + 1, 0, target);
         // categories.splice(categories.indexOf(insertCategory), 1);
       }
     });
 
-    return result;
+    arr = arr.filter(v => !!v);
+
+    return arr;
   }
 
   flattenMenu(menu) {
