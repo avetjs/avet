@@ -122,9 +122,11 @@ export default class MainContent extends React.Component {
 
   generateSubMenuItems(obj) {
     const { themeConfig } = this.props;
-    const topLevel = (obj.topLevel || []).map(this.generateMenuItem.bind(this, true));
+    let topLevel = (obj.topLevel || []).map(this.generateMenuItem.bind(this, true));
+    topLevel = topLevel.sort((a, b) => themeConfig.featuresOrder[a.key] - themeConfig.featuresOrder[b.key]);
+
     const itemGroups = Object.keys(obj).filter(isNotTopLevel)
-      .sort((a, b) => themeConfig.typeOrder[a] - themeConfig.typeOrder[b])
+      .sort((a, b) => themeConfig.featuresOrder[a] - themeConfig.featuresOrder[b])
       .map((type) => {
         const groupItems = obj[type].sort((a, b) => {
           return a.title.charCodeAt(0) -
@@ -136,6 +138,7 @@ export default class MainContent extends React.Component {
           </Menu.ItemGroup>
         );
       });
+
     return [...topLevel, ...itemGroups];
   }
 
@@ -162,7 +165,6 @@ export default class MainContent extends React.Component {
           </SubMenu>
         );
         arr.splice(insertOrder + 1, 0, target);
-        // categories.splice(categories.indexOf(insertCategory), 1);
       }
     });
 
