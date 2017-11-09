@@ -1,6 +1,6 @@
 ---
 category: Features
-order: 1
+order: 4
 title: 代码热更新
 ---
 

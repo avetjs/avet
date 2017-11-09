@@ -1,6 +1,6 @@
 ---
 category: Features
-order: 1
+order: 4
 title: Hot Reload
 ---
 

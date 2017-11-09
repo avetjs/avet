@@ -1,6 +1,6 @@
 ---
 order: 0
-title: Avet
+title: Quick Start
 ---
 
 ## Avet.js Introduce

@@ -1,6 +1,6 @@
 ---
 category: Features
-order: 2
+order: 7
 title: Plugin System
 ---
 
