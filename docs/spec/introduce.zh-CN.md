@@ -1,4 +1,4 @@
-﻿---
+---
 order: 0
 title: Avet
 ---

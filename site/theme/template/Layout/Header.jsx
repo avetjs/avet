@@ -117,7 +117,7 @@ export default class Header extends React.Component {
     const {
       location, picked, isFirstScreen, themeConfig,
     } = this.props;
-    const docVersions = { ...themeConfig.docVersionsavet };
+    const docVersions = { ...themeConfig.docVersions, [avetVersion]: avetVersion };
     const versionOptions = Object.keys(docVersions)
       .map(version => <Option value={docVersions[version]} key={version}>{version}</Option>);
 
