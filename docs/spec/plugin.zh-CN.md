@@ -1,5 +1,5 @@
 ---
-category: Features
+category: 特性
 order: 7
 title: 插件系统
 ---

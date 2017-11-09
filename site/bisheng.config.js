@@ -14,12 +14,12 @@ module.exports = {
   htmlTemplate: './site/theme/static/template.html',
   themeConfig: {
     categoryOrder: {
-      功能介绍: 1,
       Features: 1,
-      后端: 2,
+      特性: 1,
       Backend: 2,
-      插件: 3,
+      后端: 2,
       Plugins: 3,
+      插件: 3,
     },
   },
   filePathMapper(filePath) {
