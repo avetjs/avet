@@ -1,1 +1,1 @@
-webpackJsonp([27],{1332:function(e,n){e.exports={content:["article",["h2","Ant Design"]],meta:{category:"Plugins",order:3,title:"Ant Design",filename:"docs/spec/antd.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Ant-Design",title:"Ant Design"},"Ant Design"]]]}}});
+webpackJsonp([29],{1332:function(e,n){e.exports={content:["article",["h2","Ant Design"]],meta:{category:"Plugins",title:"Ant Design",filename:"docs/spec/antd.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Ant-Design",title:"Ant Design"},"Ant Design"]]]}}});

@@ -1,0 +1,1 @@
+webpackJsonp([20],{1341:function(S,e){S.exports={content:["article",["h2","CSS in JS"]],meta:{category:"\u7279\u6027",title:"CSS in JS",filename:"docs/spec/cssinjs.zh-CN.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#CSS-in-JS",title:"CSS in JS"},"CSS in JS"]]]}}});
