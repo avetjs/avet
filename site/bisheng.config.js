@@ -64,4 +64,6 @@ module.exports = {
     isDev,
     usePreact,
   },
+
+  root: '/avet/',
 };

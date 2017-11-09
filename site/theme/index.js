@@ -8,7 +8,6 @@ const contentTmpl = './template/Content/index';
 function pickerGenerator(module) {
   const tester = new RegExp(`^docs/${module}`);
   return markdownData => {
-    console.log(markdownData);
     const { filename } = markdownData.meta;
     if (tester.test(filename) &&
         !/\/demo$/.test(path.dirname(filename))) {
