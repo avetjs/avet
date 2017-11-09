@@ -91,7 +91,7 @@ export default class Header extends React.Component {
   }
 
   handleLangChange = () => {
-    const { pathname } = this.props.location;
+    const { pathname, basename } = this.props.location;
     const currentProtocol = `${window.location.protocol}//`;
     const currentHref = window.location.href.substr(currentProtocol.length);
 
@@ -101,7 +101,7 @@ export default class Header extends React.Component {
 
     window.location.href = currentProtocol + currentHref.replace(
       window.location.pathname,
-      utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)),
+      (basename + utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)).replace(/^\//, '')),
     );
   }
 
