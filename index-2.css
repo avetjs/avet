@@ -7219,6 +7219,16 @@ a:hover {
   border-bottom: 2px solid #ff3171;
   color: #ff3171;
 }
+.ant-menu-item:hover,
+.ant-menu-item-active,
+.ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+.ant-menu-submenu-active,
+.ant-menu-submenu-title:hover {
+  color: #ff3171;
+}
+.ant-menu-item > a:hover {
+  color: #ff3171;
+}
 html,
 body {
   height: 100%;

@@ -1,0 +1,1 @@
+webpackJsonp([1],{1358:function(e,r){e.exports={content:["article",["h2","Server Rendered React"]],meta:{category:"Features",order:1,title:"SSR",filename:"docs/spec/ssr.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Server-Rendered-React",title:"Server Rendered React"},"Server Rendered React"]]]}}});

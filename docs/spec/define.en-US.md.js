@@ -1,0 +1,1 @@
+webpackJsonp([19],{1340:function(e,n){e.exports={content:["article",["h2","Define"]],meta:{category:"Plugins",order:5,title:"Define",filename:"docs/spec/define.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Define",title:"Define"},"Define"]]]}}});

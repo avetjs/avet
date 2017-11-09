@@ -1,0 +1,1 @@
+webpackJsonp([25],{1334:function(e,t){e.exports={content:["article",["h2","CDN"]],meta:{category:"Features",order:6,title:"CDN",filename:"docs/spec/cdn.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#CDN",title:"CDN"},"CDN"]]]}}});

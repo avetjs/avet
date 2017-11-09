@@ -1,0 +1,1 @@
+webpackJsonp([13],{1346:function(e,o){e.exports={content:["article",["h2","Hot Reload"]],meta:{category:"Features",order:4,title:"Hot Reload",filename:"docs/spec/hotreload.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Hot-Reload",title:"Hot Reload"},"Hot Reload"]]]}}});

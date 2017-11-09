@@ -1,0 +1,1 @@
+webpackJsonp([22],{1337:function(e,t){e.exports={content:["article",["h2","\u4ee3\u7801\u5207\u5206"]],meta:{category:"\u7279\u6027",order:2,title:"\u4ee3\u7801\u81ea\u52a8\u5207\u5206",filename:"docs/spec/codesplit.zh-CN.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#\u4ee3\u7801\u5207\u5206",title:"\u4ee3\u7801\u5207\u5206"},"\u4ee3\u7801\u5207\u5206"]]]}}});
