@@ -1,1 +1,1 @@
-webpackJsonp([15],{1346:function(e,g){e.exports={content:["article",["h2","Egg.js"]],meta:{category:"Backend",title:"Egg.js",filename:"docs/spec/egg.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Egg.js",title:"Egg.js"},"Egg.js"]]]}}});
+webpackJsonp([17],{1346:function(e,g){e.exports={content:["article",["h2","Egg.js"]],meta:{category:"Backend",title:"Egg.js",filename:"docs/spec/egg.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Egg.js",title:"Egg.js"},"Egg.js"]]]}}});
