@@ -12,6 +12,12 @@ module.exports = {
   },
   theme: './site/theme',
   htmlTemplate: './site/theme/static/template.html',
+  themeConfig: {
+    categoryOrder: {
+      插件: 1,
+      Plugins: 1,
+    },
+  },
   filePathMapper(filePath) {
     if (filePath === '/index.html') {
       return [ '/index.html', '/index-cn.html' ];

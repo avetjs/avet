@@ -148,20 +148,21 @@ export default class MainContent extends React.Component {
     const categories = Object.keys(menuItems).filter(isNotTopLevel);
     const topLevel = this.generateSubMenuItems(menuItems.topLevel);
     const result = [...topLevel];
-    result.forEach((item, i) => {
-      const insertCategory = categories.filter(
-        cat => (themeConfig.categoryOrder[cat] ? themeConfig.categoryOrder[cat] <= i : i === result.length - 1)
-      )[0];
-      if (insertCategory) {
+
+    categories.forEach((cat, i) => {
+      const insertOrder = themeConfig.categoryOrder[cat];
+
+      if (insertOrder) {
         const target = (
-          <SubMenu title={<h4>{insertCategory}</h4>} key={insertCategory}>
-            {this.generateSubMenuItems(menuItems[insertCategory])}
+          <SubMenu title={<h4>{cat}</h4>} key={cat}>
+            {this.generateSubMenuItems(menuItems[cat])}
           </SubMenu>
         );
-        result.splice(i + 1, 0, target);
-        categories.splice(categories.indexOf(insertCategory), 1);
+        result.splice(insertOrder + 1, 0, target);
+        // categories.splice(categories.indexOf(insertCategory), 1);
       }
     });
+
     return result;
   }
 
