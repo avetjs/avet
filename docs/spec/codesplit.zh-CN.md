@@ -19,11 +19,10 @@ export default () =>
 
 这是 `page/about.js` 下的代码
 ```javascript
-export default () => {
+export default () =>
   <div>
     <h1>This is about page.</h1>
   </div>
-}
 ```
 
 程序在进行打包的时候会对每个页面的依赖进行分析，在 about 页面生成的 bundle 不会包含 antd button 的文件。
