@@ -41,10 +41,3 @@ $ npm i
  $ npm run dev
  $ open http://localhost:3000
 ```
-
-## 如何使用
-
-### 自动代码切分
-
-bundle 是依据 `/page` 目录下每个页面进行切分的。也就意味着页面不会加载多余的代码。
-比如说

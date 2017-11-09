@@ -21,6 +21,16 @@ module.exports = {
       Plugins: 3,
       插件: 3,
     },
+    featuresOrder: {
+      ssr: 1,
+      codesplit: 2,
+      cssinjs: 3,
+      compilebuild: 4,
+      hotreload: 5,
+      prefetch: 6,
+      cdn: 7,
+      plugin: 8,
+    },
   },
   filePathMapper(filePath) {
     if (filePath === '/index.html') {
