@@ -40,20 +40,12 @@ module.exports = {
         'create-react-class': 'preact-compat/lib/create-react-class',
         'react-router': 'react-router',
       });
-    } else if (isDev) {
+    } else {
       config.externals = Object.assign({}, config.externals, {
         react: 'React',
         'react-dom': 'ReactDOM',
       });
     }
-
-    // config.babel.plugins.push([
-    //   require.resolve('babel-plugin-transform-runtime'),
-    //   {
-    //     polyfill: false,
-    //     regenerator: true,
-    //   },
-    // ]);
 
     config.plugins.push(new CSSSplitWebpackPlugin({ size: 4000 }));
 
