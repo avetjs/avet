@@ -14,12 +14,12 @@ module.exports = {
   htmlTemplate: './site/theme/static/template.html',
   themeConfig: {
     categoryOrder: {
-      Features: 1,
-      特性: 1,
-      Backend: 2,
-      后端: 2,
-      Plugins: 3,
-      插件: 3,
+      Features: 2,
+      特性: 2,
+      Backend: 3,
+      后端: 3,
+      Plugins: 4,
+      插件: 4,
     },
     featuresOrder: {
       ssr: 1,
