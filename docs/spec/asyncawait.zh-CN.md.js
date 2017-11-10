@@ -1,0 +1,1 @@
+webpackJsonp([30],{1335:function(t,c){t.exports={content:["article"],meta:{category:"\u6559\u7a0b",title:"Async Await",filename:"docs/spec/asyncawait.zh-CN.md"},toc:["ul"]}}});

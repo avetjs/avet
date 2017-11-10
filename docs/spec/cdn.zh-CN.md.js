@@ -1,1 +1,1 @@
-webpackJsonp([28],{1335:function(e,t){e.exports={content:["article",["h2","CDN"]],meta:{category:"\u7279\u6027",title:"CDN",filename:"docs/spec/cdn.zh-CN.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#CDN",title:"CDN"},"CDN"]]]}}});
+webpackJsonp([28],{1337:function(e,t){e.exports={content:["article",["h2","CDN"]],meta:{category:"\u7279\u6027",title:"CDN",filename:"docs/spec/cdn.zh-CN.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#CDN",title:"CDN"},"CDN"]]]}}});
