@@ -39,13 +39,10 @@ export default function getLike() {
 ### 调度是不确定的
 
 callback 是立即调用？是不是在不同的 [microtask](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)队列中？不同的 tick？ 有时？ 总是？
-
 谁都不清楚。读自己的代码是没用的，阅读库的文档可能会告诉你，如果你够幸运。
-
 callback 也很容易造成堆栈的丢失，也就是说你看到的异常的堆栈是很难看出问题所在的。使得我们的代码更难进行调试。
 
-
-解决这些问题已经在 `Promise` 进行标准化了
+这些问题已经在 `Promise` 进行标准化解决了
 
 ## Promise 是如何工作的
 
@@ -58,10 +55,21 @@ function sleep (time) {
 }
 
 sleep(100)
-.then(() => console.log('100ms elapsed'))
-.catch(() => console.error('error!'));
+  .then(() => console.log('100ms elapsed'))
+  .catch(() => console.error('error!'));
 ```
 
+Promises 有两种状态：resolved 和 rejected。看上面这个例子，你可以设置一对回调，分别获取到 resolved 的值和 rejected 的值。
+
+我们对第一个例子进行 Promise 改造：
+
+```javascript
+export default function getLikes() {
+  return getUsers()
+    .then(users => filterUsersWithFriends)
+    .then(userWithFriends => getUsersLikes);
+}
+```
 
 
 
