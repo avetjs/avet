@@ -7206,7 +7206,7 @@ a:hover {
 }
 .ant-menu-inline .ant-menu-item:after,
 .ant-menu-vertical .ant-menu-item:after {
-  border-right: 3px solid #ff3171;
+  border-right: none;
 }
 .ant-menu-horizontal > .ant-menu-item:hover,
 .ant-menu-horizontal > .ant-menu-submenu:hover,
