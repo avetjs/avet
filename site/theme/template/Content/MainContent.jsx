@@ -120,13 +120,20 @@ export default class MainContent extends React.Component {
     );
   }
 
-  generateSubMenuItems(obj) {
+  generateSubMenuItems(obj, order) {
     const { themeConfig } = this.props;
     let topLevel = (obj.topLevel || []).map(this.generateMenuItem.bind(this, true));
-    topLevel = topLevel.sort((a, b) => themeConfig.featuresOrder[a.key] - themeConfig.featuresOrder[b.key]);
 
-    const itemGroups = Object.keys(obj).filter(isNotTopLevel)
-      .sort((a, b) => themeConfig.featuresOrder[a] - themeConfig.featuresOrder[b])
+    if (order) {
+      topLevel = topLevel.sort((a, b) => order.indexOf(a.key) - order.indexOf(b.key));
+    } else {
+      topLevel = topLevel.sort((a, b) => themeConfig.featuresOrder.indexOf(a.key) - themeConfig.featuresOrder.indexOf(b.key));
+    }
+
+    let itemGroups = Object.keys(obj).filter(isNotTopLevel)
+      .sort((a, b) =>
+        themeConfig.featuresOrder.indexOf(a) - themeConfig.featuresOrder.indexOf(b)
+      )
       .map((type) => {
         const groupItems = obj[type].sort((a, b) => {
           return a.title.charCodeAt(0) -
@@ -157,11 +164,16 @@ export default class MainContent extends React.Component {
 
     categories.forEach((cat, i) => {
       const insertOrder = themeConfig.categoryOrder[cat];
+      let order = null;
+
+      if (cat === 'Plugins' || cat === '插件') {
+        order = themeConfig.pluginOrder;
+      }
 
       if (insertOrder) {
         const target = (
           <SubMenu title={<h4>{cat}</h4>} key={cat}>
-            {this.generateSubMenuItems(menuItems[cat])}
+            {this.generateSubMenuItems(menuItems[cat], order)}
           </SubMenu>
         );
         arr.splice(insertOrder + 1, 0, target);
