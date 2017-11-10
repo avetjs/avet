@@ -35,12 +35,12 @@ module.exports = {
       'plugin',
     ],
     pluginOrder: [
-      'pwa',
       'i18n',
-      'antd',
+      'pwa',
+      'amp',
       'dva',
       'define',
-      'amp',
+      'antd',
     ],
   },
   filePathMapper(filePath) {
