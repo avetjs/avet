@@ -197,7 +197,7 @@ componentWillReceiveProps(nextProps) {
 你可以通过使用 Higher-Order Component 来访问 `router` 对象
 
 ```javascript
-import { withRouter } from 'next/router'
+import { withRouter } from 'avet/router'
 
 const ActiveLink = ({ children, router, href }) => {
   const style = {
