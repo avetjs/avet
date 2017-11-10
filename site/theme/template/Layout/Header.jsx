@@ -156,12 +156,7 @@ export default class Header extends React.Component {
         </Menu.Item>
         <Menu.Item key="docs/spec">
           <Link to={utils.getLocalizedPathname('/docs/spec/introduce', isZhCN)}>
-            <FormattedMessage id="app.header.menu.spec" />
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="docs/resource">
-          <Link to={utils.getLocalizedPathname('/docs/resource/download', isZhCN)}>
-            <FormattedMessage id="app.header.menu.resource" />
+            <FormattedMessage id="app.header.menu.docs" />
           </Link>
         </Menu.Item>
       </Menu>,
