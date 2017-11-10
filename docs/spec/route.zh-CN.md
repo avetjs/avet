@@ -63,3 +63,36 @@ export default () =>
 然后生成的 URL 字符串是 `/about?name=avet`, 你可以使用在 [Node.js URL module documentation](https://nodejs.org/api/url.html#url_url_strings_and_url_objects) 中声明的每一个属性。
 
 ### 使用 replace
+
+`<Link>` 的默认行为是 `push` 一个新的地址到 stack 中。你可以使用 `replace` 属性来防止创建一条新的记录
+
+```javascript
+// page/index.js
+import Link from 'avet/link'
+
+export default () =>
+  <div>
+    Click
+    {' '}
+    <Link href="/about" replace>
+      <a>here</a>
+    </Link>
+    {' '}
+    to read more
+  </div>
+```
+
+## Router
+
+你也可以使用 `avet/router` 做页面切换
+
+```javascript
+import Router from 'avet/router'
+
+export default () =>
+  <div>
+    Click <span onClick={() => Router.push('/about')}>here</span> to read more.
+  </div>
+```
+
+
