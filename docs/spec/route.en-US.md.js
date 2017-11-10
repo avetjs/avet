@@ -1,1 +1,1 @@
-webpackJsonp([3],{1364:function(e,t){e.exports={content:["article",["h2","Route"]],meta:{category:"Features",title:"Route",filename:"docs/spec/route.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Route",title:"Route"},"Route"]]]}}});
+webpackJsonp([3],{1366:function(e,t){e.exports={content:["article",["h2","Route"]],meta:{category:"Features",title:"Route",filename:"docs/spec/route.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Route",title:"Route"},"Route"]]]}}});
