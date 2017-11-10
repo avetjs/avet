@@ -3,7 +3,7 @@ category: 特性
 title: Route 路由
 ---
 
-## `<Link>`
+## Link 组件
 
 客户端我们通过 `<Link>` 组件进行页面跳转：
 
@@ -41,13 +41,13 @@ export default () => <p>Welcome to About!</p>
 第二个 as 参数是可选的，如果你在服务端配置自定义路由，这个参数才会有用。
 
 
-## URL 对象
+### URL 对象
 
 `<Link>` 组件接受一个 URL 对象，内部会对这个对象进行格式化成 URL 字符串。
 
 ```javascript
 // page/index.js
-import Link from 'avet/link'
+import Link from 'avet/link';
 
 export default () =>
   <div>
@@ -69,7 +69,7 @@ export default () =>
 
 ```javascript
 // page/index.js
-import Link from 'avet/link'
+import Link from 'avet/link';
 
 export default () =>
   <div>
@@ -83,7 +83,7 @@ export default () =>
   </div>
 ```
 
-## Router
+## Router 对象
 
 你也可以使用 `avet/router` 做页面切换
 
@@ -96,4 +96,77 @@ export default () =>
   </div>
 ```
 
+Router 对象提供了如下 API:
 
+- route - `String` 当前路由
+- pathname - `String` 当前 path 除了 query
+- query - `Object` 已经通过解析的 query 对象，默认是 `{}`
+- asPath - `String` 实际的 path
+- push(url, as=url) - 执行 `pushState`
+- replace(url, as=url) - 执行 `replaceState`
+
+需要注意的是，在组件中，为了改变路由而不触发跳转、组件获取，我们可以使用 `props.url.push` 和 `props.url.replace`。
+
+### URL 对象
+
+和 `<Link>` 组件一样，`push` 和 `replace` 也可以通过传入一个 URL 对象。
+
+```javascript
+import Router from 'avet/router';
+
+const handler = () =>
+  Router.push({
+    pathname: '/about',
+    query: { name: 'avet' },
+  });
+
+export default () =>
+  <div>
+    Click <span onClick={handler}>here</span> to read more.
+  </div>
+```
+
+可以看到，和 `<Link>` 几乎是一致的
+
+### Router 事件
+
+你也可以通过监听 Router 提供的一些事件来做一些特别的操作：
+
+- routeChangeStart(url) - 在路由开始变化时触发
+- routeChangeComplete(url) - 在路由完成时触发
+- routeChangeError(err, url) - 在路由失败时触发
+- beforeHistoryChange(url) - 在改变浏览器历史记录前触发
+- appUpdated(nextRoute) - 当切换到新页面时触发
+
+这里我们写个例子说明如何使用 `routeChangeStart` 事件:
+
+```javascript
+Router.onRouteChangeStart = url => {
+  console.log('App is changing to: ', url);
+}
+```
+
+如果你不想再监听这个事件，你可以简单的这么设置:
+
+```javascript
+Router.onRouteChangeStart = null;
+```
+
+如果路由加载被取消了 (比如说连续快速点击两个链接)， `routeChangeError` 是会触发的。`err` 对象会包含一个设置为 `true` 的 `cancelled` 对象。
+
+```javascript
+Router.onRouteChangeError = (err, url) => {
+  if (err.cancelled) {
+    console.log(`Route to ${url} was cancelled!`);
+  }
+}
+```
+
+最后你也通过 `appUpdated` 来主动触发跳转：
+
+```javascript
+Router.onAppUpdated = nextUrl => {
+  // persist the local state
+  location.href = nextUrl;
+}
+```
