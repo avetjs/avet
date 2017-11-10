@@ -170,3 +170,24 @@ Router.onAppUpdated = nextUrl => {
   location.href = nextUrl;
 }
 ```
+
+## Shallow 路由
+
+一般来说，当你调用 Router.push 之后改变了 URL 会调用 `getInitialProps` 的，这就意味着整个组件的状态都会丢失。
+你可以在调用 `Router.push` 和 `Router.replace` 时传入 `shallow: true`，来更新 `pathname` 和 `query` 又不会造成状态的丢失。
+
+```javascript
+// Current URL is "/"
+const href = '/?counter=10'
+const as = href
+Router.push(href, as, { shallow: true })
+```
+
+这时，组件中 `this.props.url` 的值已经发生了改变，你可以通过 `componentWillReceiveProps` 来监听 URL 的改变。
+
+```javascript
+componentWillReceiveProps(nextProps) {
+  const { pathname, query } = nextProps.url
+  // fetch data based on the new query
+}
+```
