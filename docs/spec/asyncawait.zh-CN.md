@@ -71,5 +71,51 @@ export default function getLikes() {
 }
 ```
 
+很明显，这样的代码比较好。如果我们的逻辑需要改动，也是比较容易重构的。
+但是有些情况下，Promise 的这种写法也不能很好的解决问题。我们想象下，如果需要特别的 `filterUsersWithFriends` 的错误。那我们应该如何写？
 
+```javascript
+export default function getLikes () {
+  return new Promise((resolve, reject) => {
+    getUsers()
+      .then(users => {
+        filterUsersWithFriends(users)
+          .then(resolve)
+          .catch((err) => {
+            resolve(trySomethingElse(users));
+          });
+      }, reject)
+  });
+}
+```
 
+结果看起来也不是特别好。联调长的时候感觉就是另类的 callback 了
+
+我们来看下解决方案！
+
+## 未来：async 和 await
+
+在 C# 和 F# 已经实现了这两个关键字，我们先来看看这两个关键字是如何解决我们的问题的：
+
+```javascript
+export default async function getLikes () {
+  const users = await getUsers();
+  const filtered = await filterUsersWithFriends(users);
+  return getUsersLikes(filtered);
+}
+```
+
+可以看出来，我们现在的代码非常容易阅读，因为它看起来像是同步代码。而且错误处理的逻辑和传统同步代码处理的逻辑是一致的。
+当我们 `await` 的 function 出现错误，是会直接抛出的。我们调用 getLikes 的时候，就会得到这个错误。如果你想现在出现这个错误，可以通过 try/catch 对这个 await 进行包裹起来。
+
+```javascript
+try {
+  await getLikes()
+} catch (err) {
+  errorHanler(err);
+}
+```
+
+这会提高你的生产力和准确性，因为你不需要在到处写 `if (err) return cb(err)` 这样的代码。也不怕漏掉。
+最新的 Node 8 已经完整的实施了 `Promise` 和 `async/await` 所以现在就可以放心的使用了。
+浏览器这块在一些低版本浏览器我们可以通过 Babel 进行代码转换，所以也可以放心编写。
