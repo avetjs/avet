@@ -3,8 +3,6 @@ category: 教程
 title: Async Await
 ---
 
-[原文链接](https://zeit.co/blog/async-and-await#how-promise-works)
-
 Javascript, 尤其是 Node.js, 最被人诟病的是 callback hell 了. 这时候如果你需要处理大量的异步 io 操作，你可能会把代码写成这样：
 
 ```javascript
@@ -119,3 +117,30 @@ try {
 这会提高你的生产力和准确性，因为你不需要在到处写 `if (err) return cb(err)` 这样的代码。也不怕漏掉。
 最新的 Node 8 已经完整的实施了 `Promise` 和 `async/await` 所以现在就可以放心的使用了。
 浏览器这块在一些低版本浏览器我们可以通过 Babel 进行代码转换，所以也可以放心编写。
+
+我们应该都清楚，在 Node.js 的文件 io 接口，都支持 callback 的形式。那我们在进行文件 io 的时候怎么使用 async/await 呢？
+
+1. 通过 `util.promisify`，可以吧 callback 风格转换成返回 promise。
+```javascript
+const util = require('util');
+const fs = require('fs');
+
+const exists = util.promisify(fs.exists);
+
+async function callStat() {
+  if (await fs.exists(__filename)) {
+    // do something
+  }
+}
+```
+
+2. 使用 mz 库, 它也是直接返回 promise 的
+```javascript
+const fs = require('mz/fs');
+
+async function callStat () {
+  if (await fs.exists(__filename)) {
+    // do something
+  }
+}
+```
