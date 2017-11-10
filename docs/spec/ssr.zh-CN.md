@@ -38,5 +38,33 @@ export default class extends React.Component {
 }
 ```
 
-需要注意下，可以看出 `getInitialProps` 是一个 async 的静态方法
+需要注意下，可以看出 `getInitialProps` 是一个 async 的静态方法。所以我们可以异步的获取到数据，然后返回的一个纯 JavaScript 对象。我们在挂载组件的时候会把这个对象通过 props 传递到这个组件。
+
+初始化页面加载的时候，`getInitialProps` 只会在 server 执行。在客户端进行页面跳转的时候也会进行触发。
+而且需要注意的是，`getInitialProps` 不能用在子组件，只能在 `page` 中使用。
+
+你可以在 stateless function 中声明 `getInitialProps`：
+```javascript
+const Page = ({ stars }) =>
+  <div>
+    Next stars: {stars}
+  </div>
+
+Page.getInitialProps = async ({ req }) => {
+  const res = await fetch('https://api.github.com/repos/avetjs/avet')
+  const json = await res.json()
+  return { stars: json.stargazers_count }
+}
+
+export default Page
+```
+
+`getInitialProps` 接收了一个 context 对象，它包含下面这些属性：
+
+- `pathname` - url 中的一个区域
+- `query` - url 的 query 对象
+- `asPath` - 整个页面 url
+- `ctx` - Koa object
+- `jsonPageRes` - Fetch Response 对象 (client only)
+- `err` -  渲染时发生的错误对象
 
