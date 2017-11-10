@@ -1,11 +1,12 @@
 ---
 category: 特性
-title: Route
+title: Route 路由
 ---
 
-## <Link>
+## `<Link>`
 
 客户端我们通过 `<Link>` 组件进行页面跳转：
+
 ```javascript
 // page/index.js
 import Link from 'avet/link'
