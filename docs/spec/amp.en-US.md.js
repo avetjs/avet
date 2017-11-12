@@ -1,1 +1,1 @@
-webpackJsonp([37],{1332:function(e,t){e.exports={content:["article",["h2","AMP"]],meta:{category:"Plugins",title:"AMP",filename:"docs/spec/amp.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#AMP",title:"AMP"},"AMP"]]]}}});
+webpackJsonp([39],{1332:function(e,t){e.exports={content:["article",["h2","AMP"]],meta:{category:"Plugins",title:"AMP",filename:"docs/spec/amp.en-US.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#AMP",title:"AMP"},"AMP"]]]}}});

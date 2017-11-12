@@ -1,1 +1,1 @@
-webpackJsonp([9],{1360:function(c,e){c.exports={content:["article"],meta:{order:1,title:"Practical projects",filename:"docs/spec/practical-projects.en-US.md"},toc:["ul"]}}});
+webpackJsonp([9],{1362:function(c,e){c.exports={content:["article"],meta:{order:1,title:"Practical projects",filename:"docs/spec/practical-projects.en-US.md"},toc:["ul"]}}});
