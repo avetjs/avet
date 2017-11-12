@@ -18,8 +18,16 @@ a {
   color: @theme-color;
 
   &:hover {
-    color: @link-hover-color
+    color: @link-hover-color;
   }
+  &:active {
+    color: @link-hover-color;
+  }
+}
+
+::selection {
+  background: @primary-1;
+  color: @primary-5;
 }
 
 .ant-menu-horizontal > .ant-menu-item > a:hover, .ant-menu-horizontal > .ant-menu-submenu > a:hover {
@@ -56,6 +64,10 @@ a {
 
 .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
   color: @theme-color;
+}
+
+.ant-menu-item:active {
+  background: @primary-1;
 }
 
 .ant-menu-item > a:hover {
