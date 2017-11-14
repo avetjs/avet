@@ -170,6 +170,10 @@ export default class MainContent extends React.Component {
         order = themeConfig.pluginOrder;
       }
 
+      if (cat === 'Tutorials' || cat === '教程') {
+        order = themeConfig.tutorialOrder;
+      }
+
       if (insertOrder) {
         const target = (
           <SubMenu title={<h4>{cat}</h4>} key={cat}>

@@ -35,6 +35,10 @@ module.exports = {
       'cdn',
       'plugin',
     ],
+    tutorialOrder: [
+      'eslintperttier',
+      'asyncawait',
+    ],
     pluginOrder: [
       'i18n',
       'pwa',
