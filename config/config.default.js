@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 
 // Build setting
@@ -16,7 +14,7 @@ exports.build = {
       ignored: [
         /(^|[/\\])\../, // .dotfiles
         /node_modules/,
-      ]
+      ],
     },
   },
   webpackHotMiddleware: {
@@ -27,7 +25,7 @@ exports.build = {
   babel: {},
   onDemandEntries: null,
   // exportPathMap: await () => {}
-}
+};
 
 // Setting avet
 exports.avet = {
