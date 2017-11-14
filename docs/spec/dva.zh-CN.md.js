@@ -1,1 +1,1 @@
-webpackJsonp([20],{1351:function(a,e){a.exports={content:["article",["h2","Dva"]],meta:{category:"\u63d2\u4ef6",title:"Dva",filename:"docs/spec/dva.zh-CN.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Dva",title:"Dva"},"Dva"]]]}}});
+webpackJsonp([22],{1351:function(a,e){a.exports={content:["article",["h2","Dva"]],meta:{category:"\u63d2\u4ef6",title:"Dva",filename:"docs/spec/dva.zh-CN.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#Dva",title:"Dva"},"Dva"]]]}}});

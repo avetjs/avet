@@ -1,0 +1,1 @@
+webpackJsonp([19],{1354:function(t,e){t.exports={content:["article"],meta:{category:"Tutorials",title:"Eslint & Prettier",filename:"docs/spec/eslintprettier.en-US.md"},toc:["ul"]}}});

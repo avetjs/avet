@@ -1,1 +1,1 @@
-webpackJsonp([14],{1357:function(e,n){e.exports={content:["article",["h2","I18n"]],meta:{category:"\u63d2\u4ef6",title:"I18n",filename:"docs/spec/i18n.zh-CN.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#I18n",title:"I18n"},"I18n"]]]}}});
+webpackJsonp([14],{1359:function(e,n){e.exports={content:["article",["h2","I18n"]],meta:{category:"\u63d2\u4ef6",title:"I18n",filename:"docs/spec/i18n.zh-CN.md"},toc:["ul",["li",["a",{className:"bisheng-toc-h2",href:"#I18n",title:"I18n"},"I18n"]]]}}});
