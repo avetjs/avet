@@ -28,6 +28,7 @@ module.exports = {
       'codesplit',
       'cssinjs',
       'route',
+      'config',
       'compilebuild',
       'hotreload',
       'prefetch',
