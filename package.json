@@ -5,15 +5,12 @@
   "scripts": {
     "lint": "eslint .",
     "autod": "autod",
-    "doc:start": "cross-env NODE_ENV=development && bisheng start -c ./site/bisheng.config.js",
+    "doc:start":
+      "cross-env NODE_ENV=development && bisheng start -c ./site/bisheng.config.js",
     "doc:build": "bisheng build --ssr -c ./site/bisheng.config.js",
     "doc:deploy": "bisheng gh-pages --ssr -c ./site/bisheng.config.js"
   },
-  "files": [
-    "config",
-    "lib",
-    "index.js"
-  ],
+  "files": ["config", "lib", "index.js"],
   "dependencies": {
     "avet-build": "^0.7.0",
     "avet-core": "^0.4.4",
@@ -52,6 +49,9 @@
   },
   "ci": {
     "version": "8"
+  },
+  "tnpm": {
+    "mode": "npm"
   },
   "homepage": "https://github.com/avetjs/avet",
   "repository": {
