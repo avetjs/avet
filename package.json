@@ -1,6 +1,6 @@
 {
   "name": "avet",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "a graceful framework for build web",
   "scripts": {
     "lint": "eslint .",
