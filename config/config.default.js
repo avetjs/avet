@@ -24,6 +24,7 @@ exports.build = {
   },
   babel: {},
   onDemandEntries: null,
+  hotReload: true,
   // exportPathMap: await () => {}
 };
 
