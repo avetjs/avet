@@ -1,0 +1,10 @@
+{
+  "name": "egg-boilerplate-simple-test",
+  "version": "1.0.0",
+  "description": "boilerplate for egg-init test fixtures",
+  "homepage": "https://github.com/avetjs/avet-init.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:avetjs/avet-init.git"
+  }
+}

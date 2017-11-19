@@ -1,0 +1,5 @@
+{
+  "integrates_i18n": "这是一个简单的应用国际化的例子.",
+  "pureComponent": "你可以传递 t 函数到子组件内部.",
+  "extendedComponent": "或者使用提供的 HOC 组件."
+}

@@ -1,0 +1,25 @@
+{
+  "name": "antd",
+  "version": "1.0.0",
+  "description": "antd example for avet",
+  "scripts": {
+    "dev": "avet-bin dev",
+    "build": "avet-bin build",
+    "start": "avet-bin start"
+  },
+  "dependencies": {
+    "avet": "^0.4.1",
+    "avet-antd": "^0.1.0"
+  },
+  "devDependencies": {
+    "avet-bin": "^0.4.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
+}

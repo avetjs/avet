@@ -4,6 +4,8 @@ dist
 .vscode
 .tmp
 .site
+.external
+.temp
 
 # dependencies
 node_modules

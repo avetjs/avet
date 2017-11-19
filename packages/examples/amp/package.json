@@ -1,0 +1,31 @@
+{
+  "name": "amp",
+  "version": "1.0.0",
+  "description": "amp example for avet",
+  "scripts": {
+    "dev": "avet-bin dev",
+    "build": "avet-bin build",
+    "start": "avet-bin start"
+  },
+  "dependencies": {
+    "avet": "^0.5.0",
+    "avet-amp": "^0.1.0"
+  },
+  "devDependencies": {
+    "avet-bin": "^0.7.0",
+    "babel-eslint": "^8.0.2",
+    "eslint": "^4.10.0",
+    "eslint-config-avet": "^0.3.8"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
+}

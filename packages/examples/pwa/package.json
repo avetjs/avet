@@ -1,0 +1,28 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "description": "pwa example for avet",
+  "scripts": {
+    "dev": "avet-bin dev",
+    "build": "avet-bin build",
+    "start": "avet-bin start"
+  },
+  "dependencies": {
+    "avet": "^0.4.1",
+    "avet-pwa": "^0.3.0"
+  },
+  "devDependencies": {
+    "avet-bin": "^0.6.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
+}

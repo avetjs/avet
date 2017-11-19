@@ -1,0 +1,29 @@
+{
+  "name": "{{name}}",
+  "version": "1.0.0",
+  "description": "{{description}}",
+  "private": true,
+  "scripts": {
+    "dev": "avet-bin dev",
+    "build": "avet-bin build",
+    "start": "avet-bin start"
+  },
+  "dependencies": {
+    "avet": "^0.4.4"
+  },
+  "devDependencies": {
+    "avet-bin": "^0.6.0"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "{{author}}",
+  "license": "MIT"
+}

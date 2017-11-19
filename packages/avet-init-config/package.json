@@ -1,0 +1,47 @@
+{
+  "name": "avet-init-config",
+  "version": "1.0.0",
+  "description": "avet init boilerplate config",
+  "main": "index.js",
+  "keywords": [
+    "avet",
+    "avet-init"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "config": {
+    "boilerplate": {
+      "simple": {
+        "package": "avet-boilerplate-simple",
+        "description": "Simple avet app boilerplate"
+      },
+      "empty": {
+        "package": "avet-boilerplate-empty",
+        "description": "Empty avet app boilerplate"
+      },
+      "plugin": {
+        "package": "avet-boilerplate-plugin",
+        "description": "avet plugin boilerplate"
+      },
+      "framework": {
+        "package": "avet-boilerplate-framework",
+        "description": "avet framwork boilerplate"
+      }
+    }
+  },
+  "homepage": "https://github.com/avetjs/avet-init-config",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet-init-config.git"
+  },
+  "bugs": {
+    "email": "dapixp@gmail.com",
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "author": "okoala <dapixp@gmail.com>",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "license": "MIT"
+}

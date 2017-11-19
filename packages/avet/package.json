@@ -1,0 +1,64 @@
+{
+  "name": "avet",
+  "version": "0.5.0",
+  "description": "a graceful framework for build web",
+  "scripts": {
+    "lint": "eslint .",
+    "autod": "autod",
+    "doc:start":
+      "cross-env NODE_ENV=development && bisheng start -c ./site/bisheng.config.js",
+    "doc:build": "bisheng build --ssr -c ./site/bisheng.config.js",
+    "doc:deploy": "bisheng gh-pages --ssr -c ./site/bisheng.config.js"
+  },
+  "files": ["config", "lib", "index.js"],
+  "dependencies": {
+    "avet-build": "^0.8.0",
+    "avet-core": "^0.5.0",
+    "avet-server": "^0.5.0",
+    "avet-utils": "^0.6.1"
+  },
+  "devDependencies": {
+    "antd": "^2.13.9",
+    "autod": "^2.10.1",
+    "babel-eslint": "^8.0.2",
+    "babel-plugin-import": "^1.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "bisheng": "^0.27.6",
+    "bisheng-plugin-antd": "^0.15.1",
+    "bisheng-plugin-description": "^0.1.4",
+    "bisheng-plugin-react": "^0.6.3",
+    "bisheng-plugin-toc": "^0.4.4",
+    "cross-env": "^5.1.1",
+    "css-split-webpack-plugin": "^0.2.3",
+    "eslint": "^4.9.0",
+    "eslint-config-avet": "^0.3.7",
+    "koa-proxy": "^0.9.0",
+    "lerna": "^2.5.1",
+    "preact": "^8.2.5",
+    "preact-compat": "^3.17.0",
+    "rc-queue-anim": "^1.3.1",
+    "react": "^15.0.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-copy-to-clipboard": "^5.0.1",
+    "react-document-title": "^2.0.3",
+    "react-dom": "^15.0.0",
+    "react-github-button": "^0.1.11",
+    "react-intl": "^2.4.0"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "homepage": "https://github.com/avetjs/avet",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet.git"
+  },
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "avet-core",
+  "description": "avet core",
+  "version": "0.5.0",
+  "author": "okoala <dapixp@gmail.com>",
+  "files": ["index.js", "lib"],
+  "scripts": {
+    "autod": "autod"
+  },
+  "dependencies": {
+    "avet-server": "^0.5.0",
+    "co": "^4.6.0",
+    "debug": "^3.1.0",
+    "extend2": "^1.0.0",
+    "is-type-of": "^1.2.0",
+    "koa": "^1.4.1",
+    "koa-static-cache": "^5.1.1",
+    "module-alias": "^2.0.2",
+    "node-homedir": "^1.1.0",
+    "ready-callback": "^2.0.1"
+  },
+  "devDependencies": {
+    "autod": "^2.10.1",
+    "babel-eslint": "^8.0.2",
+    "eslint": "^4.10.0",
+    "eslint-config-avet": "^0.3.7"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet-core.git"
+  },
+  "bugs": {
+    "mail": "dapixp@gmail.com",
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "license": "MIT"
+}

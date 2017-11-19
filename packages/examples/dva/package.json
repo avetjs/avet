@@ -1,0 +1,25 @@
+{
+  "name": "dva",
+  "version": "1.0.0",
+  "description": "dva example for avet",
+  "scripts": {
+    "dev": "avet-bin dev",
+    "build": "avet-bin build",
+    "start": "avet-bin start"
+  },
+  "dependencies": {
+    "avet": "^0.4.3",
+    "avet-dva": "^0.2.1"
+  },
+  "devDependencies": {
+    "avet-bin": "^0.5.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
+}

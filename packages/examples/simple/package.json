@@ -1,0 +1,23 @@
+{
+  "name": "simple",
+  "version": "1.0.0",
+  "description": "simple example for avet",
+  "scripts": {
+    "dev": "avet-bin dev",
+    "build": "avet-bin build"
+  },
+  "dependencies": {
+    "avet": "^0.4.4"
+  },
+  "devDependencies": {
+    "avet-bin": "^0.6.0"
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
+}

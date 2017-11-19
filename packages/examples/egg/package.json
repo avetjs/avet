@@ -1,0 +1,31 @@
+{
+  "name": "avet-egg",
+  "version": "1.0.0",
+  "description": "this is a avet and egg example",
+  "private": true,
+  "scripts": {
+    "start": "egg-scripts start --daemon",
+    "stop": "egg-scripts stop",
+    "dev": "npm run dev:egg & npm run dev:avet",
+    "dev:egg": "egg-bin dev",
+    "dev:avet": "avet-bin dev --rootDir ./avet",
+    "build": "avet-bin build"
+  },
+  "dependencies": {
+    "avet": "^0.4.3",
+    "avet-define": "^0.1.2",
+    "avet-fetch": "^0.1.0",
+    "avet-preact": "^0.2.3",
+    "egg": "^1.10.0",
+    "egg-avet": "^1.1.0",
+    "egg-scripts": "^2.1.0"
+  },
+  "devDependencies": {
+    "egg-bin": "^4.3.5",
+    "avet-bin": "^0.5.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,56 @@
+{
+  "name": "avet-bin",
+  "version": "0.7.0",
+  "description": "avet developer tool",
+  "main": "index.js",
+  "bin": {
+    "avet-bin": "bin/avet-bin.js"
+  },
+  "scripts": {
+    "autod": "autod"
+  },
+  "dependencies": {
+    "avet-utils": "^0.6.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "debug": "^3.1.0",
+    "del": "^3.0.0",
+    "detect-port": "^1.2.2",
+    "egg-bin": "^4.3.5",
+    "globby": "^6.1.0",
+    "jest-cli": "^21.2.1",
+    "jest-jasmine2": "^21.2.1",
+    "mz": "^2.7.0",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "source-map-support": "^0.5.0"
+  },
+  "devDependencies": {
+    "autod": "^2.10.1",
+    "babel-eslint": "^8.0.2",
+    "eslint": "^4.11.0",
+    "eslint-config-avet": "^0.3.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet-bin.git"
+  },
+  "bug": {
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "homepage": "https://github.com/avetjs/avet-bin",
+  "author": "okoala <dapixp@gmail.com>",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "files": ["index.js", "lib", "common", "bin"],
+  "ci": {
+    "version": "8"
+  },
+  "license": "MIT"
+}
