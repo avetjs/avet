@@ -1,0 +1,33 @@
+{
+  "name": "ga",
+  "version": "1.0.0",
+  "description": "ga example for avet",
+  "scripts": {
+    "dev": "avet-bin dev",
+    "build": "avet-bin build",
+    "start": "avet-bin start"
+  },
+  "dependencies": {
+    "avet": "^0.5.0",
+    "avet-ga": "^0.1.0"
+  },
+  "devDependencies": {
+    "avet-bin": "^0.7.0"
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "engines": {
+    "node": ">= 8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet"
+  },
+  "bugs": {
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "homepage": "http://avetjs.github.io/avet/",
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
+}
