@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "learn bootstrap",
+    "dev": "lerna bootstrap",
     "build":
       "lerna exec --ignore examples avet-boilerplate* avet-init* --bail --parallel -- npm run build --",
     "changelog": "lerna-changelog",
