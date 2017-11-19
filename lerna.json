@@ -14,7 +14,7 @@
   },
   "commands": {
     "publish": {
-      "ignore": ["examples", "avet-init*", "avet-boilerplate*"]
+      "ignore": ["avet-init*", "avet-boilerplate*"]
     }
   },
   "packages": ["packages/*"]

@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "lerna bootstrap",
     "build":
-      "lerna exec --ignore examples avet-boilerplate* avet-init* --bail --parallel -- npm run build --",
+      "lerna exec --ignore avet-boilerplate* avet-init* --bail --parallel -- npm run build --",
     "changelog": "lerna-changelog",
     "debug": "lerna run debug",
     "lint": "eslint --ext .js packages",
