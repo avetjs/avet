@@ -4,7 +4,7 @@
   "version": "0.3.0",
   "scripts": {
     "dev": "taskr dev",
-    "release": "taskr release"
+    "build": "taskr release"
   },
   "dependencies": {
     "ansi-html": "^0.0.7",

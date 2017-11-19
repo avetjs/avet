@@ -4,7 +4,7 @@
   "version": "0.4.0",
   "scripts": {
     "dev": "taskr dev",
-    "release": "taskr release"
+    "build": "taskr release"
   },
   "dependencies": {
     "avet-shared": "^0.3.0",
