@@ -3,13 +3,7 @@
   "version": "1.0.0",
   "description": "avet init boilerplate config",
   "main": "index.js",
-  "keywords": [
-    "avet",
-    "avet-init"
-  ],
-  "files": [
-    "index.js"
-  ],
+  "keywords": ["avet", "avet-init"],
   "config": {
     "boilerplate": {
       "simple": {
@@ -30,18 +24,20 @@
       }
     }
   },
-  "homepage": "https://github.com/avetjs/avet-init-config",
+  "tnpm": {
+    "mode": "npm"
+  },
+  "engines": {
+    "node": ">= 8"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/avetjs/avet-init-config.git"
+    "url": "https://github.com/avetjs/avet"
   },
   "bugs": {
-    "email": "dapixp@gmail.com",
     "url": "https://github.com/avetjs/avet/issues"
   },
+  "homepage": "http://avetjs.github.io/avet/",
   "author": "okoala <dapixp@gmail.com>",
-  "engines": {
-    "node": ">= 8.0.0"
-  },
   "license": "MIT"
 }

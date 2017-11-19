@@ -2,20 +2,9 @@
   "name": "avet-shared",
   "description": "avet shared code",
   "version": "0.3.0",
-  "author": "okoala <dapixp@gmail.com>",
-  "files": ["index.js", "lib", "src"],
   "scripts": {
     "dev": "taskr dev",
     "release": "taskr release"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/avetjs/avet-shared.git"
-  },
-  "bugs": {
-    "mail": "dapixp@gmail.com",
-    "url": "https://github.com/avetjs/avet/issues"
   },
   "dependencies": {
     "ansi-html": "^0.0.7",
@@ -50,6 +39,16 @@
     "mode": "npm"
   },
   "engines": {
-    "node": ">= 8.0.0"
-  }
+    "node": ">= 8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet"
+  },
+  "bugs": {
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "homepage": "http://avetjs.github.io/avet/",
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
 }

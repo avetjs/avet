@@ -1,4 +1,21 @@
 {
   "lerna": "2.5.1",
-  "version": "0.8.0"
+  "version": "0.9.0",
+  "changelog": {
+    "repo": "avetjs/avet",
+    "labels": {
+      "new feature": ":rocket: New Feature",
+      "breaking change": ":boom: Breaking Change",
+      "bug": ":bug: Bug Fix",
+      "enhancement": ":nail_care: Enhancement",
+      "documentation": ":memo: Documentation"
+    },
+    "cacheDir": ".changelog"
+  },
+  "commands": {
+    "publish": {
+      "ignore": ["examples", "avet-init*", "avet-boilerplate*"]
+    }
+  },
+  "packages": ["packages/*"]
 }

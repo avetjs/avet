@@ -14,12 +14,20 @@
   "devDependencies": {
     "avet-bin": "^0.5.1"
   },
+  "tnpm": {
+    "mode": "npm"
+  },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">= 8"
   },
-  "ci": {
-    "version": "8"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet"
   },
+  "bugs": {
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "homepage": "http://avetjs.github.io/avet/",
   "author": "okoala <dapixp@gmail.com>",
   "license": "MIT"
 }

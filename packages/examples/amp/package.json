@@ -17,15 +17,20 @@
     "eslint": "^4.10.0",
     "eslint-config-avet": "^0.3.8"
   },
-  "engines": {
-    "node": ">=8.0.0"
-  },
   "tnpm": {
     "mode": "npm"
   },
-  "ci": {
-    "version": "8"
+  "engines": {
+    "node": ">= 8"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet"
+  },
+  "bugs": {
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "homepage": "http://avetjs.github.io/avet/",
   "author": "okoala <dapixp@gmail.com>",
   "license": "MIT"
 }

@@ -2,8 +2,6 @@
   "name": "avet-client",
   "description": "avet client",
   "version": "0.4.0",
-  "author": "okoala <dapixp@gmail.com>",
-  "files": ["index.js", "lib", "src"],
   "scripts": {
     "dev": "taskr dev",
     "release": "taskr release"
@@ -34,19 +32,20 @@
     "node-notifier": "^5.1.2",
     "taskr": "^1.1.0"
   },
-  "engines": {
-    "node": ">= 8.0.0"
-  },
   "tnpm": {
     "mode": "npm"
   },
-  "license": "MIT",
+  "engines": {
+    "node": ">= 8"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/avetjs/avet-client.git"
+    "url": "https://github.com/avetjs/avet"
   },
   "bugs": {
-    "mail": "dapixp@gmail.com",
     "url": "https://github.com/avetjs/avet/issues"
-  }
+  },
+  "homepage": "http://avetjs.github.io/avet/",
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
 }

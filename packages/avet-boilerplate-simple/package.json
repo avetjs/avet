@@ -7,19 +7,15 @@
     "lint": "eslint .",
     "test": "npm run lint -- --fix && npm run test-boilerplate",
     "ci": "npm run lint && npm run ci-boilerplate",
-    "test-boilerplate": "npm run build && npm run install-deps && cd dist && npm test",
-    "ci-boilerplate": "npm run build && npm run install-deps && cd dist && npm run ci",
-    "clean": "rm -rf boilerplate/.idea boilerplate/logs boilerplate/node_modules boilerplate/run",
+    "test-boilerplate":
+      "npm run build && npm run install-deps && cd dist && npm test",
+    "ci-boilerplate":
+      "npm run build && npm run install-deps && cd dist && npm run ci",
+    "clean":
+      "rm -rf boilerplate/.idea boilerplate/logs boilerplate/node_modules boilerplate/run",
     "build": "npm run clean && avet-init dist --force --silent --template=./",
     "install-deps": "cd dist && ../node_modules/.bin/autod && npm i"
   },
-  "homepage": "https://github.com/avetjs/avet-boilerplate-simple",
-  "bugs": "https://github.com/avetjs/avet/issues",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:avetjs/avet-boilerplate-simple.git"
-  },
-  "author": "okoala <dapixp@gmail.com>",
   "devDependencies": {
     "autod": "^2.10.1",
     "avet-init": "^1.0.0",
@@ -28,8 +24,20 @@
     "npminstall": "^3.2.1",
     "webstorm-disable-index": "^1.2.0"
   },
-  "ci": {
-    "version": "8"
+  "tnpm": {
+    "mode": "npm"
   },
-  "dependencies": {}
+  "engines": {
+    "node": ">= 8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet"
+  },
+  "bugs": {
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "homepage": "http://avetjs.github.io/avet/",
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
 }

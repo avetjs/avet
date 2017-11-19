@@ -1,19 +1,5 @@
 {
-  "name": "i18n",
-  "version": "1.0.0",
-  "description": "i18n example for avet",
-  "scripts": {
-    "dev": "avet-bin dev",
-    "build": "avet-bin build",
-    "start": "avet-bin start"
-  },
-  "dependencies": {
-    "avet": "^0.4.3",
-    "avet-i18n": "^0.1.0"
-  },
-  "devDependencies": {
-    "avet-bin": "^0.5.1"
-  },
+  "name": "avet-test",
   "tnpm": {
     "mode": "npm"
   },

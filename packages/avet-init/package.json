@@ -14,10 +14,6 @@
   "bin": {
     "avet-init": "bin/avet-init.js"
   },
-  "files": [
-    "bin",
-    "lib"
-  ],
   "dependencies": {
     "avet-init-config": "^1.0.0",
     "co": "^4.6.0",
@@ -48,21 +44,20 @@
     "rimraf": "^2.6.1",
     "webstorm-disable-index": "^1.0.11"
   },
-  "homepage": "https://github.com/avetjs/avet-init",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/avetjs/avet-init.git"
-  },
-  "bugs": "https://github.com/avetjs/avet/issues",
-  "keywords": [
-    "avet",
-    "avet-init"
-  ],
-  "ci": {
-    "version": "8"
+  "tnpm": {
+    "mode": "npm"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">= 8"
   },
-  "author": "okoala <dapixp@gmail.com>"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avetjs/avet"
+  },
+  "bugs": {
+    "url": "https://github.com/avetjs/avet/issues"
+  },
+  "homepage": "http://avetjs.github.io/avet/",
+  "author": "okoala <dapixp@gmail.com>",
+  "license": "MIT"
 }
