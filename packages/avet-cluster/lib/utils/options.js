@@ -17,7 +17,8 @@ module.exports = function(options) {
   };
   options = extend(defaults, options);
   if (!options.workers) {
-    options.workers = os.cpus().length;
+    // default workers only 1;
+    options.workers = 1;
   }
 
   const pkgPath = path.join(options.baseDir, 'package.json');

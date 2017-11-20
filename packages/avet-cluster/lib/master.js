@@ -24,7 +24,6 @@ class Master extends EventEmitter {
    *  - {String} [framework] - specify framework that can be absolute path or npm package
    *  - {String} [baseDir] directory of application, default to `process.cwd()`
    *  - {Object} [plugins] - customized plugins, for unittest
-   *  - {Number} [workers] numbers of app workers, default to `os.cpus().length`
    *  - {Number} [port] listening port, default to 7001(http) or 8443(https)
    *  - {Boolean} [https] https or not
    *  - {String} [key] ssl key
@@ -33,6 +32,7 @@ class Master extends EventEmitter {
   constructor(options) {
     super();
     this.options = parseOptions(options);
+
     this.messenger = new Messenger(this);
 
     ready.mixin(this);
@@ -561,7 +561,7 @@ class Master extends EventEmitter {
     // istanbul can't cover here
     // https://github.com/gotwarlost/istanbul/issues/567
     const level = code === 0 ? 'info' : 'error';
-    this.logger[level]('[master] exit with code:%s', code);
+    console[level]('[master] exit with code:%s', code);
   }
 
   onSignal(signal) {
