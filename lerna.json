@@ -14,7 +14,7 @@
   },
   "commands": {
     "publish": {
-      "ignore": ["avet-init*", "avet-boilerplate*"]
+      "ignore": ["avet-init*", "avet-boilerplate*", "eslint-config*"]
     }
   },
   "packages": ["packages/*"]
