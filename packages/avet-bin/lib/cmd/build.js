@@ -132,10 +132,10 @@ class BuildCommand extends Command {
         promise = promise.then(() =>
           rollup.rollup(rollupOptions).then(bundle =>
             bundle.write({
-              dest: `dist/${filepath.replace('.js', '')}.${format}.js`,
+              dest: `${filepath.replace('.js', '')}.${format}.js`,
               format,
               sourceMap: true,
-              moduleName: format === 'umd' ? this.modulePkg.name : undefined,
+              moduleName: format === 'umd' ? this.modulPkg.name : undefined,
             })
           )
         );
