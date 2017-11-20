@@ -1,5 +1,3 @@
-'use strict';
-
 function printAndExit(message, code = 1) {
   if (code === 0) {
     console.log(message);
@@ -11,7 +9,10 @@ function printAndExit(message, code = 1) {
 }
 
 function strUpperCamelize(str) {
-  const property = str.replace(/[_-][a-z]/ig, s => s.substring(1).toUpperCase());
+  const property = str
+    .replace(/^@(\w+)\//, (s, s1) => `${s1}_`)
+    .replace(/[_-][a-z]/gi, s => s.substring(1).toUpperCase());
+
   let first = property[0];
   first = first.toUpperCase();
   return first + property.substring(1);

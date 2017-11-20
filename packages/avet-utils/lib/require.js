@@ -1,5 +1,3 @@
-'use strict';
-
 const { resolvePath } = require('./resolve');
 
 async function requireModule(path) {

@@ -1,5 +1,3 @@
-'use strict';
-
 const { join, sep, parse } = require('path');
 const fs = require('mz/fs');
 const glob = require('glob-promise');
@@ -33,18 +31,10 @@ function getPaths(id) {
   if (i.slice(-5) === '.json') return [ i ];
 
   if (i[i.length - 1] === sep) {
-    return [
-      i + 'index.js',
-      i + 'index.json',
-    ];
+    return [ `${i}index.js`, `${i}index.json` ];
   }
 
-  return [
-    i + '.js',
-    join(i, 'index.js'),
-    i + '.json',
-    join('i', 'index.json'),
-  ];
+  return [ `${i}.js`, join(i, 'index.js'), `${i}.json`, join('i', 'index.json') ];
 }
 
 async function isFile(p) {
@@ -68,7 +58,8 @@ async function getTrueFilePath(p) {
   let fsPathNormalized = p;
   // OSX: HFS+ stores filenames in NFD (decomposed normal form) Unicode format,
   // so we must ensure that the input path is in that format first.
-  if (process.platform === 'darwin') fsPathNormalized = fsPathNormalized.normalize('NFD');
+  if (process.platform === 'darwin')
+    fsPathNormalized = fsPathNormalized.normalize('NFD');
 
   // !! Windows: Curiously, the drive component mustn't be part of a glob,
   // !! otherwise glob.sync() will invariably match nothing.

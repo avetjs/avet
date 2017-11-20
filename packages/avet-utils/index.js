@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const utility = require('utility');
@@ -12,8 +10,7 @@ const utility = require('utility');
   require('./lib/component'),
   require('./lib/common'),
   { getFrameworkOrAvetPath },
-]
-  .forEach(obj => Object.assign(exports, obj));
+].forEach(obj => Object.assign(exports, obj));
 
 function getFrameworkOrAvetPath(cwd, avetNames) {
   avetNames = avetNames || [ 'avet' ];
