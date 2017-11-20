@@ -7,10 +7,10 @@
     "build": "avet-bin build"
   },
   "dependencies": {
-    "avet": "^0.4.4"
+    "avet": "^0.5.1"
   },
   "devDependencies": {
-    "avet-bin": "^0.6.0"
+    "avet-bin": "^0.7.4"
   },
   "tnpm": {
     "mode": "npm"

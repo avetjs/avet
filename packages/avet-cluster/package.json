@@ -2,8 +2,15 @@
   "name": "avet-cluster",
   "description": "cluster manager for avet",
   "version": "0.1.0",
-  "files": ["index.js", "lib"],
-  "keywords": ["avet", "cluster", "process"],
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "keywords": [
+    "avet",
+    "cluster",
+    "process"
+  ],
   "dependencies": {
     "avet-server": "^0.5.0",
     "avet-utils": "^0.6.2",

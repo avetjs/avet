@@ -66,11 +66,11 @@ class Master extends EventEmitter {
     this.log(
       `[master] =================== ${frameworkPkg.name} start =====================`
     );
-    this.logger.info(
+    console.info(
       `[master] ${frameworkPkg.name} version ${frameworkPkg.version}`
     );
     if (this.isProduction) {
-      this.logger.info(
+      console.info(
         '[master] start with options:%s%s',
         os.EOL,
         JSON.stringify(this.options, null, 2)
@@ -90,7 +90,7 @@ class Master extends EventEmitter {
     this.ready(() => {
       this.isStarted = true;
       const stickyMsg = this.options.sticky ? ' with STICKY MODE!' : '';
-      this.logger.info(
+      console.info(
         '[master] %s started on %s (%sms)%s',
         frameworkPkg.name,
         this[APP_ADDRESS],
@@ -138,7 +138,7 @@ class Master extends EventEmitter {
       if (err) {
         err.name = 'ClusterPortConflictError';
         err.message = `[master] try get free port error, ${err.message}`;
-        this.logger.error(err);
+        console.error(err);
         process.exit(1);
         return;
       }
@@ -224,7 +224,7 @@ class Master extends EventEmitter {
       err.name = 'AgentWorkerError';
       err.id = agentWorker.id;
       err.pid = agentWorker.pid;
-      this.logger.error(err);
+      console.error(err);
     });
     // agent exit message
     agentWorker.once('exit', (code, signal) => {
@@ -284,7 +284,7 @@ class Master extends EventEmitter {
       }
     });
     cluster.on('disconnect', worker => {
-      this.logger.info(
+      console.info(
         '[master] app_worker#%s:%s disconnect, suicide: %s, state: %s, current workers: %j',
         worker.id,
         worker.process.pid,
@@ -357,7 +357,7 @@ class Master extends EventEmitter {
       )
     );
     err.name = 'AgentWorkerDiedError';
-    this.logger.error(err);
+    console.error(err);
 
     // remove all listeners to avoid memory leak
     agentWorker.removeAllListeners();
@@ -365,7 +365,7 @@ class Master extends EventEmitter {
     if (this.isStarted) {
       this.log('[master] try to start a new agent_worker after 1s ...');
       setTimeout(() => {
-        this.logger.info('[master] new agent_worker starting...');
+        console.info('[master] new agent_worker starting...');
         this.forkAgentWorker();
       }, 1000);
       this.messenger.send({
@@ -373,7 +373,7 @@ class Master extends EventEmitter {
         to: 'parent',
       });
     } else {
-      this.logger.error(
+      console.error(
         '[master] agent_worker#%s:%s start fail, exiting with code:1',
         agentWorker.id,
         agentWorker.pid
@@ -398,7 +398,7 @@ class Master extends EventEmitter {
       data: [ this.agentWorker.pid ],
     });
     this.messenger.send({ action: 'agent-start', to: 'app' });
-    this.logger.info(
+    console.info(
       '[master] agent_worker#%s:%s started (%sms)',
       this.agentWorker.id,
       this.agentWorker.pid,
@@ -419,7 +419,7 @@ class Master extends EventEmitter {
     const worker = this.workers.get(data.workerPid);
 
     if (!worker.isDevReload) {
-      const signal = data.signal;
+      const { signal } = data;
       const message = util.format(
         '[master] app_worker#%s:%s died (code: %s, signal: %s, suicide: %s, state: %s), current workers: %j',
         worker.id,
@@ -432,13 +432,13 @@ class Master extends EventEmitter {
       );
       if (this.options.isDebug && signal === 'SIGKILL') {
         // exit if died during debug
-        this.logger.error(message);
-        this.logger.error('[master] worker kill by debugger, exiting...');
+        console.error(message);
+        console.error('[master] worker kill by debugger, exiting...');
         setTimeout(() => this.close(), 10);
       } else {
         const err = new Error(message);
         err.name = 'AppWorkerDiedError';
-        this.logger.error(err);
+        console.error(err);
       }
     }
 
@@ -460,7 +460,7 @@ class Master extends EventEmitter {
       });
     } else {
       // exit if died during startup
-      this.logger.error(
+      console.error(
         '[master] app_worker#%s:%s start fail, exiting with code:1',
         worker.id,
         worker.process.pid
@@ -567,7 +567,7 @@ class Master extends EventEmitter {
   onSignal(signal) {
     if (this.closed) return;
 
-    this.logger.info('[master] receive signal %s, closing', signal);
+    console.info('[master] receive signal %s, closing', signal);
     this.close();
   }
 

@@ -5,11 +5,15 @@
   "scripts": {
     "autod": "autod"
   },
-  "files": ["config", "lib", "index.js"],
+  "files": [
+    "config",
+    "lib",
+    "index.js"
+  ],
   "dependencies": {
     "avet-build": "^0.8.0",
+    "avet-cluster": "^0.1.0",
     "avet-core": "^0.5.0",
-    "avet-server": "^0.5.0",
     "avet-utils": "^0.6.1",
     "sendmessage": "^1.1.0"
   },
