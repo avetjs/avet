@@ -29,8 +29,11 @@ module.exports = {
 
   _findExtendFiles(unit) {
     const ret = {};
-    const layoutPath = path.join(unit.path, 'extend/layout.cjs.js');
-    const layoutModulePath = path.join(unit.modulePath, 'extend/layout.cjs.js');
+    const layoutPath = path.join(unit.path, 'output/extend/layout.cjs.js');
+    const layoutModulePath = path.join(
+      unit.modulePath,
+      'output/extend/layout.cjs.js'
+    );
 
     if (existsSync(layoutPath)) {
       ret.layout = {

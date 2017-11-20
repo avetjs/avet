@@ -96,7 +96,7 @@ class BuildCommand extends Command {
     if (!existsSync(join(context.cwd, 'extend'))) return;
 
     let promise = Promise.resolve();
-    promise = promise.then(() => del([ 'dist/*' ]));
+    promise = promise.then(() => del([ 'output/*' ]));
 
     const files = globby.sync('extend/**/*.js', {
       cwd: context.cwd,
@@ -132,7 +132,7 @@ class BuildCommand extends Command {
         promise = promise.then(() =>
           rollup.rollup(rollupOptions).then(bundle =>
             bundle.write({
-              dest: `${filepath.replace('.js', '')}.${format}.js`,
+              dest: `output/${filepath.replace('.js', '')}.${format}.js`,
               format,
               sourceMap: true,
               moduleName: format === 'umd' ? this.modulPkg.name : undefined,
