@@ -87,7 +87,7 @@ async function createMixin(mixinConfig, tmpDir, distDir) {
         if (pack.main) {
           Document.mixinMain(pack.main);
         }
-      });
+      })();
     `;
   });
 
