@@ -4,6 +4,7 @@
     "dev": "lerna bootstrap",
     "build":
       "lerna exec --ignore avet-boilerplate* avet-init* --bail --parallel -- npm run build --",
+    "publish": "lerna publish",
     "changelog": "lerna-changelog",
     "debug": "lerna run debug",
     "lint": "eslint --ext .js packages",
