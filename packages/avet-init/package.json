@@ -1,6 +1,6 @@
 {
   "name": "avet-init",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Init avet app helper tools.",
   "main": "lib/init_command.js",
   "scripts": {
@@ -14,6 +14,7 @@
   "bin": {
     "avet-init": "bin/avet-init.js"
   },
+  "files": ["bin", "lib"],
   "dependencies": {
     "avet-init-config": "^1.0.0",
     "co": "^4.6.0",
