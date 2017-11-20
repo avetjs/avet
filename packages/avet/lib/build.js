@@ -12,7 +12,7 @@ module.exports = options => {
       process.exit(1);
     }
 
-    const dir = app.config.avet.dir;
+    const { dir } = app.config.avet;
     const buildConfig = app.config.build;
 
     debug(`build dir is ${dir}`);

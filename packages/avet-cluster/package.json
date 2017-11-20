@@ -5,6 +5,7 @@
   "files": ["index.js", "lib"],
   "keywords": ["avet", "cluster", "process"],
   "dependencies": {
+    "avet-server": "^0.5.0",
     "avet-utils": "^0.6.2",
     "cfork": "^1.7.0",
     "cluster-reload": "^1.0.2",

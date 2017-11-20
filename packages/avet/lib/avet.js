@@ -1,20 +1,21 @@
 const path = require('path');
-const AvetCore = require('avet-core').AvetCore;
+const { AvetCore } = require('avet-core');
+const Messenger = require('./core/messenger');
 
 const AVET_PATH = Symbol.for('avet#avetPath');
 
 class Application extends AvetCore {
   constructor(options) {
+    options.type = 'application';
+
     super(options);
 
-    try {
-      this.loader.loadPlugin();
-      this.loader.loadConfig();
-      this.loader.loadCustomApp();
-      this.loader.loadExtend();
-    } catch (e) {
-      throw e;
-    }
+    this.messenger = new Messenger();
+
+    this.loader.loadPlugin();
+    this.loader.loadConfig();
+    this.loader.loadCustomApp();
+    this.loader.loadExtend();
 
     // Listen the error that promise had not catch, then log it in common-error
     this._unhandledRejectionHandler = this._unhandledRejectionHandler.bind(

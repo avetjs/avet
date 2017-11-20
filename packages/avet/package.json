@@ -10,7 +10,8 @@
     "avet-build": "^0.8.0",
     "avet-core": "^0.5.0",
     "avet-server": "^0.5.0",
-    "avet-utils": "^0.6.1"
+    "avet-utils": "^0.6.1",
+    "sendmessage": "^1.1.0"
   },
   "devDependencies": {
     "autod": "^2.10.1",

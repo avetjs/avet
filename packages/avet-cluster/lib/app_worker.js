@@ -1,17 +1,46 @@
 const fs = require('fs');
 const debug = require('debug')('avet-cluster');
 const gracefulExit = require('graceful-process');
+const AvetServer = require('avet-server/lib/server');
+
 // $ node app_worker.js options
 const options = JSON.parse(process.argv[2]);
 
 const { Application } = require(options.framework);
 debug('new Application with options %j', options);
 const app = new Application(options);
+
+const avetOptions = app.config.avet;
+avetOptions.buildConfig = app.config.build;
+avetOptions.appConfig = app.config;
+avetOptions.extendConfig = app.extends;
+avetOptions.plugins = app.plugins;
+
 const clusterConfig = app.config.cluster || /* istanbul ignore next */ {};
 const listenConfig = clusterConfig.listen || /* istanbul ignore next */ {};
 const port = (options.port = options.port || listenConfig.port);
 process.send({ to: 'master', action: 'realport', data: port });
-app.ready(startServer);
+
+app.ready(async err => {
+  if (err) {
+    console.error(err);
+    console.error('[app_worker] start error, exiting with code:1');
+    process.exit(1);
+  }
+
+  const avetServer = new AvetServer(avetOptions);
+  await avetServer.prepare();
+
+  app.use(function*(next) {
+    yield avetServer.run(this, next);
+
+    if (!this.res.finished) {
+      yield next;
+    }
+  });
+
+  startServer();
+});
 
 // exit if worker start timeout
 app.once('startTimeout', startTimeoutHandler);
@@ -20,13 +49,7 @@ function startTimeoutHandler() {
   process.exit(1);
 }
 
-function startServer(err) {
-  if (err) {
-    console.error(err);
-    console.error('[app_worker] start error, exiting with code:1');
-    process.exit(1);
-  }
-
+function startServer() {
   app.removeListener('startTimeout', startTimeoutHandler);
 
   let server;
