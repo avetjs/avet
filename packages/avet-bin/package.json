@@ -1,6 +1,6 @@
 {
   "name": "avet-bin",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "avet developer tool",
   "main": "index.js",
   "bin": {
