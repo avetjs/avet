@@ -135,7 +135,7 @@ class BuildCommand extends Command {
               dest: `output/${filepath.replace('.js', '')}.${format}.js`,
               format,
               sourceMap: true,
-              moduleName: format === 'umd' ? this.modulPkg.name : undefined,
+              moduleName: format === 'umd' ? this.modulePkg.name : undefined,
             })
           )
         );
