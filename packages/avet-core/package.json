@@ -1,12 +1,12 @@
 {
   "name": "avet-core",
   "description": "avet core",
-  "version": "0.5.2",
+  "version": "1.0.0-0",
   "scripts": {
     "autod": "autod"
   },
   "dependencies": {
-    "avet-server": "^0.5.0",
+    "avet-server": "^1.0.0-0",
     "co": "^4.6.0",
     "debug": "^3.1.0",
     "extend2": "^1.0.0",

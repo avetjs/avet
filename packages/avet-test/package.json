@@ -15,5 +15,6 @@
   },
   "homepage": "http://avetjs.github.io/avet/",
   "author": "okoala <dapixp@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "version": "1.0.0-0"
 }
