@@ -92,7 +92,7 @@ module.exports = {
       }
     }
 
-    _babelFnList.map(fn => {
+    _babelFnList.forEach(fn => {
       const babelConfig = fn(target.build.babel, target);
 
       assert(babelConfig, 'babel funtion need return babelConfig object');
