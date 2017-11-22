@@ -276,7 +276,6 @@ module.exports = async function createCompiler(
                     'avet/error': relativeResolve('avet-shared/lib/error'),
                     'avet/document': relativeResolve('../.external/document'),
                     'avet/config': relativeResolve('../.external/config'),
-                    'styled-jsx/style': relativeResolve('styled-jsx/style'),
                   },
                 },
               ],
