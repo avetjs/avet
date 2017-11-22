@@ -1,7 +1,7 @@
 {
   "name": "avet-utils",
   "description": "Avet utils for all avet projects",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "dependencies": {
     "glob-promise": "^3.2.0",
     "mz": "^2.7.0",

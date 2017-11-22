@@ -1,6 +1,6 @@
 {
   "name": "avet-bin",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "description": "avet developer tool",
   "main": "index.js",
   "bin": {
@@ -10,7 +10,7 @@
     "autod": "autod"
   },
   "dependencies": {
-    "avet-utils": "^1.0.0-0",
+    "avet-utils": "^1.0.0-1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-react": "^6.24.1",

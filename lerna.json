@@ -1,6 +1,6 @@
 {
   "lerna": "2.5.1",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "changelog": {
     "repo": "avetjs/avet",
     "labels": {
@@ -15,8 +15,15 @@
   "cacheDir": ".changelog",
   "commands": {
     "publish": {
-      "ignore": ["avet-init*", "avet-boilerplate*", "eslint-config*"]
+      "ignore": [
+        "avet-init*",
+        "avet-boilerplate*",
+        "eslint-config*"
+      ]
     }
   },
-  "packages": ["packages/*", "examples/*"]
+  "packages": [
+    "packages/*",
+    "examples/*"
+  ]
 }
