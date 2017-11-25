@@ -15,11 +15,7 @@
   "cacheDir": ".changelog",
   "commands": {
     "publish": {
-      "ignore": [
-        "avet-init*",
-        "avet-boilerplate*",
-        "eslint-config*"
-      ]
+      "ignore": []
     }
   },
   "packages": [
