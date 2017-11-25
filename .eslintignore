@@ -1,2 +1,9 @@
 site
 docs
+
+node_moduels
+
+avet-shared/lib/
+avet-client/lib/
+
+.external

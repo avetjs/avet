@@ -26,3 +26,5 @@ _site
 
 *.iml
 .idea
+
+avet-shared/lib/
