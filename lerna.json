@@ -10,16 +10,13 @@
       "PR: Enhancement": ":nail_care: Enhancement",
       "PR: Example": ":kissing_heart: Example",
       "PR: Docs": ":memo: Documentation"
-    }
+    },
+    "cacheDir": ".changelog"
   },
-  "cacheDir": ".changelog",
   "commands": {
     "publish": {
       "ignore": []
     }
   },
-  "packages": [
-    "packages/*",
-    "examples/*"
-  ]
+  "packages": ["packages/*"]
 }
