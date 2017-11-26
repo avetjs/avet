@@ -308,7 +308,6 @@ export default class Router {
 
     try {
       const Component = await this.fetchRoute(route);
-
       if (cancelled) {
         const error = new Error(
           `Abort fetching component for route: "${route}"`
@@ -356,7 +355,8 @@ export default class Router {
   }
 
   async fetchRoute(route) {
-    await this.pageLoader.loadPage(route);
+    const page = await this.pageLoader.loadPage(route);
+    return page;
   }
 
   abortComponentLoad(as) {
