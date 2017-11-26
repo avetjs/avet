@@ -1,6 +1,6 @@
 {
   "name": "simple",
-  "version": "1.0.0",
+  "version": "1.0.0-3",
   "description": "simple example for avet",
   "scripts": {
     "dev": "avet-bin dev",
