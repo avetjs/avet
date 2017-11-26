@@ -6,6 +6,7 @@ dist
 .site
 .external
 .temp
+.changelog
 
 # dependencies
 node_modules
