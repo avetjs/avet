@@ -16,7 +16,7 @@ class Agent extends AvetCore {
 
     this.loader.loadPlugin();
     this.loader.loadConfig();
-    this.loader.loadCustomApp();
+    this.loader.loadCustomAgent();
     this.loader.loadExtend();
 
     // keep agent alive even it don't have any io tasks
@@ -59,6 +59,7 @@ class Agent extends AvetCore {
           .split('\n')
           .slice(1)
           .join('\n');
+
         console.warn(
           "agent can't call %s before server started\n%s",
           methodName,

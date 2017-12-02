@@ -21,16 +21,9 @@ const listenConfig = clusterConfig.listen || /* istanbul ignore next */ {};
 const port = (options.port = options.port || listenConfig.port);
 process.send({ to: 'master', action: 'realport', data: port });
 
-app.ready(async err => {
-  if (err) {
-    console.error(err);
-    console.error('[app_worker] start error, exiting with code:1');
-    process.exit(1);
-  }
+const avetServer = new AvetServer(avetOptions);
 
-  const avetServer = new AvetServer(avetOptions);
-  await avetServer.prepare();
-
+avetServer.prepare().then(() => {
   app.use(function*(next) {
     yield avetServer.run(this, next);
 
@@ -39,7 +32,7 @@ app.ready(async err => {
     }
   });
 
-  startServer();
+  app.ready(startServer);
 });
 
 // exit if worker start timeout
@@ -49,7 +42,12 @@ function startTimeoutHandler() {
   process.exit(1);
 }
 
-function startServer() {
+function startServer(err) {
+  if (err) {
+    console.error(err);
+    console.error('[app_worker] start error, exiting with code:1');
+    process.exit(1);
+  }
   app.removeListener('startTimeout', startTimeoutHandler);
 
   let server;
