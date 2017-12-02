@@ -14,7 +14,7 @@ class Application extends AvetCore {
 
     this.loader.loadPlugin();
     this.loader.loadConfig();
-    this.loader.loadCustomAgent();
+    this.loader.loadCustomApp();
     this.loader.loadExtend();
 
     // Listen the error that promise had not catch, then log it in common-error

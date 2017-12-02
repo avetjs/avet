@@ -42,7 +42,6 @@ class AvetCore extends KoaApplication {
     );
 
     this._options = options;
-    this.middleware = [];
 
     const Loader = this[AVET_LOADER];
     this.loader = new Loader({
