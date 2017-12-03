@@ -1,6 +1,6 @@
 {
   "lerna": "2.5.1",
-  "version": "1.0.0-5",
+  "version": "1.0.0-6",
   "changelog": {
     "repo": "avetjs/avet",
     "labels": {
@@ -15,12 +15,17 @@
   },
   "commands": {
     "build": {
-      "scope": ["avet-shared", "avet-client"]
+      "scope": [
+        "avet-shared",
+        "avet-client"
+      ]
     },
     "publish": {
       "ignore": []
     }
   },
   "npmClient": "npm",
-  "packages": ["packages/*"]
+  "packages": [
+    "packages/*"
+  ]
 }
