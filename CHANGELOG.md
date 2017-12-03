@@ -1,3 +1,20 @@
+## v1.0.0-6 (2017-12-03)
+
+#### :bug: Bug Fix
+
+* [#12](https://github.com/avetjs/avet/pull/12) Before publish run build
+  command. ([@okoala](https://github.com/okoala))
+
+#### :nail_care: Enhancement
+
+* `avet-cluster`
+  * [#11](https://github.com/avetjs/avet/pull/11) Catch avet server prepare
+    error. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-5 (2017-12-02)
 
 #### :bug: Bug Fix
