@@ -23,17 +23,22 @@ process.send({ to: 'master', action: 'realport', data: port });
 
 const avetServer = new AvetServer(avetOptions);
 
-avetServer.prepare().then(() => {
-  app.use(function*(next) {
-    yield avetServer.run(this, next);
+avetServer
+  .prepare()
+  .then(() => {
+    app.use(function*(next) {
+      yield avetServer.run(this, next);
 
-    if (!this.res.finished) {
-      yield next;
-    }
+      if (!this.res.finished) {
+        yield next;
+      }
+    });
+
+    app.ready(startServer);
+  })
+  .catch(err => {
+    console.error(err);
   });
-
-  app.ready(startServer);
-});
 
 // exit if worker start timeout
 app.once('startTimeout', startTimeoutHandler);
