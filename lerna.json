@@ -14,11 +14,13 @@
     "cacheDir": ".changelog"
   },
   "commands": {
+    "build": {
+      "scope": ["avet-shared", "avet-client"]
+    },
     "publish": {
       "ignore": []
     }
   },
-  "packages": [
-    "packages/*"
-  ]
+  "npmClient": "npm",
+  "packages": ["packages/*"]
 }
