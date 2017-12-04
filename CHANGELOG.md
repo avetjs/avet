@@ -1,3 +1,15 @@
+## v1.0.0-7 (2017-12-04)
+
+#### :bug: Bug Fix
+
+* `avet-build`, `avet`
+  * [#13](https://github.com/avetjs/avet/pull/13) When run build need use
+    rootdir. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-6 (2017-12-03)
 
 #### :bug: Bug Fix
