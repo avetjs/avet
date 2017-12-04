@@ -8,22 +8,29 @@ const md5File = require('md5-file/promise');
 const createCompiler = require('./createCompiler');
 
 module.exports = async function build(dir, options) {
+  const { rootDir } = options;
   const { distDir } = options.buildConfig;
-
+  const dist = join(dir, rootDir, distDir);
+  const root = join(dir, rootDir);
   // remove pre distdir.
-  del(join(dir, distDir), { force: true });
+  del(dist, { force: true });
 
-  const compiler = await createCompiler(dir, options);
+  console.log('build ing...');
+
+  const compiler = await createCompiler(root, options);
 
   try {
     await runCompiler(compiler);
-    await writeBuildStats(dir, distDir);
-    await writeBuildId(dir, distDir);
+    await writeBuildStats(dist);
+    await writeBuildId(dist);
   } catch (err) {
-    console.error(`> Failed to build on ${distDir}`);
+    console.error(`> Failed to build on ${dist}`);
     throw err;
   }
-  // await replaceCurrentBuild(dir, distDir);
+
+  console.log('build done.');
+  process.exit(0);
+  // await replaceCurrentBuild(dir, dist);
 };
 
 function runCompiler(compiler) {
@@ -45,23 +52,23 @@ function runCompiler(compiler) {
   });
 }
 
-async function writeBuildStats(dir, distDir) {
+async function writeBuildStats(dist) {
   // Here we can't use hashes in webpack chunks.
   // That's because the "app.js" is not tied to a chunk.
   // It's created by merging a few assets. (commons.js and main.js)
   // So, we need to generate the hash ourself.
   const assetHashMap = {
     'app.js': {
-      hash: await md5File(join(dir, distDir, 'app.js')),
+      hash: await md5File(join(dist, 'app.js')),
     },
   };
 
-  const buildStatsPath = join(dir, distDir, 'build-stats.json');
+  const buildStatsPath = join(dist, 'build-stats.json');
   await fs.writeFile(buildStatsPath, JSON.stringify(assetHashMap), 'utf8');
 }
 
-async function writeBuildId(dir, distDir) {
-  const buildIdPath = join(dir, distDir, 'BUILD_ID');
+async function writeBuildId(dist) {
+  const buildIdPath = join(dist, 'BUILD_ID');
   const buildId = uuid.v4();
   await fs.writeFile(buildIdPath, buildId, 'utf8');
 }
