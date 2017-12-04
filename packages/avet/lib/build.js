@@ -18,12 +18,14 @@ module.exports = options => {
     debug(`build dir is ${dir}`);
     debug(`build config is ${JSON.stringify(buildConfig, null, 2)}`);
 
-    const options = app.config.avet;
-    options.buildConfig = app.config.build;
-    options.appConfig = app.config;
-    options.extendConfig = app.extends;
-    options.plugins = app.plugins;
+    const projectConfig = app.config.avet;
 
-    createBuild(dir, options);
+    projectConfig.rootDir = options.rootDir || projectConfig.rootDir;
+    projectConfig.buildConfig = app.config.build;
+    projectConfig.appConfig = app.config;
+    projectConfig.extendConfig = app.extends;
+    projectConfig.plugins = app.plugins;
+
+    createBuild(dir, projectConfig);
   });
 };
