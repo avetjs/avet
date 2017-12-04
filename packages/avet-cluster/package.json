@@ -1,7 +1,7 @@
 {
   "name": "avet-cluster",
   "description": "cluster manager for avet",
-  "version": "1.0.0-6",
+  "version": "1.0.0-7",
   "files": [
     "index.js",
     "lib"
@@ -12,8 +12,8 @@
     "process"
   ],
   "dependencies": {
-    "avet-server": "^1.0.0-6",
-    "avet-utils": "^1.0.0-6",
+    "avet-server": "^1.0.0-7",
+    "avet-utils": "^1.0.0-7",
     "cfork": "^1.7.0",
     "cluster-reload": "^1.0.2",
     "debug": "^3.1.0",
