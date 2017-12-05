@@ -5,10 +5,7 @@
   "scripts": {
     "autod": "autod"
   },
-  "files": [
-    "lib",
-    "index.js"
-  ],
+  "files": ["lib", "index.js"],
   "dependencies": {
     "@taskr/babel": "^1.1.0",
     "@taskr/clear": "^1.1.0",
@@ -44,6 +41,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-hot-loader": "^3.1.1",
+    "relative": "^3.0.2",
     "rimraf": "^2.6.2",
     "taskr": "^1.1.0",
     "traverse": "^0.6.6",

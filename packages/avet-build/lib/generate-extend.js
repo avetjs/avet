@@ -3,7 +3,7 @@ const path = require('path');
 const { promisify } = require('util');
 const Taskr = require('taskr');
 const { strUpperCamelize } = require('avet-utils');
-// const rimraf = require('rimraf');
+const relative = require('relative');
 
 const writeFile = promisify(fs.writeFile);
 const rimraf = promisify(require('rimraf'));
@@ -44,6 +44,8 @@ async function createMixin(mixinConfig, tmpDir, distDir) {
   let avetContent = '';
   let avetExport = '';
 
+  const tmpPlugin = path.join(tmpDir, 'document.js');
+
   const avetHead = `
     import React from "react";
     import Document, {
@@ -59,7 +61,7 @@ async function createMixin(mixinConfig, tmpDir, distDir) {
   `;
 
   mixinConfig.layout.forEach(v => {
-    const extendModuleDir = v.path;
+    const extendModuleDir = relative(tmpPlugin, v.path);
     const packageName = strUpperCamelize(v.packageName);
     avetImport += `
       import ${packageName} from "${extendModuleDir}";
@@ -100,7 +102,6 @@ export const AvetScript = _AvetScript;
 export default Document;
   `;
 
-  const tmpPlugin = path.join(tmpDir, 'document.js');
   const content = avetHead + avetImport + avetContent + avetExport;
   await writeFile(tmpPlugin, content);
   await compileFile(tmpPlugin, distDir);
