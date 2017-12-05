@@ -1,3 +1,15 @@
+## v1.0.0-9 (2017-12-05)
+
+#### :bug: Bug Fix
+
+* `avet-build` \* [#15](https://github.com/avetjs/avet/pull/15) Remove react
+  react-dom alias and babel-runtime alias use relative. ([@okoala](https://
+  github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-8 (2017-12-05)
 
 #### :bug: Bug Fix
