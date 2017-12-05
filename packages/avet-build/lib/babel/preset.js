@@ -35,9 +35,7 @@ module.exports = (context, opts = {}) => {
         require.resolve('babel-plugin-module-resolver'),
         {
           alias: {
-            react: absoluteResolve('react'),
-            'react-dom': absoluteResolve('react-dom'),
-            'babel-runtime': absoluteResolve('babel-runtime/package'),
+            'babel-runtime': relativeResolve('babel-runtime/package'),
             'avet/link': relativeResolve('avet-shared/lib/link'),
             'avet/prefetch': relativeResolve('avet-shared/lib/prefetch'),
             'avet/dynamic': relativeResolve('avet-shared/lib/dynamic'),

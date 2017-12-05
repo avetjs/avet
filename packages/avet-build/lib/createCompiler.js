@@ -263,8 +263,6 @@ module.exports = async function createCompiler(
                 require.resolve('babel-plugin-module-resolver'),
                 {
                   alias: {
-                    react: absoluteResolve('react'),
-                    'react-dom': absoluteResolve('react-dom'),
                     'babel-runtime': relativeResolve('babel-runtime/package'),
                     'avet/link': relativeResolve('avet-shared/lib/link'),
                     'avet/prefetch': relativeResolve(
