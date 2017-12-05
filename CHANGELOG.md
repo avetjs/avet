@@ -1,3 +1,15 @@
+## v1.0.0-8 (2017-12-05)
+
+#### :bug: Bug Fix
+
+* `avet-build`
+  * [#14](https://github.com/avetjs/avet/pull/14) Use relative pathfor build
+    external. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-7 (2017-12-04)
 
 #### :bug: Bug Fix
