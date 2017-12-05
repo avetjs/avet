@@ -1,6 +1,6 @@
 {
   "name": "avet",
-  "version": "1.0.0-7",
+  "version": "1.0.0-8",
   "description": "a graceful framework for build web",
   "scripts": {
     "autod": "autod"
@@ -11,10 +11,10 @@
     "index.js"
   ],
   "dependencies": {
-    "avet-build": "^1.0.0-7",
-    "avet-cluster": "^1.0.0-7",
-    "avet-core": "^1.0.0-7",
-    "avet-utils": "^1.0.0-7",
+    "avet-build": "^1.0.0-8",
+    "avet-cluster": "^1.0.0-8",
+    "avet-core": "^1.0.0-8",
+    "avet-utils": "^1.0.0-8",
     "sendmessage": "^1.1.0"
   },
   "devDependencies": {
