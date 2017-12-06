@@ -129,7 +129,7 @@ class Loader {
     if (this.orderPlugins) {
       for (const plugin of this.orderPlugins) {
         dirs.push({
-          packageName: plugin.package,
+          packageName: plugin.name,
           path: plugin.path,
           modulePath: plugin.modulePath,
           type: 'plugin',
