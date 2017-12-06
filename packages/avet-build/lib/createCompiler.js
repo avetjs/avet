@@ -19,7 +19,6 @@ const {
 } = require('./utils');
 
 const relativeResolve = require('./root-module-relative-path')(require);
-const absoluteResolve = require('./absolute-path')(require);
 
 module.exports = async function createCompiler(
   dir,
@@ -48,14 +47,14 @@ module.exports = async function createCompiler(
 
   const defaultEntries = dev
     ? [
-      require.resolve('avet-client/src/webpack-hot-middleware-client'),
-      require.resolve('avet-client/src/on-demand-entries-client'),
+      require.resolve('avet-client/lib/webpack-hot-middleware-client'),
+      require.resolve('avet-client/lib/on-demand-entries-client'),
     ]
     : [];
 
   const mainJS = dev
-    ? require.resolve('avet-client/src/avet-dev')
-    : require.resolve('avet-client/src/avet');
+    ? require.resolve('avet-client/lib/avet-dev')
+    : require.resolve('avet-client/lib/avet');
 
   let totalPages;
 
