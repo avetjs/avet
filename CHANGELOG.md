@@ -1,3 +1,15 @@
+## v1.0.0-10 (2017-12-06)
+
+#### :bug: Bug Fix
+
+* `avet-core`
+  * [#17](https://github.com/avetjs/avet/pull/17) Use plugin name for extend
+    package name. ([@okoala ](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-9 (2017-12-05)
 
 #### :bug: Bug Fix
