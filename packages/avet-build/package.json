@@ -3,7 +3,8 @@
   "description": "avet build",
   "version": "1.0.0-12",
   "scripts": {
-    "autod": "autod"
+    "autod": "autod",
+    "test": "jest \\.test.js"
   },
   "files": [
     "lib",
@@ -59,7 +60,14 @@
     "autod": "^2.10.1",
     "babel-eslint": "^8.0.2",
     "eslint": "^4.10.0",
-    "eslint-config-avet": "^0.3.6"
+    "eslint-config-avet": "^0.3.6",
+    "jest-cli": "^21.2.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "test/"
+    ]
   },
   "tnpm": {
     "mode": "npm"

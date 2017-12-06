@@ -48,13 +48,13 @@ function getModulePath(sourceFileName, moduleName) {
       : moduleName;
 
   const cleanedModulePath = modulePath
-    .replace(/(index){0, 1}\.js$/, '') // remove .js, index.js
+    .replace(/(index){0,1}\.js$/, '') // remove .js, index.js
     .replace(/[/\\]$/, ''); // remove end slash
 
   return cleanedModulePath;
 }
 
-module.exports = () => ({
+module.exports = exports = () => ({
   inherits: syntax,
 
   visitor: {
@@ -72,10 +72,9 @@ module.exports = () => ({
           ''
         );
 
-        const name = `${relativeModulePath.replace(
-          /[^\w]/g,
-          '_'
-        )}_${modulePathHash}`;
+        const name = `${relativeModulePath.replace(/[^\w]/g, '_')}_${
+          modulePathHash
+        }`;
 
         const newImport = buildImport({
           name,
@@ -87,3 +86,5 @@ module.exports = () => ({
     },
   },
 });
+
+exports.getModulePath = getModulePath;
