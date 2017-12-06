@@ -1,3 +1,12 @@
+## v1.0.0-11 (2017-12-06)
+
+#### :bug: Bug Fix
+* `avet-build`, `avet-utils`
+  * [#18](https://github.com/avetjs/avet/pull/18) Remove async for bundle. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+- 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-10 (2017-12-06)
 
 #### :bug: Bug Fix
