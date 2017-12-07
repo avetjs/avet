@@ -2,11 +2,26 @@
   "name": "avet-utils",
   "description": "Avet utils for all avet projects",
   "version": "1.0.0-11",
+  "scripts": {
+    "dev": "taskr dev",
+    "build": "taskr release"
+  },
   "dependencies": {
     "glob-promise": "^3.2.0",
     "mz": "^2.7.0",
     "utility": "^1.13.1"
   },
+  "devDependencies": {
+    "@taskr/babel": "^1.1.0",
+    "@taskr/clear": "^1.1.0",
+    "@taskr/esnext": "^1.0.0",
+    "@taskr/watch": "^1.0.0",
+    "taskr": "^1.1.0"
+  },
+  "files": [
+    "lib",
+    "index.js"
+  ],
   "tnpm": {
     "mode": "npm"
   },

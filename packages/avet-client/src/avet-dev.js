@@ -1,5 +1,5 @@
 import 'react-hot-loader/patch';
-import stripAnsi from 'strip-ansi';
+import { stripAnsi } from './util';
 import initAvet, * as avet from './';
 import ErrorDebugComponent from 'avet-shared/lib/error-debug';
 import initOnDemandEntries from './on-demand-entries-client';

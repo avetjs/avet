@@ -17,7 +17,8 @@
     "build": {
       "scope": [
         "avet-shared",
-        "avet-client"
+        "avet-client",
+        "avet-utils"
       ]
     },
     "publish": {
