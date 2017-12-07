@@ -1,11 +1,30 @@
+## v1.0.0-12 (2017-12-07)
+
+#### :bug: Bug Fix\* `avet-utils`
+
+* [#19](https://github.com/avetjs/avet/pull/19) Check props is promise.
+  ([@okoala](https://github.com/okoala))
+
+#### :nail_care: Enhancement\* `avet-client`, `avet-utils`
+
+* [#21](https://github.com/avetjs/avet/pull/21) Compile ave t-utils for better
+  compatibility. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-11 (2017-12-06)
 
 #### :bug: Bug Fix
+
 * `avet-build`, `avet-utils`
-  * [#18](https://github.com/avetjs/avet/pull/18) Remove async for bundle. ([@okoala](https://github.com/okoala))
+  * [#18](https://github.com/avetjs/avet/pull/18) Remove async for bundle.
+    ([@okoala](https://github.com/okoala))
 
 #### Committers: 1
-- 仙森 ([okoala](https://github.com/okoala))
+
+* 仙森 ([okoala](https://github.com/okoala))
 
 ## v1.0.0-10 (2017-12-06)
 
