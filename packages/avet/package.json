@@ -20,9 +20,11 @@
   "devDependencies": {
     "autod": "^2.10.1",
     "babel-eslint": "^8.0.2",
+    "chromedriver": "^2.33.2",
     "eslint": "^4.9.0",
     "eslint-config-avet": "^0.3.7",
-    "koa-proxy": "^0.9.0"
+    "koa-proxy": "^0.9.0",
+    "wd": "^1.4.1"
   },
   "tnpm": {
     "mode": "npm"
