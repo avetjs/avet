@@ -1,7 +1,7 @@
 {
   "name": "avet-build",
   "description": "avet build",
-  "version": "1.0.0-12",
+  "version": "1.0.0-13",
   "scripts": {
     "autod": "autod",
     "test": "jest \\.test.js"
@@ -13,9 +13,9 @@
   "dependencies": {
     "@taskr/babel": "^1.1.0",
     "@taskr/clear": "^1.1.0",
-    "avet-client": "^1.0.0-12",
-    "avet-shared": "^1.0.0-12",
-    "avet-utils": "^1.0.0-12",
+    "avet-client": "^1.0.0-13",
+    "avet-shared": "^1.0.0-13",
+    "avet-utils": "^1.0.0-13",
     "babel-core": "^6.26.0",
     "babel-generator": "^6.26.0",
     "babel-loader": "^7.1.2",
