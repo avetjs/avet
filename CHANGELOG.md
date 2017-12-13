@@ -1,3 +1,17 @@
+## v1.0.0-13 (2017-12-13)
+
+#### :rocket: New Feature
+
+* `avet`
+  * [#23](https://github.com/avetjs/avet/pull/23) Add default plugins. ([@okoala](https://github.com/okoala))
+
+#### :nail_care: Enhancement
+
+* `avet-build`, `avet-shared`, `avet`
+  * [#20](https://github.com/avetjs/avet/pull/20) Add unittest. ([@okoala](https://github.com/okoala))#### Committers: 1
+
+- 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-12 (2017-12-07)
 
 #### :bug: Bug Fix\* `avet-utils`
