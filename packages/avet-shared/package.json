@@ -4,7 +4,8 @@
   "version": "1.0.0-12",
   "scripts": {
     "dev": "taskr dev",
-    "build": "taskr release"
+    "build": "taskr release",
+    "test": "jest \\.test.js"
   },
   "dependencies": {
     "ansi-html": "^0.0.7",
@@ -32,8 +33,13 @@
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.10.0",
     "eslint-config-avet": "^0.3.7",
+    "jest-cli": "^21.2.1",
     "node-notifier": "^5.1.2",
     "taskr": "^1.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "roots": ["test/"]
   },
   "tnpm": {
     "mode": "npm"
