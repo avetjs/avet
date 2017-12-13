@@ -138,6 +138,8 @@ async function doRender(
   const _ctx = {
     ctx,
     asPath,
+    pathname: ctx.path,
+    query: ctx.query,
     err,
   };
 
