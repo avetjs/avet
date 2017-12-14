@@ -15,8 +15,10 @@ const co = require('co');
 
 module.exports = class HotReloader {
   constructor(options) {
-    this.dir = options.dir;
+    this.dir = options.rootDir;
     this.dist = options.buildConfig.distDir;
+    this.baseDir = options.baseDir;
+    this.rootDir = options.rootDir;
     this.quiet = options.quiet;
     this.middlewares = [];
     this.webpackDevMiddleware = null;
@@ -52,6 +54,8 @@ module.exports = class HotReloader {
     const [ compiler ] = await Promise.all([
       createCompiler(this.dir, {
         dev: true,
+        baseDir: this.baseDir,
+        rootDir: this.rootDir,
         quiet: this.quiet,
         buildConfig: this.buildConfig,
         appConfig: this.appConfig,
@@ -85,6 +89,8 @@ module.exports = class HotReloader {
     const [ compiler ] = await Promise.all([
       createCompiler(this.dir, {
         dev: true,
+        baseDir: this.baseDir,
+        rootDir: this.rootDir,
         quiet: this.quiet,
         buildConfig: this.buildConfig,
         appConfig: this.appConfig,

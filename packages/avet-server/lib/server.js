@@ -26,16 +26,19 @@ class Server {
     this.dev = options.dev;
 
     if (this.dev) {
-      require('source-map-support').install({
-        hookRequire: true,
-      });
+      // require('source-map-support').install({
+      //   hookRequire: true,
+      // });
     }
 
     this.config = options;
     this.buildConfig = options.buildConfig;
 
-    this.dir = resolve(options.dir);
-    this.dist = this.buildConfig.distDir;
+    this.dir = options.rootDir;
+    this.baseDir = options.baseDir;
+    this.rootDir = options.rootDir;
+    this.distDir = this.buildConfig.distDir;
+    this.dist = this.distDir;
 
     this.router = new Router();
     this.hotReloader = this.dev ? this.getHotReloader(options) : null;

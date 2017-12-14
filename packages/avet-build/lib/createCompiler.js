@@ -21,8 +21,9 @@ const {
 const relativeResolve = require('./root-module-relative-path')(require);
 
 module.exports = async function createCompiler(
-  dir,
+  rootDir,
   {
+    baseDir,
     dev = false,
     buildConfig = {},
     appConfig = {},
@@ -38,7 +39,7 @@ module.exports = async function createCompiler(
   const documentPage = join('page', '_document.js');
   const defaultPages = [ '_error.js', '_document.js' ];
   const avetPagesDir = join(__dirname, 'page');
-  const avetNodeModulesDir = join(dir, 'node_modules');
+  const avetNodeModulesDir = join(rootDir, 'node_modules');
   const interpolateNames = new Map(
     defaultPages.map(p => {
       return [ join(avetPagesDir, p), `dist/page/${p}` ];
@@ -63,7 +64,7 @@ module.exports = async function createCompiler(
       'main.js': [ ...defaultEntries, mainJS ],
     };
 
-    const pages = await glob('page/**/*.js', { cwd: dir });
+    const pages = await glob('page/**/*.js', { cwd: rootDir });
     const devPages = pages.filter(
       p => p === 'page/_document.js' || p === 'page/_error.js'
     );
@@ -96,7 +97,7 @@ module.exports = async function createCompiler(
     new webpack.IgnorePlugin(/(precomputed)/, /node_modules.+(elliptic)/),
     new webpack.LoaderOptionsPlugin({
       options: {
-        context: dir,
+        context: rootDir,
         customInterpolateName(url) {
           return interpolateNames.get(this.resourcePath) || url;
         },
@@ -189,18 +190,23 @@ module.exports = async function createCompiler(
     .filter(p => !!p);
 
   // 不会使用 babelrc 配置
-  let mainBabelOptions = {
+  const mainBabelOptions = {
     babelrc: false,
     cacheDirectory: true,
     presets: [],
     plugins: [],
   };
 
-  mainBabelOptions.presets.push(require.resolve('./babel/preset'));
+  const bablePreset = require('./babel/preset')();
+
+  mainBabelOptions.presets = bablePreset.presets;
+  mainBabelOptions.plugins = bablePreset.plugins;
 
   // 看插件是否提供 babel 配置
   if (buildConfig.babel) {
-    mainBabelOptions = extend(true, mainBabelOptions, buildConfig.babel);
+    mainBabelOptions.plugins = mainBabelOptions.plugins.concat(
+      buildConfig.babel.plugins
+    );
   }
 
   if (pluginModuleBabelAlias) {
@@ -212,7 +218,7 @@ module.exports = async function createCompiler(
       {
         test: /\.js(\?[^?]*)?$/,
         loader: 'hot-self-accept-loader',
-        include: [ join(dir, 'page'), avetPagesDir ],
+        include: [ join(rootDir, 'page'), avetPagesDir ],
       },
       {
         test: /\.js(\?[^?]*)?$/,
@@ -229,7 +235,7 @@ module.exports = async function createCompiler(
     {
       test: /\.(js|json)(\?[^?]*)?$/,
       loader: 'emit-file-loader',
-      include: [ dir, avetPagesDir ],
+      include: [ rootDir, avetPagesDir ],
       exclude(str) {
         return /node_modules/.test(str) && str.indexOf(avetPagesDir) !== 0;
       },
@@ -328,19 +334,23 @@ module.exports = async function createCompiler(
     {
       test: /\.js(\?[^?]*)?$/,
       loader: require.resolve('babel-loader'),
-      include: [ dir ],
+      include: [ baseDir ],
       exclude(str) {
-        return /node_modules/.test(str);
+        return (
+          /core-js/.test(str) ||
+          /babel/.test(str) ||
+          /regenerator-runtime/.test(str)
+        );
       },
       options: mainBabelOptions,
     },
   ]);
 
   let webpackConfig = {
-    context: dir,
+    context: baseDir,
     entry,
     output: {
-      path: join(dir, buildConfig.distDir),
+      path: join(rootDir, buildConfig.distDir),
       filename: '[name]',
       libraryTarget: 'commonjs2',
       publicPath: '/_avet/webpack/',

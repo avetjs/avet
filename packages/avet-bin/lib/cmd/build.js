@@ -75,8 +75,13 @@ class BuildCommand extends Command {
   formatArgs(context) {
     const { cwd, argv } = context;
     argv.baseDir = argv._[0] || argv.baseDir || cwd;
+
     if (!isAbsolute(argv.baseDir)) {
       argv.baseDir = join(cwd, argv.baseDir);
+    }
+
+    if (!isAbsolute(argv.rootDir)) {
+      argv.rootDir = join(argv.baseDir, argv.rootDir);
     }
 
     argv.framework = utils.getFrameworkPath({

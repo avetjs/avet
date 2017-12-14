@@ -11,6 +11,8 @@ debug('new Application with options %j', options);
 const app = new Application(options);
 
 const avetOptions = app.config.avet;
+avetOptions.baseDir = options.baseDir || avetOptions.baseDir;
+avetOptions.rootDir = options.rootDir || avetOptions.rootDir;
 avetOptions.buildConfig = app.config.build;
 avetOptions.appConfig = app.config;
 avetOptions.extendConfig = app.extends;

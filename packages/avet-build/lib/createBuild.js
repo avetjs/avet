@@ -10,14 +10,13 @@ const createCompiler = require('./createCompiler');
 module.exports = async function build(dir, options) {
   const { rootDir } = options;
   const { distDir } = options.buildConfig;
-  const dist = join(dir, rootDir, distDir);
-  const root = join(dir, rootDir);
+  const dist = join(rootDir, distDir);
   // remove pre distdir.
   del(dist, { force: true });
 
   console.log('build ing...');
 
-  const compiler = await createCompiler(root, options);
+  const compiler = await createCompiler(rootDir, options);
 
   try {
     await runCompiler(compiler);
