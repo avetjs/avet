@@ -31,6 +31,8 @@ module.exports = async function createCompiler(
     plugins = {},
   } = {}
 ) {
+  rootDir = rootDir.replace(/\/$/i, '');
+
   await generateExtend(appConfig, extendConfig);
 
   const pluginNodeBabelAlias = getPluginNodeBabelAlias(plugins);
@@ -320,11 +322,11 @@ module.exports = async function createCompiler(
       },
     },
     {
+      loader: require.resolve('babel-loader'),
       include: [ avetPagesDir ],
       exclude(str) {
         return /node_modules/.test(str) && str.indexOf(avetPagesDir) !== 0;
       },
-      loader: require.resolve('babel-loader'),
       options: {
         babelrc: false,
         cacheDirectory: true,
@@ -332,7 +334,7 @@ module.exports = async function createCompiler(
       },
     },
     {
-      test: /\.js(\?[^?]*)?$/,
+      test: /\.(js|jsx)(\?[^?]*)?$/,
       loader: require.resolve('babel-loader'),
       include: [ baseDir ],
       exclude(str) {
@@ -347,7 +349,7 @@ module.exports = async function createCompiler(
   ]);
 
   let webpackConfig = {
-    context: baseDir,
+    context: rootDir,
     entry,
     output: {
       path: join(rootDir, buildConfig.distDir),
