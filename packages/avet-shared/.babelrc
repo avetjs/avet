@@ -1,6 +1,6 @@
 {
   "presets": [
-    "env",
+    ["env", {"targets": { "browsers": [">1%"] }}],
     "react"
   ],
   "plugins": [

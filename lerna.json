@@ -15,18 +15,13 @@
   },
   "commands": {
     "build": {
-      "scope": [
-        "avet-shared",
-        "avet-client",
-        "avet-utils"
-      ]
+      "scope": ["avet-shared", "avet-client", "avet-utils"]
     },
     "publish": {
       "ignore": []
     }
   },
+  "packages": ["packages/*"],
   "npmClient": "npm",
-  "packages": [
-    "packages/*"
-  ]
+  "npmClientArgs": ["--no-lockfile"]
 }

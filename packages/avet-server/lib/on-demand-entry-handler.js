@@ -10,9 +10,9 @@ const {
 } = require('avet-utils');
 const touch = require('touch');
 
-const ADDED = Symbol('added');
-const BUILDING = Symbol('building');
-const BUILT = Symbol('built');
+const ADDED = 'symbol_added';
+const BUILDING = 'symbol_building';
+const BUILT = 'symbol_built';
 
 // Make sure only one invalidation happens at a time
 // Otherwise, webpack hash gets changed and it'll force the client to reload.

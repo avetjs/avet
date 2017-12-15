@@ -6,10 +6,7 @@
     "autod": "autod",
     "test": "jest \\.test.js"
   },
-  "files": [
-    "lib",
-    "index.js"
-  ],
+  "files": ["lib", "index.js"],
   "dependencies": {
     "@taskr/babel": "^1.1.0",
     "@taskr/clear": "^1.1.0",
@@ -65,9 +62,7 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "roots": [
-      "test/"
-    ]
+    "roots": ["test/"]
   },
   "tnpm": {
     "mode": "npm"

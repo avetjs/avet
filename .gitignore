@@ -31,3 +31,5 @@ _site
 **/avet-shared/lib
 **/avet-client/lib
 **/avet-utils/lib
+
+*.lerna_backup

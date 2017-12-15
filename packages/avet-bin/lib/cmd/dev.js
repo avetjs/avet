@@ -1,7 +1,7 @@
 require('source-map-support/register');
 
 const debug = require('debug')('avet-bin:dev');
-const path = require('path');
+const { join, isAbsolute } = require('path');
 const Command = require('egg-bin');
 const utils = require('avet-utils');
 const detect = require('detect-port');
@@ -12,7 +12,7 @@ class DevCommand extends Command {
     this.usage = 'Usage: avet dev [dir] [options]';
 
     this.defaultPort = 3000;
-    this.serverBin = path.join(__dirname, '../start-app');
+    this.serverBin = join(__dirname, '../start-app');
 
     this.options = {
       baseDir: {
@@ -69,8 +69,12 @@ class DevCommand extends Command {
     const { cwd, argv } = context;
     argv.baseDir = argv._[0] || argv.baseDir || cwd;
 
-    if (!path.isAbsolute(argv.baseDir)) {
-      argv.baseDir = path.join(cwd, argv.baseDir);
+    if (!isAbsolute(argv.baseDir)) {
+      argv.baseDir = join(cwd, argv.baseDir);
+    }
+
+    if (!isAbsolute(argv.rootDir)) {
+      argv.rootDir = join(argv.baseDir, argv.rootDir);
     }
 
     argv.port = argv.port || argv.p;
@@ -92,8 +96,9 @@ class DevCommand extends Command {
       argv.port = port;
       if (port !== this.defaultPort) {
         console.warn(
-          `[avet-bin] server port ${this
-            .defaultPort} is in use, now using port ${port}\n`
+          `[avet-bin] server port ${
+            this.defaultPort
+          } is in use, now using port ${port}\n`
         );
         return;
       }

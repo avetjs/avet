@@ -25,11 +25,7 @@ class Loader {
   getEnv() {
     let env;
 
-    const envPath = path.join(
-      this.options.baseDir,
-      this.options.rootDir,
-      'config/env'
-    );
+    const envPath = path.join(this.options.rootDir, 'config/env');
     if (fs.existsSync(envPath)) {
       env = fs.readFileSync(envPath, 'utf8').trim();
     }
@@ -145,7 +141,7 @@ class Loader {
     }
 
     dirs.push({
-      path: path.join(this.options.baseDir, this.options.rootDir),
+      path: path.join(this.options.rootDir),
       type: 'app',
     });
 

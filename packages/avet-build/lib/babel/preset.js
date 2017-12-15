@@ -1,5 +1,5 @@
 const relativeResolve = require('../root-module-relative-path')(require);
-const absoluteResolve = require('../absolute-path')(require);
+// const absoluteResolve = require('../absolute-path')(require);
 
 const envPlugins = {
   development: [ require.resolve('babel-plugin-transform-react-jsx-source') ],
@@ -10,12 +10,16 @@ const envPlugins = {
 
 const plugins = envPlugins[process.env.NODE_ENV] || envPlugins.development;
 
-module.exports = (context, opts = {}) => {
+module.exports = (opts = {}) => {
   return {
     presets: [
+      require.resolve('babel-preset-es2015'),
       [
         require.resolve('babel-preset-env'),
         {
+          targets: {
+            browsers: '>1%',
+          },
           modules: false,
         },
       ],

@@ -20,6 +20,7 @@ module.exports = options => {
 
     const projectConfig = app.config.avet;
 
+    projectConfig.baseDir = options.baseDir || projectConfig.baseDir;
     projectConfig.rootDir = options.rootDir || projectConfig.rootDir;
     projectConfig.buildConfig = app.config.build;
     projectConfig.appConfig = app.config;

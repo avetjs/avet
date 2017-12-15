@@ -48,11 +48,7 @@ module.exports = {
   loadPlugin() {
     // loader plugins from application
     const appPlugins = this.readPluginConfigs(
-      path.join(
-        this.options.baseDir,
-        this.options.rootDir,
-        'config/plugin.default.js'
-      )
+      path.join(this.options.rootDir, 'config/plugin.default.js')
     );
     debug('Loaded app plugins: %j', Object.keys(appPlugins));
 
@@ -247,7 +243,9 @@ module.exports = {
       // pluginName is configured in config/plugin.js
       // pluginConfigName is pkg.avetPath.name
       console.warn(
-        `[avet:loader] pluginName(${plugin.name}) is different from pluginConfigName(${config.name})`
+        `[avet:loader] pluginName(${
+          plugin.name
+        }) is different from pluginConfigName(${config.name})`
       );
     }
 
@@ -273,7 +271,9 @@ module.exports = {
     // catch error when result.sequence is empty
     if (!result.sequence.length) {
       const err = new Error(
-        `sequencify plugins has problem, missing: [${result.missingTasks}], recursive: [${result.recursiveDependencies}]`
+        `sequencify plugins has problem, missing: [${
+          result.missingTasks
+        }], recursive: [${result.recursiveDependencies}]`
       );
       // find plugins which is required by the missing plugin
       for (const missName of result.missingTasks) {
