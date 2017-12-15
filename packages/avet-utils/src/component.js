@@ -5,7 +5,7 @@ function getDisplayName(Component) {
 async function loadGetInitialProps(Component, ctx) {
   if (!Component.getInitialProps) return {};
 
-  const props = Component.getInitialProps(ctx);
+  const props = await Component.getInitialProps(ctx);
   if (!props && (!ctx.res || !ctx.res.finished)) {
     const compName = getDisplayName(Component);
     const message = `"${
