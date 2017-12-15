@@ -1,3 +1,16 @@
+## v1.0.0-14 (2017-12-15)
+
+#### :rocket: New Feature
+
+* `avet-server`, `avet-utils`
+  * [#25](https://github.com/avetjs/avet/pull/25) Add query and pathname to initial props. ([@okoala](https://github.com/okoala))
+* `avet-bin`, `avet-build`, `avet-client`, `avet-cluster`, `avet-core`, `avet-server`, `avet-shared`, `avet`
+  * [#24](https://github.com/avetjs/avet/pull/24) Support UC browser. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-13 (2017-12-13)
 
 #### :rocket: New Feature
@@ -14,15 +27,17 @@
 
 ## v1.0.0-12 (2017-12-07)
 
-#### :bug: Bug Fix\* `avet-utils`
+#### :bug: Bug Fix
 
-* [#19](https://github.com/avetjs/avet/pull/19) Check props is promise.
-  ([@okoala](https://github.com/okoala))
+* `avet-utils`
+  * [#19](https://github.com/avetjs/avet/pull/19) Check props is promise.
+    ([@okoala](https://github.com/okoala))
 
-#### :nail_care: Enhancement\* `avet-client`, `avet-utils`
+#### :nail_care: Enhancement
 
-* [#21](https://github.com/avetjs/avet/pull/21) Compile ave t-utils for better
-  compatibility. ([@okoala](https://github.com/okoala))
+* `avet-client`, `avet-utils`
+  * [#21](https://github.com/avetjs/avet/pull/21) Compile ave t-utils for better
+    compatibility. ([@okoala](https://github.com/okoala))
 
 #### Committers: 1
 
