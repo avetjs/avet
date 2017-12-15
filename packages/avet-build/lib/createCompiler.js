@@ -341,7 +341,8 @@ module.exports = async function createCompiler(
         return (
           /core-js/.test(str) ||
           /babel/.test(str) ||
-          /regenerator-runtime/.test(str)
+          /regenerator-runtime/.test(str) ||
+          /axios/.test(str)
         );
       },
       options: mainBabelOptions,
