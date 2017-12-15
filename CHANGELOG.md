@@ -1,3 +1,14 @@
+## v1.0.0-15 (2017-12-15)
+
+#### :nail_care: Enhancement
+
+* `avet-build`
+  * [#26](https://github.com/avetjs/avet/pull/26) Add axios to babel ignore. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-14 (2017-12-15)
 
 #### :rocket: New Feature
