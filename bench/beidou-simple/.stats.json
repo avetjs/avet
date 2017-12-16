@@ -1,0 +1,22 @@
+Hash: 4dced0237c2b64c1d10f
+Version: webpack 3.10.0
+Time: 2051ms
+                        Asset     Size  Chunks             Chunk Names
+index.js?4dced0237c2b64c1d10f  80.9 kB       0  [emitted]  index
+                  manifest.js  1.38 kB       1  [emitted]  manifest
+  [28] (webpack)/buildin/module.js 517 bytes {0} [built]
+  [43] multi react-hot-loader/patch webpack-hot-middleware/client?reload=true ./client/index.jsx 52 bytes {0} [built]
+  [44] ./node_modules/react-hot-loader/patch.js 40 bytes {0} [built]
+  [45] ./node_modules/react-hot-loader/lib/patch.js 209 bytes {0} [built]
+  [47] (webpack)-hot-middleware/client.js?reload=true 7.35 kB {0} [built]
+  [48] ./node_modules/querystring-es3/index.js 127 bytes {0} [built]
+  [51] ./node_modules/strip-ansi/index.js 161 bytes {0} [built]
+  [53] (webpack)-hot-middleware/client-overlay.js 2.21 kB {0} [built]
+  [59] ./client/index.jsx 1.69 kB {0} [built]
+  [60] ./node_modules/babel-runtime/core-js/object/get-prototype-of.js 104 bytes {0} [built]
+  [65] ./node_modules/babel-runtime/helpers/classCallCheck.js 208 bytes {0} [built]
+  [66] ./node_modules/babel-runtime/helpers/createClass.js 904 bytes {0} [built]
+  [70] ./node_modules/babel-runtime/helpers/possibleConstructorReturn.js 542 bytes {0} [built]
+  [96] ./node_modules/babel-runtime/helpers/inherits.js 1.11 kB {0} [built]
+ [104] ./node_modules/react/index.js 190 bytes {0} [built]
+    + 94 hidden modules

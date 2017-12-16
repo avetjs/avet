@@ -33,3 +33,9 @@ _site
 **/avet-utils/lib
 
 *.lerna_backup
+
+asset-prod
+bench/**/build
+bench/**/.isomorphic
+
+.next
