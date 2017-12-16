@@ -39,3 +39,4 @@ bench/**/build
 bench/**/.isomorphic
 
 .next
+.stats.json
