@@ -1,0 +1,12 @@
+{
+  "name": "bench-next",
+  "version": "1.0.0-15",
+  "scripts": {
+    "start": "NODE_ENV=production next build && NODE_ENV=production next start"
+  },
+  "dependencies": {
+    "next": "4.3.0-canary.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
+}
