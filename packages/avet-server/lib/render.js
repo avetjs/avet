@@ -17,7 +17,7 @@ const {
   loadGetInitialProps,
 } = require('avet-utils');
 
-const send = require('./send');
+const send = require('send');
 
 function renderToHTML(ctx, opts) {
   return doRender(ctx, opts);
@@ -100,9 +100,20 @@ function sendJSON(ctx, obj) {
   ctx.body = ctx.method === 'HEAD' ? null : json;
 }
 
-function serveStatic(ctx, path) {
-  // hidden set true mean handle hidden files.
-  return send(ctx, path, { hidden: true });
+async function serveStatic(ctx, path, options) {
+  await new Promise((resolve, reject) => {
+    send(ctx.req, path, options)
+      .on('error', err => {
+        reject(err);
+      })
+      .on('headers', () => {
+        ctx.status = 200;
+      })
+      .on('end', () => {
+        resolve();
+      })
+      .pipe(ctx.res);
+  });
 }
 
 async function doRender(
