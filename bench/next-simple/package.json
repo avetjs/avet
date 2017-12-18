@@ -1,6 +1,6 @@
 {
   "name": "bench-next",
-  "version": "1.0.0-15",
+  "version": "1.0.0-16",
   "scripts": {
     "start": "NODE_ENV=production next build && NODE_ENV=production next start"
   },

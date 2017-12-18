@@ -1,6 +1,6 @@
 {
   "lerna": "2.5.1",
-  "version": "1.0.0-15",
+  "version": "1.0.0-16",
   "changelog": {
     "repo": "avetjs/avet",
     "labels": {
@@ -15,13 +15,24 @@
   },
   "commands": {
     "build": {
-      "scope": ["avet-shared", "avet-client", "avet-utils"]
+      "scope": [
+        "avet-shared",
+        "avet-client",
+        "avet-utils"
+      ]
     },
     "publish": {
-      "ignore": ["bench/*"]
+      "ignore": [
+        "bench/*"
+      ]
     }
   },
-  "packages": ["packages/*", "bench/*"],
+  "packages": [
+    "packages/*",
+    "bench/*"
+  ],
   "npmClient": "npm",
-  "npmClientArgs": ["--no-lockfile"]
+  "npmClientArgs": [
+    "--no-lockfile"
+  ]
 }
