@@ -1,3 +1,12 @@
+## v1.0.0-16 (2017-12-18)
+
+#### :bug: Bug Fix
+* `avet-core`, `avet-server`
+  * [#28](https://github.com/avetjs/avet/pull/28) Use send to fix static cache. ([@okoala](https://github.com/okoala))
+#### :nail_care: Enhancement
+* [#27](https://github.com/avetjs/avet/pull/27) Add bench code and result. ([@okoala](https://github.com/okoala))
+#### Committers: 1- 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-15 (2017-12-15)
 
 #### :nail_care: Enhancement
