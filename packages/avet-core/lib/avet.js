@@ -5,7 +5,7 @@ const moduleAlias = require('module-alias');
 const KoaApplication = require('koa');
 const co = require('co');
 const utils = require('./utils');
-const send = require('avet-server/lib/send');
+const send = require('send');
 const staticCache = require('koa-static-cache');
 
 const debug = require('debug')('avet-core');
@@ -96,8 +96,20 @@ class AvetCore extends KoaApplication {
     return this.use(staticCache(options));
   }
 
-  *serverStatic(ctx, path) {
-    yield send(ctx, path);
+  *serverStatic(ctx, path, options) {
+    yield new Promise((resolve, reject) => {
+      send(ctx.req, path, options)
+        .on('error', err => {
+          reject(err);
+        })
+        .on('headers', () => {
+          ctx.status = 200;
+        })
+        .on('end', () => {
+          resolve();
+        })
+        .pipe(ctx.res);
+    });
   }
 
   /**
