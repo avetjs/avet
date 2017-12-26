@@ -56,7 +56,7 @@ module.exports = function onDemandEntryHandler(
   { dir, reload, maxInactiveAge = 1000 * 25 }
 ) {
   const entries = {};
-  const lastAccessPages = [ '' ];
+  const lastAccessPages = [''];
   let doneCallbacks = new EventEmitter();
   const invalidator = new Invalidator(devMiddleware);
   let touchedAPage = false;
@@ -64,7 +64,7 @@ module.exports = function onDemandEntryHandler(
   let stopped = false;
   let reloadCallbacks = new EventEmitter();
 
-  compiler.plugin('make', function(compilation, done) {
+  compiler.plugin('make', function (compilation, done) {
     invalidator.startBuilding();
 
     const allEntries = Object.keys(entries).map(page => {
@@ -95,7 +95,7 @@ module.exports = function onDemandEntryHandler(
         return e.module.dependencies.length === 0;
       })
       .map(e => e.module.chunks)
-      .reduce((a, b) => [ ...a, ...b ], [])
+      .reduce((a, b) => [...a, ...b], [])
       .map(c => {
         const pageName = MATCH_ROUTE_NAME.exec(c.name)[1];
         return normalizePage(`/${pageName}`);
@@ -180,7 +180,7 @@ module.exports = function onDemandEntryHandler(
       const pathname = await resolvePath(pagePath);
       const name = join('bundles', pathname.substring(dir.length));
 
-      const entry = [ `${pathname}?entry` ];
+      const entry = [`${pathname}?entry`];
 
       await new Promise((resolve, reject) => {
         const entryInfo = entries[page];
@@ -212,7 +212,7 @@ module.exports = function onDemandEntryHandler(
     },
 
     middleware() {
-      return function*(next) {
+      return function* (next) {
         const ctx = this;
 
         if (stopped) {
@@ -231,7 +231,7 @@ module.exports = function onDemandEntryHandler(
             ctx.body = '302';
           });
         } else {
-          if (!/^\/_avet\/on-demand-entries-ping/.test(ctx.url))
+          if (!/^\/_app\/on-demand-entries-ping/.test(ctx.url))
             return yield next;
 
           const page = normalizePage(ctx.request.query.page);

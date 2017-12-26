@@ -1,4 +1,4 @@
-/* global __AVET_DATA__ */
+/* global __APP_DATA__ */
 
 import { resolve, format, parse } from 'url';
 import React, { Component, Children } from 'react';
@@ -11,7 +11,7 @@ export default class Link extends Component {
   static propTypes = exact({
     href: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
     /* eslint-disable */
-    as: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+    as: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     /* eslint-enable */
     prefetch: PropTypes.bool,
     replace: PropTypes.bool,
@@ -147,8 +147,8 @@ export default class Link extends Component {
     // "<page>/index.html" directly.
     if (
       props.href &&
-      typeof __AVET_DATA__ !== 'undefined' &&
-      __AVET_DATA__.avetExport
+      typeof __APP_DATA__ !== 'undefined' &&
+      __APP_DATA__.avetExport
     ) {
       props.href = _rewriteUrlForAvetExport(props.href);
     }

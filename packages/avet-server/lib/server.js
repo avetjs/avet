@@ -14,7 +14,7 @@ const {
 
 const { getAvailableChunks } = require('avet-utils');
 
-const internalPrefixes = [ /^\/_avet\//, /^\/static\// ];
+const internalPrefixes = [ /^\/_app\//, /^\/static\// ];
 
 const blockedPages = {
   '/_document': true,
@@ -83,19 +83,19 @@ class Server {
   defineRoutes() {
     const routes = {
       // This is to support, webpack dynamic imports in production.
-      '/_avet/webpack/chunks/:name': async (ctx, params) => {
+      '/_app/webpack/chunks/:name': async (ctx, params) => {
         ctx.set('cache-control', 'max-age=365000000, immutable');
         const p = join(this.dir, this.dist, 'chunks', params.name);
         await this.serveStatic(ctx, p);
       },
 
       // This is to support, webpack dynamic import support with HMR
-      '/_avet/webpack/:id': async (ctx, params) => {
+      '/_app/webpack/:id': async (ctx, params) => {
         const p = join(this.dir, this.dist, 'chunks', params.id);
         await this.serveStatic(ctx, p);
       },
 
-      '/_avet/:hash/manifest.js': async (ctx, params) => {
+      '/_app/:hash/manifest.js': async (ctx, params) => {
         if (!this.dev) return this.send404(ctx);
 
         this.handleBuildHash('manifest.js', params.hash, ctx);
@@ -103,7 +103,7 @@ class Server {
         await this.serveStatic(ctx, p);
       },
 
-      '/_avet/:hash/main.js': async (ctx, params) => {
+      '/_app/:hash/main.js': async (ctx, params) => {
         if (!this.dev) return this.send404(ctx);
 
         this.handleBuildHash('main.js', params.hash, ctx);
@@ -111,7 +111,7 @@ class Server {
         await this.serveStatic(ctx, p);
       },
 
-      '/_avet/:hash/commons.js': async (ctx, params) => {
+      '/_app/:hash/commons.js': async (ctx, params) => {
         if (!this.dev) return this.send404(ctx);
 
         this.handleBuildHash('commons.js', params.hash, ctx);
@@ -120,7 +120,7 @@ class Server {
         await this.serveStatic(ctx, p);
       },
 
-      '/_avet/:hash/app.js': async (ctx, params) => {
+      '/_app/:hash/app.js': async (ctx, params) => {
         if (this.dev) return this.send404(ctx);
 
         this.handleBuildHash('app.js', params.hash, ctx);
@@ -128,7 +128,7 @@ class Server {
         await this.serveStatic(ctx, p);
       },
 
-      '/_avet/:buildId/page/_error*': async (ctx, params) => {
+      '/_app/:buildId/page/_error*': async (ctx, params) => {
         if (!this.handleBuildId(params.buildId, ctx.response)) {
           const error = new Error('INVALID_BUILD_ID');
           const customFields = { buildIdMismatched: true };
@@ -146,7 +146,7 @@ class Server {
         await this.serveStatic(ctx, p);
       },
 
-      '/_avet/:buildId/page/:path*': async (ctx, params) => {
+      '/_app/:buildId/page/:path*': async (ctx, params) => {
         const paths = params.path || [ '' ];
         const page = `/${paths.join('/')}`;
 

@@ -26,7 +26,7 @@ module.exports = class PagesPlugin {
 
         const content = page.source();
         const newContent = `
-          window.__AVET_REGISTER_PAGE('${routeName}', function() {
+          window.__APP_REGISTER_PAGE('${routeName}', function() {
             var comp = ${content}
             return { page: comp.default }
           })

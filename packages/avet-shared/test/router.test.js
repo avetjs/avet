@@ -22,7 +22,7 @@ describe('Router', () => {
 
   describe('prefetch', () => {
     it('should prefetch a given page', async () => {
-      global.__AVET_DATA__ = {};
+      global.__APP_DATA__ = {};
       const pageLoader = new PageLoader();
       const router = new Router('/', {}, '/', { pageLoader });
       const route = '/routex';
@@ -32,7 +32,7 @@ describe('Router', () => {
     });
 
     it('should only run two jobs at a time', async () => {
-      global.__AVET_DATA__ = {};
+      global.__APP_DATA__ = {};
       // delay loading pages for an hour
       const pageLoader = new PageLoader({ delay: 1000 * 3600 });
       const router = new Router('/', {}, '/', { pageLoader });
@@ -46,14 +46,14 @@ describe('Router', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(Object.keys(pageLoader.loaded).length).toBe(2);
-      expect(Object.keys(pageLoader.loaded)).toEqual([ 'route1', 'route2' ]);
+      expect(Object.keys(pageLoader.loaded)).toEqual(['route1', 'route2']);
     });
 
     it('should run all the jobs', async () => {
-      global.__AVET_DATA__ = {};
+      global.__APP_DATA__ = {};
       const pageLoader = new PageLoader();
       const router = new Router('/', {}, '/', { pageLoader });
-      const routes = [ 'route1', 'route2', 'route3', 'route4' ];
+      const routes = ['route1', 'route2', 'route3', 'route4'];
 
       router.doFetchRoute = () => Promise.resolve(request);
 

@@ -6,7 +6,7 @@ exports.build = {
   assetPrefix: '',
   webpack: null,
   webpackDevMiddleware: {
-    publicPath: '/_avet/webpack/',
+    publicPath: '/_app/webpack/',
     noInfo: true,
     quiet: true,
     clientLogLevel: 'warning',
@@ -18,7 +18,7 @@ exports.build = {
     },
   },
   webpackHotMiddleware: {
-    path: '/_avet/webpack-hmr',
+    path: '/_app/webpack-hmr',
     log: false,
     heartbeat: 2500,
   },

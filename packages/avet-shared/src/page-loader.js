@@ -1,4 +1,4 @@
-/* global window, document, __AVET_DATA__ */
+/* global window, document, __APP_DATA__ */
 import EventEmitter from './event-emiiter';
 
 const webpackModule = module;
@@ -59,7 +59,7 @@ export default class PageLoader {
 
       // If the page is loading via SSR, we need to wait for it
       // rather downloading it again.
-      if (document.getElementById(`__AVET_PAGE__${route}`)) {
+      if (document.getElementById(`__APP_PAGE__${route}`)) {
         return;
       }
 
@@ -74,12 +74,12 @@ export default class PageLoader {
   loadScript(route) {
     route = this.normalizeRoute(route);
 
-    if (__AVET_DATA__.avetExport) {
+    if (__APP_DATA__.avetExport) {
       route = route === '/' ? '/index.js' : `${route}/index.js`;
     }
 
     const script = document.createElement('script');
-    const url = `${this.assetPrefix}/_avet/${encodeURIComponent(
+    const url = `${this.assetPrefix}/_app/${encodeURIComponent(
       this.buildId
     )}/page${route}`;
     script.src = url;
@@ -155,7 +155,7 @@ export default class PageLoader {
     delete this.pageCache[route];
     delete this.loadingRoutes[route];
 
-    const script = document.getElementById(`__AVET_PAGE__${route}`);
+    const script = document.getElementById(`__APP_PAGE__${route}`);
     if (script) {
       script.parentNode.removeChild(script);
     }

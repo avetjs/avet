@@ -39,12 +39,12 @@ module.exports = async function createCompiler(
   const pluginModuleBabelAlias = getPluginModuleBabelAlias(plugins);
 
   const documentPage = join('page', '_document.js');
-  const defaultPages = [ '_error.js', '_document.js' ];
+  const defaultPages = ['_error.js', '_document.js'];
   const avetPagesDir = join(__dirname, 'page');
   const avetNodeModulesDir = join(rootDir, 'node_modules');
   const interpolateNames = new Map(
     defaultPages.map(p => {
-      return [ join(avetPagesDir, p), `dist/page/${p}` ];
+      return [join(avetPagesDir, p), `dist/page/${p}`];
     })
   );
 
@@ -63,7 +63,7 @@ module.exports = async function createCompiler(
 
   const entry = async () => {
     const entries = {
-      'main.js': [ ...defaultEntries, mainJS ],
+      'main.js': [...defaultEntries, mainJS],
     };
 
     const pages = await glob('page/**/*.js', { cwd: rootDir });
@@ -75,18 +75,18 @@ module.exports = async function createCompiler(
     // managing pages.
     if (dev) {
       for (const p of devPages) {
-        entries[join('bundles', p)] = [ `./${p}?entry` ];
+        entries[join('bundles', p)] = [`./${p}?entry`];
       }
     } else {
       for (const p of pages) {
-        entries[join('bundles', p)] = [ `./${p}?entry` ];
+        entries[join('bundles', p)] = [`./${p}?entry`];
       }
     }
 
     for (const p of defaultPages) {
       const entryName = join('bundles', 'page', p);
       if (!entries[entryName]) {
-        entries[entryName] = [ `${join(avetPagesDir, p)}?entry` ];
+        entries[entryName] = [`${join(avetPagesDir, p)}?entry`];
       }
     }
 
@@ -104,7 +104,7 @@ module.exports = async function createCompiler(
           return interpolateNames.get(this.resourcePath) || url;
         },
         resolve: {
-          extensions: [ '.ts', '.tsx', '.js' ],
+          extensions: ['.ts', '.tsx', '.js'],
         },
       },
     }),
@@ -176,7 +176,7 @@ module.exports = async function createCompiler(
     webpackPlugins.push(new webpack.IgnorePlugin(/react-hot-loader/));
     webpackPlugins.push(
       new CombineAssetsPlugin({
-        input: [ 'manifest.js', 'commons.js', 'main.js' ],
+        input: ['manifest.js', 'commons.js', 'main.js'],
         output: 'app.js',
       }),
       new UglifyJSPlugin({
@@ -220,7 +220,7 @@ module.exports = async function createCompiler(
       {
         test: /\.js(\?[^?]*)?$/,
         loader: 'hot-self-accept-loader',
-        include: [ join(rootDir, 'page'), avetPagesDir ],
+        include: [join(rootDir, 'page'), avetPagesDir],
       },
       {
         test: /\.js(\?[^?]*)?$/,
@@ -237,7 +237,7 @@ module.exports = async function createCompiler(
     {
       test: /\.(js|json)(\?[^?]*)?$/,
       loader: 'emit-file-loader',
-      include: [ rootDir, avetPagesDir ],
+      include: [rootDir, avetPagesDir],
       exclude(str) {
         return /node_modules/.test(str) && str.indexOf(avetPagesDir) !== 0;
       },
@@ -323,20 +323,20 @@ module.exports = async function createCompiler(
     },
     {
       loader: require.resolve('babel-loader'),
-      include: [ avetPagesDir ],
+      include: [avetPagesDir],
       exclude(str) {
         return /node_modules/.test(str) && str.indexOf(avetPagesDir) !== 0;
       },
       options: {
         babelrc: false,
         cacheDirectory: true,
-        presets: [ require.resolve('./babel/preset') ],
+        presets: [require.resolve('./babel/preset')],
       },
     },
     {
       test: /\.(js|jsx)(\?[^?]*)?$/,
       loader: require.resolve('babel-loader'),
-      include: [ baseDir ],
+      include: [baseDir],
       exclude(str) {
         return (
           /core-js/.test(str) ||
@@ -356,7 +356,7 @@ module.exports = async function createCompiler(
       path: join(rootDir, buildConfig.distDir),
       filename: '[name]',
       libraryTarget: 'commonjs2',
-      publicPath: '/_avet/webpack/',
+      publicPath: '/_app/webpack/',
       strictModuleExceptionHandling: true,
       devtoolModuleFilenameTemplate({ resourcePath }) {
         const hash = createHash('sha1');
@@ -370,7 +370,7 @@ module.exports = async function createCompiler(
       chunkFilename: '[name]',
     },
     resolve: {
-      modules: [ avetNodeModulesDir, 'node_modules', ...nodePathList ],
+      modules: [avetNodeModulesDir, 'node_modules', ...nodePathList],
     },
     resolveLoader: {
       modules: [

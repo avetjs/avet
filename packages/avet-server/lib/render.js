@@ -48,7 +48,7 @@ async function renderScriptError(ctx, page, error, customFields = {}, { dev }) {
   if (error.code === 'ENOENT') {
     ctx.type = 'text/javascript';
     ctx.body = `
-      window.__AVET_REGISTER_PAGE('${page}', function() {
+      window.__APP_REGISTER_PAGE('${page}', function() {
         var error = new Error('Page does not exist: ${page}');
         error.statusCode = 404;
 
@@ -63,7 +63,7 @@ async function renderScriptError(ctx, page, error, customFields = {}, { dev }) {
   const errorJson = Object.assign({}, serializeError(dev, error), customFields);
 
   ctx.body = `
-    window.__AVET_REGISTER_PAGE('${page}', function() {
+    window.__APP_REGISTER_PAGE('${page}', function() {
       var error = ${JSON.stringify(errorJson)};
       return { error: error };
     });
@@ -137,7 +137,7 @@ async function doRender(
 
   await ensurePage(page, { dir, hotReloader });
 
-  let [ Component, Document ] = await Promise.all([
+  let [Component, Document] = await Promise.all([
     requireModule(join(dir, dist, 'dist', 'page', page)),
     requireModule(join(dir, dist, 'dist', 'page', '_document')),
   ]);
@@ -206,7 +206,7 @@ async function doRender(
     Object.assign(
       {},
       {
-        __AVET_DATA__: {
+        __APP_DATA__: {
           props,
           pathname: ctx.path,
           query: ctx.query,

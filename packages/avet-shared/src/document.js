@@ -39,7 +39,7 @@ export class Html extends Component {
         let content = isReactComponent(comp) ? comp : comp.content;
         if (content) {
           if (!Array.isArray(content)) {
-            content = [ content ];
+            content = [content];
           }
           mixinChild = mixinChild.concat(content);
         }
@@ -67,15 +67,15 @@ export class Head extends Component {
   };
 
   getChunkPreloadLink(filename) {
-    const { __AVET_DATA__ } = this.context._documentProps;
-    const { buildStats, assetPrefix, buildId } = __AVET_DATA__;
+    const { __APP_DATA__ } = this.context._documentProps;
+    const { buildStats, assetPrefix, buildId } = __APP_DATA__;
     const hash = buildStats ? buildStats[filename].hash : buildId;
 
     return (
       <link
         key={filename}
         rel="preload"
-        href={`${assetPrefix}/_avet/${hash}/${filename}`}
+        href={`${assetPrefix}/_app/${hash}/${filename}`}
         as="script"
       />
     );
@@ -92,25 +92,25 @@ export class Head extends Component {
     }
 
     // In the production mode, we have a single asset with all the JS content.
-    return [ this.getChunkPreloadLink('app.js') ];
+    return [this.getChunkPreloadLink('app.js')];
   }
 
   getPreloadDynamicChunks() {
-    const { chunks, __AVET_DATA__ } = this.context._documentProps;
-    const { assetPrefix } = __AVET_DATA__;
+    const { chunks, __APP_DATA__ } = this.context._documentProps;
+    const { assetPrefix } = __APP_DATA__;
     return chunks.map(chunk => (
       <link
         key={chunk}
         rel="preload"
-        href={`${assetPrefix}/_avet/webpack/chunks/${chunk}`}
+        href={`${assetPrefix}/_app/webpack/chunks/${chunk}`}
         as="script"
       />
     ));
   }
 
   render() {
-    const { head, styles, __AVET_DATA__ } = this.context._documentProps;
-    const { pathname, buildId, assetPrefix, avetExport } = __AVET_DATA__;
+    const { head, styles, __APP_DATA__ } = this.context._documentProps;
+    const { pathname, buildId, assetPrefix, avetExport } = __APP_DATA__;
     const pagePathname = getPagePathname(pathname, avetExport);
 
     let mixinProps = {};
@@ -124,7 +124,7 @@ export class Head extends Component {
         let content = isReactComponent(comp) ? comp : comp.content;
         if (content) {
           if (!Array.isArray(content)) {
-            content = [ content ];
+            content = [content];
           }
           mixinChild = mixinChild.concat(content);
         }
@@ -135,12 +135,12 @@ export class Head extends Component {
       <head {...this.props} {...mixinProps}>
         <link
           rel="preload"
-          href={`${assetPrefix}/_avet/${buildId}/page${pagePathname}`}
+          href={`${assetPrefix}/_app/${buildId}/page${pagePathname}`}
           as="script"
         />
         <link
           rel="preload"
-          href={`${assetPrefix}/_avet/${buildId}/page/_error/index.js`}
+          href={`${assetPrefix}/_app/${buildId}/page/_error/index.js`}
           as="script"
         />
         {this.getPreloadDynamicChunks()}
@@ -179,9 +179,9 @@ export class Main extends Component {
     return (
       <div className={className}>
         {mixinMain}
-        <div id="__avet" dangerouslySetInnerHTML={{ __html: html }} />
+        <div id="__app" dangerouslySetInnerHTML={{ __html: html }} />
         <div
-          id="__avet-error"
+          id="__app-error"
           dangerouslySetInnerHTML={{ __html: errorHtml }}
         />
       </div>
@@ -195,15 +195,15 @@ export class AvetScript extends Component {
   };
 
   getChunkScript(filename, additionalProps = {}) {
-    const { __AVET_DATA__ } = this.context._documentProps;
-    const { buildStats, assetPrefix, buildId } = __AVET_DATA__;
+    const { __APP_DATA__ } = this.context._documentProps;
+    const { buildStats, assetPrefix, buildId } = __APP_DATA__;
     const hash = buildStats ? buildStats[filename].hash : buildId;
 
     return (
       <script
         key={filename}
         type="text/javascript"
-        src={`${assetPrefix}/_avet/${hash}/${filename}`}
+        src={`${assetPrefix}/_app/${hash}/${filename}`}
         {...additionalProps}
       />
     );
@@ -221,12 +221,12 @@ export class AvetScript extends Component {
 
     // In the production mode, we have a single asset with all the JS content.
     // So, we can load the script with async
-    return [ this.getChunkScript('app.js', { async: true }) ];
+    return [this.getChunkScript('app.js', { async: true })];
   }
 
   getDynamicChunks() {
-    const { chunks, __AVET_DATA__ } = this.context._documentProps;
-    const { assetPrefix } = __AVET_DATA__;
+    const { chunks, __APP_DATA__ } = this.context._documentProps;
+    const { assetPrefix } = __APP_DATA__;
     return (
       <div>
         {chunks.map(chunk => (
@@ -234,7 +234,7 @@ export class AvetScript extends Component {
             async
             key={chunk}
             type="text/javascript"
-            src={`${assetPrefix}/_avet/webpack/chunks/${chunk}`}
+            src={`${assetPrefix}/_app/webpack/chunks/${chunk}`}
           />
         ))}
       </div>
@@ -242,11 +242,11 @@ export class AvetScript extends Component {
   }
 
   render() {
-    const { staticMarkup, __AVET_DATA__, chunks } = this.context._documentProps;
-    const { pathname, avetExport, buildId, assetPrefix } = __AVET_DATA__;
+    const { staticMarkup, __APP_DATA__, chunks } = this.context._documentProps;
+    const { pathname, avetExport, buildId, assetPrefix } = __APP_DATA__;
     const pagePathname = getPagePathname(pathname, avetExport);
 
-    __AVET_DATA__.chunks = chunks;
+    __APP_DATA__.chunks = chunks;
 
     return (
       <div>
@@ -254,17 +254,17 @@ export class AvetScript extends Component {
           <script
             dangerouslySetInnerHTML={{
               __html: `
-          __AVET_DATA__ = ${htmlescape(__AVET_DATA__)}
+          __APP_DATA__ = ${htmlescape(__APP_DATA__)}
           module={}
-          __AVET_LOADED_PAGES__ = []
-          __AVET_LOADED_CHUNKS__ = []
+          __APP_LOADED_PAGES__ = []
+          __APP_LOADED_CHUNKS__ = []
 
-          __AVET_REGISTER_PAGE = function (route, fn) {
-            __AVET_LOADED_PAGES__.push({ route: route, fn: fn })
+          __APP_REGISTER_PAGE = function (route, fn) {
+            __APP_LOADED_PAGES__.push({ route: route, fn: fn })
           }
 
-          __AVET_REGISTER_CHUNK = function (chunkName, fn) {
-            __AVET_LOADED_CHUNKS__.push({ chunkName: chunkName, fn: fn })
+          __APP_REGISTER_CHUNK = function (chunkName, fn) {
+            __APP_LOADED_CHUNKS__.push({ chunkName: chunkName, fn: fn })
           }
         `,
             }}
@@ -272,15 +272,15 @@ export class AvetScript extends Component {
         )}
         <script
           async
-          id={`__AVET_PAGE__${pathname}`}
+          id={`__APP_PAGE__${pathname}`}
           type="text/javascript"
-          src={`${assetPrefix}/_avet/${buildId}/page${pagePathname}`}
+          src={`${assetPrefix}/_app/${buildId}/page${pagePathname}`}
         />
         <script
           async
-          id={'__AVET_PAGE__/_error'}
+          id={'__APP_PAGE__/_error'}
           type="text/javascript"
-          src={`${assetPrefix}/_avet/${buildId}/page/_error/index.js`}
+          src={`${assetPrefix}/_app/${buildId}/page/_error/index.js`}
         />
         {staticMarkup ? null : this.getDynamicChunks()}
         {staticMarkup ? null : this.getScripts()}

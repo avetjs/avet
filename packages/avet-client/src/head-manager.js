@@ -31,7 +31,7 @@ export default class HeadManager {
 
     this.updateTitle(tags.title ? tags.title[0] : null);
 
-    const types = [ 'meta', 'base', 'link', 'style', 'script' ];
+    const types = ['meta', 'base', 'link', 'style', 'script'];
     types.forEach(type => {
       this.updateElements(type, tags[type] || []);
     });
@@ -51,7 +51,7 @@ export default class HeadManager {
   updateElements(type, components) {
     const headEl = document.getElementsByTagName('head')[0];
     const oldTags = Array.prototype.slice.call(
-      headEl.querySelectorAll(`${type}.avet-head`)
+      headEl.querySelectorAll(`${type}.app-head`)
     );
     const newTags = components.map(reactElementToDOM).filter(newTag => {
       for (let i = 0, len = oldTags.length; i < len; i++) {
