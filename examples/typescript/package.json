@@ -1,5 +1,5 @@
 {
-  "name": "typescript",
+  "name": "avet-example-typescript",
   "version": "1.0.0",
   "description": "typescript example for avet",
   "scripts": {
@@ -7,13 +7,16 @@
     "build": "avet-bin build"
   },
   "dependencies": {
-    "avet": "^0.2.0",
-    "avet-typescript": "^0.2.0"
+    "avet": "^1.0.0-9",
+    "avet-typescript": "^0.3.0"
   },
   "devDependencies": {
     "@types/react": "^16.0.18",
     "@types/react-dom": "^16.0.2",
-    "avet-bin": "^0.2.0"
+    "avet-bin": "^1.0.0-9",
+    "babel-eslint": "^8.0.2",
+    "eslint": "^4.9.0",
+    "eslint-config-avet": "^0.3.9"
   },
   "tnpm": {
     "mode": "npm"
@@ -21,14 +24,5 @@
   "engines": {
     "node": ">= 8"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/avetjs/avet"
-  },
-  "bugs": {
-    "url": "https://github.com/avetjs/avet/issues"
-  },
-  "homepage": "http://avetjs.github.io/avet/",
-  "author": "okoala <dapixp@gmail.com>",
   "license": "MIT"
 }

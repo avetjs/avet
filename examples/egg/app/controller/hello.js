@@ -1,9 +1,7 @@
-'use strict';
+const { Controller } = require('egg');
 
-const app = require('egg');
-
-class HelloController extends app.Controller {
-  * index() {
+class HelloController extends Controller {
+  index() {
     this.ctx.body = 'Hello, Welcome to use Avet and Egg!!';
   }
 }

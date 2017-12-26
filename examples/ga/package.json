@@ -1,5 +1,5 @@
 {
-  "name": "ga",
+  "name": "avet-example-ga",
   "version": "1.0.0",
   "description": "ga example for avet",
   "scripts": {
@@ -8,11 +8,14 @@
     "start": "avet-bin start"
   },
   "dependencies": {
-    "avet": "^0.5.0",
-    "avet-ga": "^0.1.0"
+    "avet": "^1.0.0-9",
+    "avet-ga": "^0.1.4"
   },
   "devDependencies": {
-    "avet-bin": "^0.7.0"
+    "avet-bin": "^1.0.0-9",
+    "babel-eslint": "^8.0.2",
+    "eslint": "^4.9.0",
+    "eslint-config-avet": "^0.3.9"
   },
   "tnpm": {
     "mode": "npm"
@@ -20,14 +23,5 @@
   "engines": {
     "node": ">= 8"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/avetjs/avet"
-  },
-  "bugs": {
-    "url": "https://github.com/avetjs/avet/issues"
-  },
-  "homepage": "http://avetjs.github.io/avet/",
-  "author": "okoala <dapixp@gmail.com>",
   "license": "MIT"
 }

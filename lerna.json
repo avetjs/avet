@@ -29,7 +29,8 @@
   },
   "packages": [
     "packages/*",
-    "bench/*"
+    "bench/*",
+    "examples/*"
   ],
   "npmClient": "npm",
   "npmClientArgs": [

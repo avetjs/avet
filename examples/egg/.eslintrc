@@ -1,0 +1,6 @@
+{
+  "extends": "eslint-config-avet",
+  "globals": {
+    "API_HOST": true
+  }
+}

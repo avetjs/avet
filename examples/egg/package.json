@@ -1,5 +1,5 @@
 {
-  "name": "avet-egg",
+  "name": "avet-example-egg",
   "version": "1.0.0",
   "description": "this is a avet and egg example",
   "private": true,
@@ -8,21 +8,22 @@
     "stop": "egg-scripts stop",
     "dev": "npm run dev:egg & npm run dev:avet",
     "dev:egg": "egg-bin dev",
-    "dev:avet": "avet-bin dev --rootDir ./avet",
-    "build": "avet-bin build"
+    "dev:avet": "avet-bin dev --rootDir ./web",
+    "build": "avet-bin build --rootDir ./web"
   },
   "dependencies": {
-    "avet": "^0.4.3",
+    "avet": "^1.0.0-9",
     "avet-define": "^0.1.2",
-    "avet-fetch": "^0.1.0",
+    "avet-fetch": "^0.2.2",
     "avet-preact": "^0.2.3",
-    "egg": "^1.10.0",
-    "egg-avet": "^1.1.0",
-    "egg-scripts": "^2.1.0"
+    "avet-proxy": "^1.0.0",
+    "egg": "^2.0.0",
+    "egg-avet": "^1.1.1",
+    "egg-scripts": "^2.4.0"
   },
   "devDependencies": {
-    "egg-bin": "^4.3.5",
-    "avet-bin": "^0.5.1"
+    "egg-bin": "^4.3.6",
+    "avet-bin": "^1.0.0-9"
   },
   "tnpm": {
     "mode": "npm"
@@ -30,14 +31,5 @@
   "engines": {
     "node": ">= 8"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/avetjs/avet"
-  },
-  "bugs": {
-    "url": "https://github.com/avetjs/avet/issues"
-  },
-  "homepage": "http://avetjs.github.io/avet/",
-  "author": "okoala <dapixp@gmail.com>",
   "license": "MIT"
 }
