@@ -13,7 +13,7 @@ module.exports = async function(appConfig, buildextends) {
 
   // delete private config
   delete config.build;
-  delete config.avet;
+  delete config.app;
 
   await createExtend(config, buildextends);
 };

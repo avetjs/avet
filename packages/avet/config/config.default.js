@@ -2,7 +2,7 @@ const path = require('path');
 
 // Build setting
 exports.build = {
-  distDir: '.avet',
+  distDir: '.build',
   assetPrefix: '',
   webpack: null,
   webpackDevMiddleware: {
@@ -29,7 +29,7 @@ exports.build = {
 };
 
 // Setting avet
-exports.avet = {
+exports.app = {
   dir: path.join(process.cwd(), ''),
   dev: true,
   port: 3000,

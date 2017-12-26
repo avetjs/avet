@@ -10,7 +10,7 @@ const { Application } = require(options.framework);
 debug('new Application with options %j', options);
 const app = new Application(options);
 
-const avetOptions = app.config.avet;
+const avetOptions = app.config.app;
 avetOptions.baseDir = options.baseDir || avetOptions.baseDir;
 avetOptions.rootDir = options.rootDir || avetOptions.rootDir;
 avetOptions.buildConfig = app.config.build;

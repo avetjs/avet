@@ -4,22 +4,16 @@
   "description": "this is a avet and egg example",
   "private": true,
   "scripts": {
-    "start": "egg-scripts start --daemon",
-    "stop": "egg-scripts stop",
-    "dev": "npm run dev:egg & npm run dev:avet",
-    "dev:egg": "egg-bin dev",
-    "dev:avet": "avet-bin dev --rootDir ./web",
-    "build": "avet-bin build --rootDir ./web"
+    "start": "eggctl start --daemon --env=prod",
+    "stop": "eggctl stop",
+    "dev": "avet-bin dev",
+    "build": "avet-bin build"
   },
   "dependencies": {
     "avet": "^1.0.0-9",
-    "avet-define": "^0.1.2",
-    "avet-fetch": "^0.2.2",
-    "avet-preact": "^0.2.3",
-    "avet-proxy": "^1.0.0",
-    "egg": "^2.0.0",
-    "egg-avet": "^1.1.1",
-    "egg-scripts": "^2.4.0"
+    "avet-antd": "^1.0.0",
+    "egg": "^2.1.0",
+    "egg-scripts": "^2.5.0"
   },
   "devDependencies": {
     "egg-bin": "^4.3.6",

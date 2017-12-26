@@ -1,11 +1,11 @@
-module.exports = appInfo => {
-  const config = (exports = {});
+const pkg = require('../package.json');
 
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = `${appInfo.name}_1509640041953_6564`;
-
-  // add your config here
-  config.middleware = [];
-
-  return config;
+exports.build = {
+  webpackDevMiddleware: {
+    noInfo: true,
+    quiet: true,
+  },
 };
+
+// use for cookie sign key, should change to your own and keep security
+exports.keys = `${pkg.name}_1509640041953_6564`;

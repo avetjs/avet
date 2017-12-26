@@ -12,13 +12,13 @@ module.exports = options => {
       process.exit(1);
     }
 
-    const { dir } = app.config.avet;
+    const { dir } = app.config.app;
     const buildConfig = app.config.build;
 
     debug(`build dir is ${dir}`);
     debug(`build config is ${JSON.stringify(buildConfig, null, 2)}`);
 
-    const projectConfig = app.config.avet;
+    const projectConfig = app.config.app;
 
     projectConfig.baseDir = options.baseDir || projectConfig.baseDir;
     projectConfig.rootDir = options.rootDir || projectConfig.rootDir;
