@@ -4,15 +4,13 @@
   "description": "this is a avet and egg example",
   "private": true,
   "scripts": {
-    "start": "eggctl start --daemon --env=prod",
-    "stop": "eggctl stop",
+    "start": "NODE_ENV=production EGG_SERVER_ENV=prod node index.js",
     "dev": "avet-bin dev",
     "build": "avet-bin build"
   },
   "dependencies": {
     "avet": "^1.0.0-16",
-    "avet-antd": "^1.0.0",
-    "egg-scripts": "^2.5.0"
+    "avet-antd": "^1.0.0"
   },
   "devDependencies": {
     "avet-bin": "^1.0.0-16"

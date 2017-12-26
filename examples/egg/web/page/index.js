@@ -2,10 +2,9 @@ import React from 'react';
 import Header from '../component/header';
 
 class IndexPage extends React.Component {
-  static async getInitialProps() {
-    const res = await fetch(`${API_HOST}/api/getHello`);
-    const hello = await res.text();
-    return { hello };
+  static async getInitialProps({ httpclient }) {
+    const res = await httpclient.get('/api/getHello');
+    return { hello: res.data };
   }
 
   render() {
