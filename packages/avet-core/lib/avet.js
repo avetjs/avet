@@ -10,13 +10,14 @@ class AvetCore extends EggCore {
     options.baseDir = options.baseDir || process.cwd();
     options.type = options.type || 'application';
 
-    this._options = options;
-
     const Loader = this[AVET_LOADER];
-    this.avetLoader = new Loader({
+
+    this.loader = new Loader({
       baseDir: options.baseDir,
       app: this,
       plugins: options.plugins,
+      logger: this.console,
+      serverScope: options.serverScope,
     });
 
     // Create aliases of directories and register custom module paths
@@ -26,15 +27,15 @@ class AvetCore extends EggCore {
   }
 
   get config() {
-    return this.avetLoader ? this.avetLoader.config : {};
+    return this.loader ? this.loader.config : {};
   }
 
   get plugins() {
-    return this.avetLoader ? this.avetLoader.plugins : {};
+    return this.loader ? this.loader.plugins : {};
   }
 
-  get extends() {
-    return this.avetLoader ? this.avetLoader.extends : {};
+  get layoutExtends() {
+    return this.loader ? this.loader.layoutExtends : {};
   }
 
   get [AVET_LOADER]() {

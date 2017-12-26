@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { loadFile } = require('../../utils');
-const sequencify = require('../../utils/sequencify');
+const { loadFile } = require('egg-core').utils;
 
 const debug = require('debug')('avet-core:loader:plugin');
 
@@ -45,10 +44,10 @@ module.exports = {
    * `loader.allPlugins` can be used when retrieve all plugins.
    * @method AvetLoader#loadPlugin
    */
-  loadAvetPlugin() {
+  loadPlugin() {
     // loader plugins from application
     const appPlugins = this.readPluginConfigs(
-      path.join(this.options.rootDir, 'config/plugin.default.js')
+      path.join(this.options.baseDir, 'config/plugin.default.js')
     );
     debug('Loaded app plugins: %j', Object.keys(appPlugins));
 
@@ -185,33 +184,6 @@ module.exports = {
     return plugins;
   },
 
-  normalizePluginConfig(plugins, name, configPath) {
-    const plugin = plugins[name];
-
-    // plugin_name: false
-    if (typeof plugin === 'boolean') {
-      plugins[name] = {
-        name,
-        enable: plugin,
-        dependencies: [],
-        optionalDependencies: [],
-        env: [],
-        from: configPath,
-      };
-      return;
-    }
-
-    if (!('enable' in plugin)) {
-      plugin.enable = true;
-    }
-    plugin.name = name;
-    plugin.dependencies = plugin.dependencies || [];
-    plugin.optionalDependencies = plugin.optionalDependencies || [];
-    plugin.env = plugin.env || [];
-    plugin.from = configPath;
-    depCompatible(plugin);
-  },
-
   // Read plugin information from package.json and merge
   // {
   //   avetPlugin: {
@@ -226,7 +198,7 @@ module.exports = {
     const pluginPackage = path.join(plugin.path, 'package.json');
     if (fs.existsSync(pluginPackage)) {
       pkg = require(pluginPackage);
-      config = pkg.avetPlugin;
+      config = pkg.avetPlugin || pkg.eggPlugin;
       if (pkg.version) {
         plugin.version = pkg.version;
       }
@@ -234,7 +206,7 @@ module.exports = {
 
     if (!config) {
       console.warn(
-        `[avet:loader] pkg.avetPlugin is missing in ${pluginPackage}`
+        `[avet:loader] pkg.avetPlugin or pkg.eggPlugin is missing in ${pluginPackage}`
       );
       return;
     }
@@ -257,65 +229,6 @@ module.exports = {
         plugin[key] = config[key];
       }
     }
-  },
-
-  getOrderPlugins(allPlugins, enabledPluginNames) {
-    // no plugins enabled
-    if (!enabledPluginNames.length) {
-      return [];
-    }
-
-    const result = sequencify(allPlugins, enabledPluginNames);
-    debug('Got plugins %j after sequencify', result);
-
-    // catch error when result.sequence is empty
-    if (!result.sequence.length) {
-      const err = new Error(
-        `sequencify plugins has problem, missing: [${
-          result.missingTasks
-        }], recursive: [${result.recursiveDependencies}]`
-      );
-      // find plugins which is required by the missing plugin
-      for (const missName of result.missingTasks) {
-        const requires = [];
-        for (const name in allPlugins) {
-          if (allPlugins[name].dependencies.indexOf(missName) >= 0) {
-            requires.push(name);
-          }
-        }
-        err.message += `\n\t>> Plugin [${missName}] is disabled or missed, but is required by [${requires}]`;
-      }
-
-      err.name = 'PluginSequencifyError';
-      throw err;
-    }
-
-    // log the plugins that be enabled implicitly
-    const implicitEnabledPlugins = [];
-    const requireMap = {};
-    result.sequence.forEach(name => {
-      for (const depName of allPlugins[name].dependencies) {
-        if (!requireMap[depName]) {
-          requireMap[depName] = [];
-        }
-        requireMap[depName].push(name);
-      }
-
-      if (!allPlugins[name].enable) {
-        implicitEnabledPlugins.push(name);
-        allPlugins[name].enable = true;
-      }
-    });
-    if (implicitEnabledPlugins.length) {
-      // Following plugins will be enabled implicitly.
-      console.info(
-        `Following plugins will be enabled implicitly.\n${implicitEnabledPlugins
-          .map(name => `  - ${name} required by [${requireMap[name]}]`)
-          .join('\n')}`
-      );
-    }
-
-    return result.sequence.map(name => allPlugins[name]);
   },
 
   // Get the real plugin path
