@@ -1,11 +1,7 @@
-const fs = require('fs');
-const path = require('path');
 const assert = require('assert');
 
 const extend = require('extend2');
 const debug = require('debug')('avet-core:config');
-
-const SET_CONFIG_META = Symbol('Loader#setConfigMeta');
 
 module.exports = {
   /**
@@ -15,7 +11,7 @@ module.exports = {
    *
    * @method AvetLoader#loadConfig
    */
-  loadConfig() {
+  loadAvetConfig() {
     this.configMeta = {};
 
     const target = {
@@ -102,58 +98,4 @@ module.exports = {
 
     this.config = target;
   },
-
-  _preloadAppConfig() {
-    const names = [ 'config.default.js', `config.${this.env}.js` ];
-    const target = {};
-    for (const filename of names) {
-      const config = this._loadConfig(
-        this.options.baseDir,
-        filename,
-        undefined,
-        'app'
-      );
-      extend(true, target, config);
-    }
-    return target;
-  },
-
-  _loadConfig(dirpath, filename, extraInject, type) {
-    const isApp = type === 'app';
-
-    let filepath = path.join(dirpath, 'config', filename);
-    // let config.js compatible
-    if (filename === 'config.default.js' && !fs.existsSync(filepath)) {
-      filepath = path.join(dirpath, 'config/config.js');
-    }
-
-    const config = this.loadFile(filepath, this.appInfo, extraInject);
-    if (!config) return null;
-
-    // store config meta, check where is the property of config come from.
-    this[SET_CONFIG_META](config, filepath);
-
-    return config;
-  },
-
-  [SET_CONFIG_META](config, filepath) {
-    config = extend(true, {}, config);
-    setConfig(config, filepath);
-    extend(true, this.configMeta, config);
-  },
 };
-
-function setConfig(obj, filepath) {
-  for (const key of Object.keys(obj)) {
-    const val = obj[key];
-    if (
-      val &&
-      Object.getPrototypeOf(val) === Object.prototype &&
-      Object.keys(val).length > 0
-    ) {
-      setConfig(val, filepath);
-      continue;
-    }
-    obj[key] = filepath;
-  }
-}

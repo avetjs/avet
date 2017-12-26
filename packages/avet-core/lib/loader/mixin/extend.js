@@ -7,7 +7,7 @@ module.exports = {
    *
    * ```
    */
-  loadExtend() {
+  loadAvetExtend() {
     const ret = {
       layout: [],
     };

@@ -6,7 +6,7 @@ exports.buildApp = require('./lib/build');
 /**
  * Start avet application with cluster mode
  */
-exports.startApp = require('avet-cluster').startCluster;
+exports.startCluster = require('avet-cluster').startCluster;
 
 /**
  * @member {Application} Avet#Application

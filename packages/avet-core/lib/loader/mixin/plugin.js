@@ -45,7 +45,7 @@ module.exports = {
    * `loader.allPlugins` can be used when retrieve all plugins.
    * @method AvetLoader#loadPlugin
    */
-  loadPlugin() {
+  loadAvetPlugin() {
     // loader plugins from application
     const appPlugins = this.readPluginConfigs(
       path.join(this.options.rootDir, 'config/plugin.default.js')
