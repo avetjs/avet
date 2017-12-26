@@ -10,14 +10,12 @@
     "build": "avet-bin build"
   },
   "dependencies": {
-    "avet": "^1.0.0-9",
+    "avet": "^1.0.0-16",
     "avet-antd": "^1.0.0",
-    "egg": "^2.1.0",
     "egg-scripts": "^2.5.0"
   },
   "devDependencies": {
-    "egg-bin": "^4.3.6",
-    "avet-bin": "^1.0.0-9"
+    "avet-bin": "^1.0.0-16"
   },
   "tnpm": {
     "mode": "npm"

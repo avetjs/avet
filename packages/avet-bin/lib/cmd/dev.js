@@ -2,49 +2,17 @@ require('source-map-support/register');
 
 const debug = require('debug')('avet-bin:dev');
 const { join, isAbsolute } = require('path');
-const Command = require('egg-bin');
+const { DevCommand } = require('egg-bin');
 const utils = require('avet-utils');
 const detect = require('detect-port');
 
-class DevCommand extends Command {
+module.exports = class extends DevCommand {
   constructor(rawArgv) {
     super(rawArgv);
-    this.usage = 'Usage: avet dev [dir] [options]';
+    this.usage = 'Usage: avet-bin dev [dir] [options]';
 
     this.defaultPort = 3000;
     this.serverBin = join(__dirname, '../start-app');
-
-    this.options = {
-      baseDir: {
-        description: 'directory of application, default to `process.cwd()`',
-        type: 'string',
-      },
-      rootDir: {
-        description:
-          'directory of application root, a application may have multiple root.',
-        type: 'string',
-        default: './',
-      },
-      port: {
-        description: 'listening port, default to 3000',
-        type: 'number',
-        alias: 'p',
-      },
-      framework: {
-        description:
-          'specify framework that can be absolute path or npm package',
-        type: 'string',
-      },
-      quiet: {
-        description: 'is quiet?',
-        type: 'boolean',
-        default: false,
-      },
-    };
-  }
-
-  get description() {
-    return '启动开发';
   }
 
   *run(context) {
@@ -106,6 +74,4 @@ class DevCommand extends Command {
     }
     return [ JSON.stringify(argv) ];
   }
-}
-
-module.exports = DevCommand;
+};
