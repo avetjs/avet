@@ -1,4 +1,6 @@
 const { AgentWorkerLoader } = require('../egg');
 const createLoader = require('./create_loader');
 
-module.exports = createLoader(AgentWorkerLoader);
+class AvetAgentWorkerLoader extends createLoader(AgentWorkerLoader) {}
+
+module.exports = AvetAgentWorkerLoader;

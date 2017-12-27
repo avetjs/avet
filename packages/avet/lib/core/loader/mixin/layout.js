@@ -7,28 +7,28 @@ module.exports = {
    *
    * ```
    */
-  loadAvetExtend() {
+  loadLayout() {
     const ret = {
       layout: [],
     };
 
     for (const unit of this.getLoadUnits()) {
       if (unit.type === 'plugin') {
-        const files = this._findExtendFiles(unit);
+        const layoutFiles = this._findLayoutFiles(unit);
 
-        if (!files) {
+        if (!layoutFiles) {
           continue;
+        } else {
+          ret.layout.push(layoutFiles);
         }
-
-        if (files.layout) ret.layout.push(files.layout);
       }
     }
 
     this.layouts = ret.layout;
   },
 
-  _findExtendFiles(unit) {
-    const ret = {};
+  _findLayoutFiles(unit) {
+    let ret = {};
     const layoutPath = path.join(unit.path, 'output/extend/layout.cjs.js');
     const layoutModulePath = path.join(
       unit.modulePath,
@@ -36,7 +36,7 @@ module.exports = {
     );
 
     if (existsSync(layoutPath)) {
-      ret.layout = {
+      ret = {
         packageName: unit.packageName,
         path: layoutPath,
         relativePath: this.getModuleRelativePath(layoutModulePath),

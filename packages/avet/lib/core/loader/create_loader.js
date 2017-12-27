@@ -6,11 +6,6 @@ module.exports = Loader => {
       this.loadPlugin();
     }
 
-    load() {
-      this.loadAvetExtend();
-      super.load();
-    }
-
     getLoadUnits() {
       if (this.dirs) {
         return this.dirs;

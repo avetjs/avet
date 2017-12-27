@@ -29,8 +29,6 @@ module.exports = {
 
     const _babelFnList = [];
 
-    const names = [ 'config.default.js', `config.${this.env}.js` ];
-
     // Load Application config first
     const appConfig = this._preloadAppConfig();
 
@@ -40,7 +38,7 @@ module.exports = {
     //         plugin config.{env}
     //           framework config.{env}
     //             app config.{env}
-    for (const filename of names) {
+    for (const filename of this.getTypeFiles('config')) {
       for (const unit of this.getLoadUnits()) {
         const isApp = unit.type === 'app';
         const config = this._loadConfig(
@@ -95,6 +93,11 @@ module.exports = {
 
       target.build.babel = babelConfig;
     });
+
+    // You can manipulate the order of app.config.coreMiddleware and app.config.appMiddleware in app.js
+    target.coreMiddleware = target.coreMiddlewares =
+      target.coreMiddleware || [];
+    target.appMiddleware = target.appMiddlewares = target.middleware || [];
 
     this.config = target;
   },

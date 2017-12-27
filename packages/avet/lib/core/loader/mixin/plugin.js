@@ -139,51 +139,6 @@ module.exports = {
     this.plugins = enablePlugins;
   },
 
-  /*
-   * Read plugin.js from multiple directory
-   */
-  readPluginConfigs(configPaths) {
-    if (!Array.isArray(configPaths)) {
-      configPaths = [ configPaths ];
-    }
-
-    // read plugin.default.js and plugins.${env}.js
-    if (this.env !== 'default') {
-      // note: can't use for-of
-      for (let i = 0, l = configPaths.length; i < l; i++) {
-        const configPath = configPaths[i];
-        configPaths.push(
-          configPath.replace(/plugin\.default\.js$/, `plugin.${this.env}.js`)
-        );
-      }
-    }
-
-    const plugins = {};
-    for (let configPath of configPaths) {
-      // let plugin.js compatible
-      if (
-        configPath.endsWith('plugin.default.js') &&
-        !fs.existsSync(configPath)
-      ) {
-        configPath = configPath.replace(/plugin\.default\.js$/, 'plugin.js');
-      }
-
-      if (!fs.existsSync(configPath)) {
-        continue;
-      }
-
-      const config = loadFile(configPath);
-
-      for (const name in config) {
-        this.normalizePluginConfig(config, name, configPath);
-      }
-
-      this._extendPlugins(plugins, config);
-    }
-
-    return plugins;
-  },
-
   // Read plugin information from package.json and merge
   // {
   //   avetPlugin: {
