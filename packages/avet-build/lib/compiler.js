@@ -21,9 +21,8 @@ const {
 const relativeResolve = require('./root-module-relative-path')(require);
 
 module.exports = async function createCompiler(
-  rootDir,
+  dir,
   {
-    baseDir,
     dev = false,
     buildConfig = {},
     appConfig = {},
@@ -31,7 +30,7 @@ module.exports = async function createCompiler(
     plugins = {},
   } = {}
 ) {
-  rootDir = rootDir.replace(/\/$/i, '');
+  dir = dir.replace(/\/$/i, '');
 
   await generateExtend(appConfig, extendConfig);
 
@@ -41,7 +40,7 @@ module.exports = async function createCompiler(
   const documentPage = join('page', '_document.js');
   const defaultPages = [ '_error.js', '_document.js' ];
   const avetPagesDir = join(__dirname, 'page');
-  const avetNodeModulesDir = join(rootDir, 'node_modules');
+  const avetNodeModulesDir = join(dir, 'node_modules');
   const interpolateNames = new Map(
     defaultPages.map(p => {
       return [ join(avetPagesDir, p), `dist/page/${p}` ];
@@ -66,7 +65,7 @@ module.exports = async function createCompiler(
       'main.js': [ ...defaultEntries, mainJS ],
     };
 
-    const pages = await glob('page/**/*.js', { cwd: rootDir });
+    const pages = await glob('page/**/*.js', { cwd: dir });
     const devPages = pages.filter(
       p => p === 'page/_document.js' || p === 'page/_error.js'
     );
@@ -99,7 +98,7 @@ module.exports = async function createCompiler(
     new webpack.IgnorePlugin(/(precomputed)/, /node_modules.+(elliptic)/),
     new webpack.LoaderOptionsPlugin({
       options: {
-        context: rootDir,
+        context: dir,
         customInterpolateName(url) {
           return interpolateNames.get(this.resourcePath) || url;
         },
@@ -220,7 +219,7 @@ module.exports = async function createCompiler(
       {
         test: /\.js(\?[^?]*)?$/,
         loader: 'hot-self-accept-loader',
-        include: [ join(rootDir, 'page'), avetPagesDir ],
+        include: [ join(dir, 'page'), avetPagesDir ],
       },
       {
         test: /\.js(\?[^?]*)?$/,
@@ -237,7 +236,7 @@ module.exports = async function createCompiler(
     {
       test: /\.(js|json)(\?[^?]*)?$/,
       loader: 'emit-file-loader',
-      include: [ rootDir, avetPagesDir ],
+      include: [ dir, avetPagesDir ],
       exclude(str) {
         return /node_modules/.test(str) && str.indexOf(avetPagesDir) !== 0;
       },
@@ -336,7 +335,7 @@ module.exports = async function createCompiler(
     {
       test: /\.(js|jsx)(\?[^?]*)?$/,
       loader: require.resolve('babel-loader'),
-      include: [ baseDir ],
+      // include: [ baseDir ],
       exclude(str) {
         return (
           /core-js/.test(str) ||
@@ -350,10 +349,10 @@ module.exports = async function createCompiler(
   ]);
 
   let webpackConfig = {
-    context: rootDir,
+    context: dir,
     entry,
     output: {
-      path: join(rootDir, buildConfig.distDir),
+      path: join(dir, buildConfig.distDir),
       filename: '[name]',
       libraryTarget: 'commonjs2',
       publicPath: '/_app/webpack/',
@@ -393,8 +392,8 @@ module.exports = async function createCompiler(
       buildConfig.webpack,
       buildConfig._webpackFnList,
       webpackConfig,
-      webpack,
-      appConfig
+      appConfig,
+      webpack
     );
   }
 
@@ -411,7 +410,7 @@ async function getAppWebpackConfig(
   let ret = extend(true, initConfig, webpackConfig);
   if (Array.isArray(webpackFnList)) {
     for (const fn of webpackFnList) {
-      ret = await fn(ret, webpack, appConfig);
+      ret = await fn(ret, appConfig, webpack);
     }
   }
 

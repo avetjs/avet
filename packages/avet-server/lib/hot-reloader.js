@@ -15,10 +15,8 @@ const co = require('co');
 
 module.exports = class HotReloader {
   constructor(options) {
-    this.dir = options.rootDir;
+    this.dir = options.dir;
     this.dist = options.buildConfig.distDir;
-    this.baseDir = options.baseDir;
-    this.rootDir = options.rootDir;
     this.quiet = options.quiet;
     this.middlewares = [];
     this.webpackDevMiddleware = null;
@@ -33,7 +31,7 @@ module.exports = class HotReloader {
 
     this.buildConfig = options.buildConfig;
     this.appConfig = options.appConfig;
-    this.extendConfig = options.extendConfig;
+    this.layouts = options.layouts;
     this.plugins = options.plugins;
   }
 
@@ -326,7 +324,7 @@ async function getAppWebpackDevMiddlewareConfig(
 
   if (Array.isArray(webpackDevMiddlewareFnList)) {
     for (const fn of webpackDevMiddlewareFnList) {
-      ret = await fn(ret, webpack, appConfig);
+      ret = await fn(ret, appConfig, webpack);
     }
   }
 
@@ -342,7 +340,7 @@ async function getAppWebpackHotMiddlewareConfig(
 
   if (Array.isArray(webpackHotMiddlewareFnList)) {
     for (const fn of webpackHotMiddlewareFnList) {
-      ret = await fn(ret, webpack, appConfig);
+      ret = await fn(ret, appConfig, webpack);
     }
   }
 

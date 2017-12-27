@@ -1,5 +1,5 @@
-exports.createCompiler = require('./lib/createCompiler');
-exports.createBuild = require('./lib/createBuild');
+exports.createCompiler = require('./lib/compiler');
+exports.createBuild = require('./lib/build');
 exports.WebpackDevMiddleware = require('./lib/koa-webpack-dev-middleware');
 exports.WebpackHotMiddleware = require('./lib/koa-webpack-hot-middleware');
 
