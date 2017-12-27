@@ -42,3 +42,12 @@ exports.app = {
 exports.core = {
   name: 'Avet',
 };
+
+exports.coreMiddleware = [
+  'meta',
+  'siteFile',
+  'notfound',
+  'bodyParser',
+  'overrideMethod',
+  'avetServer',
+];

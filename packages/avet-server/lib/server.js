@@ -23,13 +23,11 @@ const blockedPages = {
 
 class Server {
   constructor(options) {
+    this.options = options;
+
     this.dev = options.dev;
-
-    this.config = options;
-    this.buildConfig = options.buildConfig;
-
     this.dir = options.dir;
-    this.dist = this.buildConfig.distDir;
+    this.dist = options.buildConfig.distDir;
 
     this.router = new Router();
     this.hotReloader = this.dev ? this.getHotReloader(options) : null;
@@ -44,10 +42,10 @@ class Server {
       dir: this.dir,
       dist: this.dist,
       hotReloader: this.hotReloader,
-      staticMarkup: options.staticMarkup,
+      staticMarkup: options.appConfig.staticMarkup,
       buildStats: this.buildStats,
       buildId: this.buildId,
-      assetPrefix: this.buildConfig.assetPrefix.replace(/\/$/, ''),
+      assetPrefix: options.buildConfig.assetPrefix.replace(/\/$/, ''),
       availableChunks: this.dev ? {} : getAvailableChunks(this.dir, this.dist),
     };
 
@@ -188,7 +186,7 @@ class Server {
       },
     };
 
-    if (this.config.useFileSystemPublicRoutes) {
+    if (this.options.appConfig.useFileSystemPublicRoutes) {
       routes['/:path*'] = async ctx => {
         await this.render(ctx);
       };
