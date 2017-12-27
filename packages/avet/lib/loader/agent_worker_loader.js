@@ -1,19 +1,4 @@
-const AvetLoader = require('avet-core').EggLoader;
+const { AgentWorkerLoader } = require('egg');
+const createLoader = require('./create_loader');
 
-class AgentWorkerLoader extends AvetLoader {
-  /**
-   * loadPlugin first, then loadConfig
-   */
-  loadConfig() {
-    this.loadPlugin();
-    super.loadConfig();
-  }
-
-  load() {
-    this.loadAgentExtend();
-    this.loadCustomAgent();
-    this.loadAvetExtend();
-  }
-}
-
-module.exports = AgentWorkerLoader;
+module.exports = createLoader(AgentWorkerLoader);

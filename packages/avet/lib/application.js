@@ -1,19 +1,20 @@
 const path = require('path');
-const { AppWorkerLoader } = require('./loader');
+const AvetApplication = require('./core/avet');
+const AppWorkerLoader = require('./loader/app_worker_loader');
 
-const AVET_PATH = Symbol.for('avet#avetPath');
-const AVET_LOADER = Symbol.for('avet#loader');
+const EGG_LOADER = Symbol.for('egg#loader');
+const EGG_PATH = Symbol.for('egg#eggPath');
 
-class Application extends AppWorkerLoader {
+class Application extends AvetApplication {
   constructor(options = {}) {
     super(options);
   }
 
-  get [AVET_LOADER]() {
+  get [EGG_LOADER]() {
     return AppWorkerLoader;
   }
 
-  get [AVET_PATH]() {
+  get [EGG_PATH]() {
     return path.join(__dirname, '..');
   }
 }
