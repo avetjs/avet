@@ -1,7 +1,7 @@
 const moduleAlias = require('module-alias');
 const { EggCore } = require('egg-core');
 
-const AVET_LOADER = Symbol('AvetCore#loader');
+const AVET_LOADER = Symbol('avet#loader');
 
 class AvetCore extends EggCore {
   constructor(options = {}) {

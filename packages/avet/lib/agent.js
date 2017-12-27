@@ -1,21 +1,15 @@
 const path = require('path');
-const { AvetCore } = require('avet-core');
 const { AgentWorkerLoader } = require('./loader');
 
 const AVET_PATH = Symbol.for('avet#avetPath');
-const EGG_LOADER = Symbol.for('egg#loader');
+const AVET_LOADER = Symbol.for('avet#loader');
 
-class Agent extends AvetCore {
+class Agent extends AgentWorkerLoader {
   constructor(options = {}) {
     super(options);
-
-    this.loader.loadPlugin();
-    this.loader.loadConfig();
-    this.loader.loadCustomAgent();
-    this.loader.loadExtend();
   }
 
-  get [EGG_LOADER]() {
+  get [AVET_LOADER]() {
     return AgentWorkerLoader;
   }
 

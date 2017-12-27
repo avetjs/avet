@@ -2,19 +2,14 @@ const path = require('path');
 const { AppWorkerLoader } = require('./loader');
 
 const AVET_PATH = Symbol.for('avet#avetPath');
-const EGG_LOADER = Symbol.for('egg#loader');
+const AVET_LOADER = Symbol.for('avet#loader');
 
 class Application extends AppWorkerLoader {
-  constructor(options) {
+  constructor(options = {}) {
     super(options);
-
-    this.loader.loadPlugin();
-    this.loader.loadConfig();
-    this.loader.loadCustomApp();
-    this.loader.loadAvetExtend();
   }
 
-  get [EGG_LOADER]() {
+  get [AVET_LOADER]() {
     return AppWorkerLoader;
   }
 
