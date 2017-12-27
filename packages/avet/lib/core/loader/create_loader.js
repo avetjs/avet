@@ -2,12 +2,6 @@ const path = require('path');
 
 module.exports = Loader => {
   class AvetLoader extends Loader {
-    constructor(options) {
-      super(options);
-
-      this._init();
-    }
-
     loadPlugin() {
       this.loadPlugin();
     }
@@ -15,16 +9,6 @@ module.exports = Loader => {
     load() {
       this.loadAvetExtend();
       super.load();
-    }
-
-    _init() {
-      // 兼容框架的 lib/core 目录
-      const eggPaths = [];
-      for (const eggPath of this.eggPaths) {
-        eggPaths.push(eggPath);
-        eggPaths.push(path.join(eggPath, 'lib/core'));
-      }
-      this.eggPaths = eggPaths;
     }
 
     getLoadUnits() {
@@ -45,9 +29,9 @@ module.exports = Loader => {
         }
       }
 
-      for (const avetPath of this.avetPaths) {
+      for (const eggPath of this.eggPaths) {
         dirs.push({
-          path: avetPath,
+          path: eggPath,
           type: 'framework',
         });
       }

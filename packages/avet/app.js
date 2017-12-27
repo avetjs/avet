@@ -5,6 +5,8 @@ module.exports = app => {
   const config = getAverConfiguration(app);
   app.avetServer = new AvetServer(config);
 
+  console.log('==========');
+
   app.beforeStart(async () => {
     // check env is local and need prepare ready
     if (app.env === 'local') {

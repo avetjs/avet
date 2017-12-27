@@ -18,4 +18,3 @@ exports.DebugCommand = require('./lib/cmd/debug');
 exports.DevCommand = require('./lib/cmd/dev');
 exports.BuildCommand = require('./lib/cmd/build');
 exports.TestCommand = require('./lib/cmd/test');
-exports.AutodCommand = require('./lib/cmd/autod');
