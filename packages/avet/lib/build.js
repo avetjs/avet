@@ -1,5 +1,5 @@
 const { createBuild } = require('avet-build');
-const Application = require('./avet');
+const Application = require('./application');
 
 const debug = require('debug')('avet:app-build');
 

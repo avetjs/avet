@@ -1,5 +1,5 @@
 const moduleAlias = require('module-alias');
-const EggApplication = require('egg').Application;
+const EggApplication = require('./egg').Application;
 
 class Application extends EggApplication {
   constructor(options) {

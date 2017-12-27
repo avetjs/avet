@@ -1,4 +1,4 @@
-const egg = require('egg');
+const egg = require('./lib/core/egg');
 
 module.exports = exports = egg;
 
