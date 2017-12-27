@@ -1,11 +1,5 @@
 const path = require('path');
 const Command = require('./lib/command');
-const {
-  DevCommand,
-  CovCommand,
-  DebugCommand,
-  PkgfilesCommand,
-} = require('egg-bin');
 
 class AvetBin extends Command {
   constructor(rawArgv) {
