@@ -1,6 +1,6 @@
 const path = require('path');
-const AgentWorkerLoader = require('./loader/agent_worker_loader');
 const AvetApplication = require('./core/avet');
+const AgentWorkerLoader = require('./core/loader/agent_worker_loader');
 
 const EGG_LOADER = Symbol.for('egg#loader');
 const EGG_PATH = Symbol.for('egg#eggPath');
