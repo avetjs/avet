@@ -11,7 +11,7 @@ const {
 const clean = require('avet-build/lib/clean');
 const { IS_BUNDLED_PAGE } = require('avet-utils');
 const onDemandEntryHandler = require('./on-demand-entry-handler');
-const co = require('co');
+const compose = require('koa-compose');
 
 module.exports = class HotReloader {
   constructor(options) {
@@ -36,16 +36,7 @@ module.exports = class HotReloader {
   }
 
   async run(ctx, next) {
-    for (const fn of this.middlewares) {
-      await new Promise((resolve, reject) => {
-        co(function*() {
-          yield fn.call(ctx, next);
-          resolve();
-        }).catch(err => {
-          reject(err);
-        });
-      });
-    }
+    await compose(this.middlewares)(ctx, next);
   }
 
   async start() {

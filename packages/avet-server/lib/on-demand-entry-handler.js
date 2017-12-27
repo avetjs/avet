@@ -56,7 +56,7 @@ module.exports = function onDemandEntryHandler(
   { dir, reload, maxInactiveAge = 1000 * 25 }
 ) {
   const entries = {};
-  const lastAccessPages = [''];
+  const lastAccessPages = [ '' ];
   let doneCallbacks = new EventEmitter();
   const invalidator = new Invalidator(devMiddleware);
   let touchedAPage = false;
@@ -64,7 +64,7 @@ module.exports = function onDemandEntryHandler(
   let stopped = false;
   let reloadCallbacks = new EventEmitter();
 
-  compiler.plugin('make', function (compilation, done) {
+  compiler.plugin('make', function(compilation, done) {
     invalidator.startBuilding();
 
     const allEntries = Object.keys(entries).map(page => {
@@ -95,7 +95,7 @@ module.exports = function onDemandEntryHandler(
         return e.module.dependencies.length === 0;
       })
       .map(e => e.module.chunks)
-      .reduce((a, b) => [...a, ...b], [])
+      .reduce((a, b) => [ ...a, ...b ], [])
       .map(c => {
         const pageName = MATCH_ROUTE_NAME.exec(c.name)[1];
         return normalizePage(`/${pageName}`);
@@ -180,7 +180,7 @@ module.exports = function onDemandEntryHandler(
       const pathname = await resolvePath(pagePath);
       const name = join('bundles', pathname.substring(dir.length));
 
-      const entry = [`${pathname}?entry`];
+      const entry = [ `${pathname}?entry` ];
 
       await new Promise((resolve, reject) => {
         const entryInfo = entries[page];
@@ -212,9 +212,7 @@ module.exports = function onDemandEntryHandler(
     },
 
     middleware() {
-      return function* (next) {
-        const ctx = this;
-
+      return async function(ctx, next) {
         if (stopped) {
           // If this handler is stopped, we need to reload the user's browser.
           // So the user could connect to the actually running handler.
@@ -231,8 +229,10 @@ module.exports = function onDemandEntryHandler(
             ctx.body = '302';
           });
         } else {
-          if (!/^\/_app\/on-demand-entries-ping/.test(ctx.url))
-            return yield next;
+          if (!/^\/_app\/on-demand-entries-ping/.test(ctx.url)) {
+            const ret = await next();
+            return ret;
+          }
 
           const page = normalizePage(ctx.request.query.page);
           const entryInfo = entries[page];
