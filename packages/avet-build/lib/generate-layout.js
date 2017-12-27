@@ -8,23 +8,23 @@ const relative = require('relative');
 const writeFile = promisify(fs.writeFile);
 const rimraf = promisify(require('rimraf'));
 
-module.exports = async function(appConfig, buildextends) {
+module.exports = async function(appConfig, layouts) {
   const config = Object.assign({}, appConfig);
 
   // delete private config
   delete config.build;
   delete config.app;
 
-  await createExtend(config, buildextends);
+  await createLayout(config, layouts);
 };
 
-async function createExtend(config, buildextends) {
+async function createLayout(config, layouts) {
   const tmpDir = path.resolve(__dirname, '..', '.temp');
   mkdir(tmpDir);
   const distDir = path.resolve(__dirname, '..', '.external');
 
   await createConfig(config, tmpDir, distDir);
-  await createMixin(buildextends, tmpDir, distDir);
+  await createMixin(layouts, tmpDir, distDir);
 
   await rimraf(tmpDir);
 }
@@ -39,7 +39,7 @@ async function createConfig(config, tmpDir, distDir) {
   await compileFile(tmpPlugin, distDir);
 }
 
-async function createMixin(mixinConfig, tmpDir, distDir) {
+async function createMixin(layouts, tmpDir, distDir) {
   let avetImport = '';
   let avetContent = '';
   let avetExport = '';
@@ -60,7 +60,7 @@ async function createMixin(mixinConfig, tmpDir, distDir) {
     import config from "../.external/config";
   `;
 
-  mixinConfig.layout.forEach(v => {
+  layouts.forEach(v => {
     const extendModuleDir = relative(tmpPlugin, v.path);
     const packageName = strUpperCamelize(v.packageName);
     avetImport += `
@@ -68,7 +68,7 @@ async function createMixin(mixinConfig, tmpDir, distDir) {
     `;
   });
 
-  mixinConfig.layout.forEach(v => {
+  layouts.forEach(v => {
     const packageName = strUpperCamelize(v.packageName);
     avetContent += `
       (function() {

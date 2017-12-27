@@ -4,19 +4,17 @@ const fs = require('mz/fs');
 const uuid = require('uuid');
 const del = require('del');
 const md5File = require('md5-file/promise');
-// const replaceCurrentBuild = require('./replace');
-const createCompiler = require('./createCompiler');
+const createCompiler = require('./compiler');
 
 module.exports = async function build(dir, options) {
-  const { rootDir } = options;
   const { distDir } = options.buildConfig;
-  const dist = join(rootDir, distDir);
+  const dist = join(dir, distDir);
   // remove pre distdir.
   del(dist, { force: true });
 
   console.log('build ing...');
 
-  const compiler = await createCompiler(rootDir, options);
+  const compiler = await createCompiler(dir, options);
 
   try {
     await runCompiler(compiler);

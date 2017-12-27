@@ -52,12 +52,10 @@ module.exports = class HotReloader {
     const [ compiler ] = await Promise.all([
       createCompiler(this.dir, {
         dev: true,
-        baseDir: this.baseDir,
-        rootDir: this.rootDir,
         quiet: this.quiet,
         buildConfig: this.buildConfig,
         appConfig: this.appConfig,
-        extendConfig: this.extendConfig,
+        layouts: this.layouts,
         plugins: this.plugins,
       }),
       clean(this.dir, this.dist),
@@ -87,12 +85,10 @@ module.exports = class HotReloader {
     const [ compiler ] = await Promise.all([
       createCompiler(this.dir, {
         dev: true,
-        baseDir: this.baseDir,
-        rootDir: this.rootDir,
         quiet: this.quiet,
         buildConfig: this.buildConfig,
         appConfig: this.appConfig,
-        extendConfig: this.extendConfig,
+        layouts: this.layouts,
         plugins: this.plugins,
       }),
       clean(this.dir, this.dist),

@@ -12,7 +12,7 @@ const PagesPlugin = require('./plugins/pages-plugin');
 const DynamicChunksPlugin = require('./plugins/dynamic-chunks-plugin');
 const CombineAssetsPlugin = require('./plugins/combine-assets-plugin');
 const babelCore = require('babel-core');
-const generateExtend = require('./generate-extend');
+const generateLayout = require('./generate-layout');
 const {
   getPluginNodeBabelAlias,
   getPluginModuleBabelAlias,
@@ -26,13 +26,13 @@ module.exports = async function createCompiler(
     dev = false,
     buildConfig = {},
     appConfig = {},
-    extendConfig = {},
+    layouts = {},
     plugins = {},
   } = {}
 ) {
   dir = dir.replace(/\/$/i, '');
 
-  await generateExtend(appConfig, extendConfig);
+  await generateLayout(appConfig, layouts);
 
   const pluginNodeBabelAlias = getPluginNodeBabelAlias(plugins);
   const pluginModuleBabelAlias = getPluginModuleBabelAlias(plugins);
