@@ -26,6 +26,13 @@ class Server {
     this.options = options;
 
     this.dev = options.dev;
+
+    if (this.dev) {
+      // require('source-map-support').install({
+      //   hookRequire: true,
+      // });
+    }
+
     this.dir = options.dir;
     this.dist = options.buildConfig.distDir;
 

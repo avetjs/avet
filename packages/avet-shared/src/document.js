@@ -39,7 +39,7 @@ export class Html extends Component {
         let content = isReactComponent(comp) ? comp : comp.content;
         if (content) {
           if (!Array.isArray(content)) {
-            content = [content];
+            content = [ content ];
           }
           mixinChild = mixinChild.concat(content);
         }
@@ -92,7 +92,7 @@ export class Head extends Component {
     }
 
     // In the production mode, we have a single asset with all the JS content.
-    return [this.getChunkPreloadLink('app.js')];
+    return [ this.getChunkPreloadLink('app.js') ];
   }
 
   getPreloadDynamicChunks() {
@@ -124,7 +124,7 @@ export class Head extends Component {
         let content = isReactComponent(comp) ? comp : comp.content;
         if (content) {
           if (!Array.isArray(content)) {
-            content = [content];
+            content = [ content ];
           }
           mixinChild = mixinChild.concat(content);
         }
@@ -180,10 +180,7 @@ export class Main extends Component {
       <div className={className}>
         {mixinMain}
         <div id="__app" dangerouslySetInnerHTML={{ __html: html }} />
-        <div
-          id="__app-error"
-          dangerouslySetInnerHTML={{ __html: errorHtml }}
-        />
+        <div id="__app-error" dangerouslySetInnerHTML={{ __html: errorHtml }} />
       </div>
     );
   }
@@ -221,7 +218,7 @@ export class AvetScript extends Component {
 
     // In the production mode, we have a single asset with all the JS content.
     // So, we can load the script with async
-    return [this.getChunkScript('app.js', { async: true })];
+    return [ this.getChunkScript('app.js', { async: true }) ];
   }
 
   getDynamicChunks() {
