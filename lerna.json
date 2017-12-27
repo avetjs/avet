@@ -20,11 +20,6 @@
         "avet-client",
         "avet-utils"
       ]
-    },
-    "publish": {
-      "ignore": [
-        "bench/*"
-      ]
     }
   },
   "packages": [

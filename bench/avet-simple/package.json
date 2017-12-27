@@ -1,5 +1,5 @@
 {
-  "name": "bench-avet",
+  "name": "bench-avet-simple",
   "version": "1.0.0-16",
   "scripts": {
     "start": "avet-bin build && avet-bin start"
