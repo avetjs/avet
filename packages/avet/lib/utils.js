@@ -1,6 +1,4 @@
-exports.getAverConfiguration = ctx => {
-  const { app } = ctx;
-
+exports.getAverConfiguration = app => {
   return {
     baseDir: app.baseDir,
     appConfig: app.config.app,

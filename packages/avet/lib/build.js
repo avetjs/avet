@@ -1,7 +1,6 @@
 const { createBuild } = require('avet-build');
 const Application = require('./application');
-
-const debug = require('debug')('avet:app-build');
+const { getAverConfiguration } = require('./utils');
 
 module.exports = options => {
   const app = new Application(options);
@@ -13,20 +12,8 @@ module.exports = options => {
     }
 
     const { dir } = app.config.app;
-    const buildConfig = app.config.build;
+    const config = getAverConfiguration(app);
 
-    debug(`build dir is ${dir}`);
-    debug(`build config is ${JSON.stringify(buildConfig, null, 2)}`);
-
-    const projectConfig = app.config.app;
-
-    projectConfig.baseDir = options.baseDir || projectConfig.baseDir;
-    projectConfig.rootDir = options.rootDir || projectConfig.rootDir;
-    projectConfig.buildConfig = app.config.build;
-    projectConfig.appConfig = app.config;
-    projectConfig.extendConfig = app.extends;
-    projectConfig.plugins = app.plugins;
-
-    createBuild(dir, projectConfig);
+    createBuild(dir, config);
   });
 };
