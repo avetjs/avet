@@ -9,15 +9,11 @@ class Loader extends EggLoader {
   constructor(options) {
     super(options);
 
-    this.avetPaths = this.getAvetPaths();
-    debug('Loaded avetPaths %j', this.avetPaths);
-    this.env = this.getEnv();
-    debug('Loaded env %j', this.env);
-
-    this.appInfo = this.getAppInfo();
+    this.eggPaths = this.getEggPaths();
+    debug('Loaded eggPaths %j', this.eggPaths);
   }
 
-  getAvetPaths() {
+  getEggPaths() {
     const AvetCore = require('../avet');
     const avetPaths = [];
 

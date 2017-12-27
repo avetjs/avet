@@ -11,7 +11,7 @@ module.exports = {
    *
    * @method AvetLoader#loadConfig
    */
-  loadAvetConfig() {
+  loadConfig() {
     this.configMeta = {};
 
     const target = {
