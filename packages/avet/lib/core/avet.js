@@ -11,8 +11,8 @@ class Application extends EggApplication {
     this.addPath = moduleAlias.addPath;
   }
 
-  get layoutExtends() {
-    return this.loader ? this.loader.layoutExtends : {};
+  get layouts() {
+    return this.loader ? this.loader.layouts : {};
   }
 }
 

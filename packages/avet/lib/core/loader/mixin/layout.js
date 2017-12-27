@@ -24,7 +24,7 @@ module.exports = {
       }
     }
 
-    this.layoutExtends = ret.layout;
+    this.layouts = ret.layout;
   },
 
   _findExtendFiles(unit) {
