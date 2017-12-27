@@ -1,7 +1,8 @@
 exports.getAverConfiguration = app => {
+  const appConfig = app.config.app;
   return {
-    baseDir: app.baseDir,
-    appConfig: app.config.app,
+    dir: appConfig.dir,
+    appConfig,
     buildConfig: app.config.build,
     layouts: app.layouts,
     plugins: app.plugins,

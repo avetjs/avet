@@ -41,16 +41,11 @@ module.exports = class extends DevCommand {
       argv.baseDir = join(cwd, argv.baseDir);
     }
 
-    if (!isAbsolute(argv.rootDir)) {
-      argv.rootDir = join(argv.baseDir, argv.rootDir);
-    }
-
     argv.port = argv.port || argv.p;
 
     argv.framework = utils.getFrameworkPath({
       framework: argv.framework,
       baseDir: argv.baseDir,
-      rootDir: argv.rootDir,
     });
 
     argv.p = undefined;

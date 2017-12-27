@@ -1,6 +1,6 @@
 const path = require('path');
 
-// Build setting
+// build setting
 exports.build = {
   distDir: '.build',
   assetPrefix: '',
@@ -28,14 +28,17 @@ exports.build = {
   // exportPathMap: await () => {}
 };
 
-// Setting avet
+// project setting
 exports.app = {
-  dir: path.join(process.cwd(), ''),
+  dir: path.join(process.cwd(), 'web'),
   dev: true,
   port: 3000,
   staticMarkup: false,
   quite: false,
-  proxy: null,
   configOrigin: 'default',
   useFileSystemPublicRoutes: true,
+};
+
+exports.core = {
+  name: 'Avet',
 };
