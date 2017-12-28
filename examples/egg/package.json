@@ -11,7 +11,8 @@
   "dependencies": {
     "avet": "^1.0.0-16",
     "avet-antd": "^1.0.0",
-    "egg": "^2.2.0"
+    "egg": "^2.2.0",
+    "eslint-config-avet": "^0.3.10"
   },
   "devDependencies": {
     "avet-bin": "^1.0.0-16"

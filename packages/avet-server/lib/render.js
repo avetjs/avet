@@ -17,7 +17,7 @@ const {
   loadGetInitialProps,
 } = require('avet-utils');
 
-const send = require('send');
+const sendfile = require('./sendfile');
 
 function renderToHTML(ctx, opts) {
   return doRender(ctx, opts);
@@ -101,19 +101,7 @@ function sendJSON(ctx, obj) {
 }
 
 async function serveStatic(ctx, path, options) {
-  await new Promise((resolve, reject) => {
-    send(ctx.req, path, options)
-      .on('error', err => {
-        reject(err);
-      })
-      .on('headers', () => {
-        ctx.status = 200;
-      })
-      .on('end', () => {
-        resolve();
-      })
-      .pipe(ctx.res);
-  });
+  await sendfile(ctx, path, options);
 }
 
 async function doRender(

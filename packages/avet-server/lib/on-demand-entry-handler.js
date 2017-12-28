@@ -213,6 +213,7 @@ module.exports = function onDemandEntryHandler(
 
     middleware() {
       return async function(ctx, next) {
+        console.log('===========');
         if (stopped) {
           // If this handler is stopped, we need to reload the user's browser.
           // So the user could connect to the actually running handler.
@@ -230,8 +231,7 @@ module.exports = function onDemandEntryHandler(
           });
         } else {
           if (!/^\/_app\/on-demand-entries-ping/.test(ctx.url)) {
-            const ret = await next();
-            return ret;
+            return await next();
           }
 
           const page = normalizePage(ctx.request.query.page);

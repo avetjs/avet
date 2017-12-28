@@ -5,7 +5,11 @@
   "scripts": {
     "autod": "autod"
   },
-  "files": ["config", "lib", "index.js"],
+  "files": [
+    "config",
+    "lib",
+    "index.js"
+  ],
   "dependencies": {
     "avet-server": "1.0.0-16",
     "avet-build": "1.0.0-16",
@@ -20,7 +24,7 @@
     "babel-eslint": "^8.0.2",
     "chromedriver": "^2.33.2",
     "eslint": "^4.9.0",
-    "eslint-config-avet": "^0.3.7",
+    "eslint-config-avet": "^0.3.10",
     "wd": "^1.4.1"
   },
   "tnpm": {

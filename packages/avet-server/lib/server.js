@@ -187,10 +187,10 @@ class Server {
         await renderScript(ctx, page, this.renderOpts);
       },
 
-      '/static/:path*': async (ctx, params) => {
-        const p = join(this.dir, 'static', ...(params.path || []));
-        await this.serveStatic(ctx, p);
-      },
+      // '/static/:path*': async (ctx, params) => {
+      //   const p = join(this.dir, 'static', ...(params.path || []));
+      //   await this.serveStatic(ctx, p);
+      // },
     };
 
     if (this.options.appConfig.useFileSystemPublicRoutes) {
@@ -223,9 +223,9 @@ class Server {
   }
 
   async run(ctx, next) {
-    if (this.hotReloader) {
-      await this.hotReloader.run(ctx, next);
-    }
+    // if (this.hotReloader) {
+    //   await this.hotReloader.run(ctx, next);
+    // }
 
     if (ctx.body) {
       return;
@@ -233,8 +233,7 @@ class Server {
 
     const fn = this.router.match(ctx);
     if (fn) {
-      await fn();
-      return;
+      return await fn();
     }
 
     if (ctx.method === 'GET' || ctx.method === 'HEAD') {
