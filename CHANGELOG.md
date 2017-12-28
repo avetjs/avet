@@ -1,11 +1,33 @@
+## v1.0.0-17 (2017-12-28)
+
+#### :rocket: New Feature
+
+* `avet-client`, `avet-server`, `avet-shared`
+  * [#31](https://github.com/avetjs/avet/pull/31) Add HttpClient. ([@okoala](https://github.com/okoala))
+* `avet-bin`, `avet-build`, `avet-client`, `avet-cluster`, `avet-core`, `avet-se rver`, `avet-shared`, `avet`
+  * [#30](https://github.com/avetjs/avet/pull/30) Make avet build to of egg. ([@okoala](https://github.com/okoala))
+
+#### :nail_care: Enhancement
+
+* [#29](https://github.com/avetjs/avet/pull/29) Make bench package publish correctly. ([@okoala](https://github.com/okoala))
+
+#### :kissing_heart: Example
+
+* [#32](https://github.com/avetjs/avet/pull/32) Clean example. ([@okoala](https://github.com/okoala))
+
+* [#16](https://github.com/avetjs/avet/pull/16) Improve example code base. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1- 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-16 (2017-12-18)
 
 #### :bug: Bug Fix
+
 * `avet-core`, `avet-server`
   * [#28](https://github.com/avetjs/avet/pull/28) Use send to fix static cache. ([@okoala](https://github.com/okoala))
-#### :nail_care: Enhancement
+    #### :nail_care: Enhancement
 * [#27](https://github.com/avetjs/avet/pull/27) Add bench code and result. ([@okoala](https://github.com/okoala))
-#### Committers: 1- 仙森 ([okoala](https://github.com/okoala))
+  #### Committers: 1- 仙森 ([okoala](https://github.com/okoala))
 
 ## v1.0.0-15 (2017-12-15)
 
