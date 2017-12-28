@@ -10,6 +10,7 @@ const App = require('avet-shared/lib/app').default;
 const ErrorDebug = require('avet-shared/lib/error-debug').default;
 const { flushChunks } = require('avet-shared/lib/dynamic');
 const xssFilters = require('xss-filters');
+const { getHttpClient } = require('avet-shared/lib/httpclient');
 
 const {
   resolvePath,
@@ -137,6 +138,7 @@ async function doRender(
   const _ctx = {
     ctx,
     asPath,
+    httpclient: getHttpClient(ctx),
     pathname: ctx.path,
     query: ctx.query,
     err,

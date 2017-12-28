@@ -251,8 +251,8 @@ export default class Router {
 
   onlyAHashChange(as) {
     if (!this.asPath) return false;
-    const [oldUrlNoHash] = this.asPath.split('#');
-    const [newUrlNoHash, newHash] = as.split('#');
+    const [ oldUrlNoHash ] = this.asPath.split('#');
+    const [ newUrlNoHash, newHash ] = as.split('#');
 
     // If the urls are change, there's more than a hash change
     if (oldUrlNoHash !== newUrlNoHash) {
@@ -270,7 +270,7 @@ export default class Router {
   }
 
   scrollToHash(as) {
-    const [, hash] = as.split('#');
+    const [ , hash ] = as.split('#');
     const el = document.getElementById(hash);
     if (el) {
       el.scrollIntoView();
@@ -302,7 +302,7 @@ export default class Router {
 
   async fetchComponent(route, as) {
     let cancelled = false;
-    const cancel = (this.componentLoadCancel = function () {
+    const cancel = (this.componentLoadCancel = function() {
       cancelled = true;
     });
 

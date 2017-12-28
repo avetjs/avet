@@ -7,6 +7,7 @@ import App from 'avet-shared/lib/app';
 import { getURL } from 'avet-shared/lib/utils';
 import PageLoader from 'avet-shared/lib/page-loader';
 import { loadGetInitialProps } from 'avet-utils/lib/component';
+import { getHttpClient } from 'avet-shared/lib/httpclient';
 
 // Polyfill Promise globally
 // This is needed because Webpack2's dynamic loading(common chunks) code
@@ -51,9 +52,10 @@ let stripAnsi = s => s;
 
 export const emitter = new EventEmitter();
 
-export default async (
-  { ErrorDebugComponent: passedDebugComponent, stripAnsi: passedStripAnsi } = {}
-) => {
+export default async ({
+  ErrorDebugComponent: passedDebugComponent,
+  stripAnsi: passedStripAnsi,
+} = {}) => {
   // Wait for all the dynamic chunks to get loaded
   for (const chunkName of chunks) {
     await pageLoader.waitForChunk(chunkName);
@@ -151,6 +153,7 @@ async function doRender({
       err,
       pathname,
       query,
+      httpclient: getHttpClient(),
       asPath,
     });
   }
