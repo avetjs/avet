@@ -3,7 +3,7 @@ module.exports = () => {
     const isAppRouter = ctx.router.stack.find(layer => {
       return layer.match(ctx.path);
     });
-    const isStaticRouter = /static/.match(ctx.path);
+    const isStaticRouter = /static/.test(ctx.path);
 
     // if route define in app/router.js or static route
     if (isAppRouter || isStaticRouter) {
