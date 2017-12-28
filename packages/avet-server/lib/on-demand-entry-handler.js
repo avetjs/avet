@@ -213,7 +213,6 @@ module.exports = function onDemandEntryHandler(
 
     middleware() {
       return async function(ctx, next) {
-        console.log('===========');
         if (stopped) {
           // If this handler is stopped, we need to reload the user's browser.
           // So the user could connect to the actually running handler.
