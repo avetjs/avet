@@ -18,29 +18,29 @@ if (!window.Promise) {
 }
 
 const {
-  __AVET_DATA__: { props, err, pathname, query, buildId, chunks, assetPrefix },
+  __APP_DATA__: { props, err, pathname, query, buildId, chunks, assetPrefix },
   location,
 } = window;
 
 const asPath = getURL();
 
 const pageLoader = new PageLoader(buildId, assetPrefix);
-window.__AVET_LOADED_PAGES__.forEach(({ route, fn }) => {
+window.__APP_LOADED_PAGES__.forEach(({ route, fn }) => {
   pageLoader.registerPage(route, fn);
 });
-delete window.__AVET_LOADED_PAGES__;
+delete window.__APP_LOADED_PAGES__;
 
-window.__AVET_LOADED_CHUNKS__.forEach(({ chunkName, fn }) => {
+window.__APP_LOADED_CHUNKS__.forEach(({ chunkName, fn }) => {
   pageLoader.registerChunk(chunkName, fn);
 });
-delete window.__AVET_LOADED_CHUNKS__;
+delete window.__APP_LOADED_CHUNKS__;
 
-window.__AVET_REGISTER_PAGE = pageLoader.registerPage.bind(pageLoader);
-window.__AVET_REGISTER_CHUNK = pageLoader.registerChunk.bind(pageLoader);
+window.__APP_REGISTER_PAGE = pageLoader.registerPage.bind(pageLoader);
+window.__APP_REGISTER_CHUNK = pageLoader.registerChunk.bind(pageLoader);
 
 const headManager = new HeadManager();
-const appContainer = document.getElementById('__avet');
-const errorContainer = document.getElementById('__avet-error');
+const appContainer = document.getElementById('__app');
+const errorContainer = document.getElementById('__app-error');
 
 let lastAppProps;
 export let router;

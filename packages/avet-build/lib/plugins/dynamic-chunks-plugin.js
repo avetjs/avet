@@ -16,7 +16,7 @@ module.exports = class PagesPlugin {
 
         const content = asset.source();
         const newContent = `
-          window.__AVET_REGISTER_CHUNK('${chunkName}', function() {
+          window.__APP_REGISTER_CHUNK('${chunkName}', function() {
             ${content}
           })
         `;

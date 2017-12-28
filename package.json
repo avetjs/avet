@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "lerna bootstrap",
+    "dev": "lerna bootstrap && npm run build",
     "clean": "lerna clean",
     "changelog": "lerna-changelog",
     "build": "lerna run build",

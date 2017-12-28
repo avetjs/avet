@@ -1,19 +1,21 @@
 {
-  "name": "avet-example-simple",
+  "name": "avet-example-egg",
   "version": "1.0.0",
-  "description": "simple example for avet",
+  "description": "this is a avet and egg example",
+  "private": true,
   "scripts": {
+    "start": "NODE_ENV=production EGG_SERVER_ENV=prod node index.js",
     "dev": "avet-bin dev",
     "build": "avet-bin build"
   },
   "dependencies": {
-    "avet": "^1.0.0-9"
+    "avet": "^1.0.0-16",
+    "avet-antd": "^1.0.0",
+    "egg": "^2.2.0",
+    "eslint-config-avet": "^0.3.10"
   },
   "devDependencies": {
-    "avet-bin": "^1.0.0-9",
-    "babel-eslint": "^8.0.2",
-    "eslint": "^4.9.0",
-    "eslint-config-avet": "^0.3.9"
+    "avet-bin": "^1.0.0-16"
   },
   "tnpm": {
     "mode": "npm"

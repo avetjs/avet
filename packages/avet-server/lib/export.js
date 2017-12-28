@@ -7,7 +7,7 @@ const { existsSync, readFileSync, writeFileSync } = require('fs');
 const { renderToHTML } = require('./render');
 const { getAvailableChunks, printAndExit } = require('avet-utils');
 
-module.exports = async function(dir, options) {
+module.exports = async function (dir, options) {
   dir = resolve(dir);
   const avetDir = join(dir, options.distDir);
 
@@ -26,13 +26,13 @@ module.exports = async function(dir, options) {
   // Initialize the output directory
   const outDir = options.outdir;
   await del(join(outDir, '*'));
-  await mkdirp(join(outDir, '_avet', buildStats['app.js'].hash));
-  await mkdirp(join(outDir, '_avet', buildId));
+  await mkdirp(join(outDir, '_app', buildStats['app.js'].hash));
+  await mkdirp(join(outDir, '_app', buildId));
 
   // Copy files
   await cp(
     join(avetDir, 'app.js'),
-    join(outDir, '_avet', buildStats['app.js'].hash, 'app.js')
+    join(outDir, '_app', buildStats['app.js'].hash, 'app.js')
   );
 
   // Copy static directory
@@ -45,10 +45,10 @@ module.exports = async function(dir, options) {
   if (existsSync(join(avetDir, 'chunks'))) {
     log('  copying dynamic import chunks');
 
-    await mkdirp(join(outDir, '_avet', 'webpack'));
+    await mkdirp(join(outDir, '_app', 'webpack'));
     await cp(
       join(avetDir, 'chunks'),
-      join(outDir, '_avet', 'webpack', 'chunks')
+      join(outDir, '_app', 'webpack', 'chunks')
     );
   }
 
@@ -58,7 +58,7 @@ module.exports = async function(dir, options) {
   if (typeof options.buildConfig.exportPathMap !== 'function') {
     printAndExit(
       '> Could not found "exportPathMap" function in config \n' +
-        '> "avet export" uses that function build html pages.'
+      '> "avet export" uses that function build html pages.'
     );
   }
 
@@ -79,7 +79,7 @@ module.exports = async function(dir, options) {
   };
 
   // We need this for server rendering the Link component.
-  global.__AVET_DATA__ = {
+  global.__APP_DATA__ = {
     avetExport: true,
   };
 
@@ -130,7 +130,7 @@ function copyPages(avetDir, outDir, buildId) {
 
       let destFilePath = null;
       if (/index\.js$/.test(filename)) {
-        destFilePath = join(outDir, '_avet', buildId, 'page', relativeFilePath);
+        destFilePath = join(outDir, '_app', buildId, 'page', relativeFilePath);
       } else {
         const newRelativeFilePath = relativeFilePath.replace(
           /\.js/,
@@ -138,7 +138,7 @@ function copyPages(avetDir, outDir, buildId) {
         );
         destFilePath = join(
           outDir,
-          '_avet',
+          '_app',
           buildId,
           'page',
           newRelativeFilePath

@@ -1,4 +1,4 @@
-import webpackHotMiddlewareClient from 'webpack-hot-middleware/client?overlay=false&reload=true&path=/_avet/webpack-hmr';
+import webpackHotMiddlewareClient from 'webpack-hot-middleware/client?overlay=false&reload=true&path=/_app/webpack-hmr';
 import Router from 'avet-shared/lib/router';
 
 export default () => {
@@ -60,7 +60,7 @@ export default () => {
       const data = obj.data || [];
       fn(...data);
     } else {
-      throw new Error(`Unexpected action ${  obj.action}`);
+      throw new Error(`Unexpected action ${obj.action}`);
     }
   });
 };

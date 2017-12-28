@@ -11,14 +11,12 @@ const {
 const clean = require('avet-build/lib/clean');
 const { IS_BUNDLED_PAGE } = require('avet-utils');
 const onDemandEntryHandler = require('./on-demand-entry-handler');
-const co = require('co');
+const compose = require('koa-compose');
 
 module.exports = class HotReloader {
   constructor(options) {
-    this.dir = options.rootDir;
+    this.dir = options.dir;
     this.dist = options.buildConfig.distDir;
-    this.baseDir = options.baseDir;
-    this.rootDir = options.rootDir;
     this.quiet = options.quiet;
     this.middlewares = [];
     this.webpackDevMiddleware = null;
@@ -33,33 +31,22 @@ module.exports = class HotReloader {
 
     this.buildConfig = options.buildConfig;
     this.appConfig = options.appConfig;
-    this.extendConfig = options.extendConfig;
+    this.layouts = options.layouts;
     this.plugins = options.plugins;
   }
 
   async run(ctx, next) {
-    for (const fn of this.middlewares) {
-      await new Promise((resolve, reject) => {
-        co(function*() {
-          yield fn.call(ctx, next);
-          resolve();
-        }).catch(err => {
-          reject(err);
-        });
-      });
-    }
+    await compose(this.middlewares)(ctx, next);
   }
 
   async start() {
     const [ compiler ] = await Promise.all([
       createCompiler(this.dir, {
         dev: true,
-        baseDir: this.baseDir,
-        rootDir: this.rootDir,
         quiet: this.quiet,
         buildConfig: this.buildConfig,
         appConfig: this.appConfig,
-        extendConfig: this.extendConfig,
+        layouts: this.layouts,
         plugins: this.plugins,
       }),
       clean(this.dir, this.dist),
@@ -89,12 +76,10 @@ module.exports = class HotReloader {
     const [ compiler ] = await Promise.all([
       createCompiler(this.dir, {
         dev: true,
-        baseDir: this.baseDir,
-        rootDir: this.rootDir,
         quiet: this.quiet,
         buildConfig: this.buildConfig,
         appConfig: this.appConfig,
-        extendConfig: this.extendConfig,
+        layouts: this.layouts,
         plugins: this.plugins,
       }),
       clean(this.dir, this.dist),
@@ -326,7 +311,7 @@ async function getAppWebpackDevMiddlewareConfig(
 
   if (Array.isArray(webpackDevMiddlewareFnList)) {
     for (const fn of webpackDevMiddlewareFnList) {
-      ret = await fn(ret, webpack, appConfig);
+      ret = await fn(ret, appConfig, webpack);
     }
   }
 
@@ -342,7 +327,7 @@ async function getAppWebpackHotMiddlewareConfig(
 
   if (Array.isArray(webpackHotMiddlewareFnList)) {
     for (const fn of webpackHotMiddlewareFnList) {
-      ret = await fn(ret, webpack, appConfig);
+      ret = await fn(ret, appConfig, webpack);
     }
   }
 

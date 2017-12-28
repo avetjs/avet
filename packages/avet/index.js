@@ -1,19 +1,16 @@
+const egg = require('./lib/core/egg');
+
+module.exports = exports = egg;
+
 /**
  * build avet application
  */
 exports.buildApp = require('./lib/build');
-
 /**
  * Start avet application with cluster mode
  */
-exports.startApp = require('avet-cluster').startCluster;
-
-/**
- * @member {Application} Avet#Application
- */
-exports.Application = require('./lib/avet');
-
-/**
- * @member {Agent} Avet#Agent
- */
+exports.startCluster = require('./lib/start-cluster');
+exports.Application = require('./lib/application');
 exports.Agent = require('./lib/agent');
+exports.AppWorkerLoader = require('./lib/core/loader/app_worker_loader');
+exports.AgentWorkerLoader = require('./lib/core/loader/agent_worker_loader');

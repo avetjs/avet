@@ -13,7 +13,7 @@ class Head extends React.Component {
 }
 
 export function defaultHead() {
-  return [ <meta charSet="utf-8" className="avet-head" /> ];
+  return [ <meta charSet="utf-8" className="app-head" /> ];
 }
 
 function reduceComponents(components) {
@@ -27,7 +27,7 @@ function reduceComponents(components) {
     .filter(unique())
     .reverse()
     .map(c => {
-      const className = `${c.className ? `${c.className} ` : ''}avet-head`;
+      const className = `${c.className ? `${c.className} ` : ''}app-head`;
       return React.cloneElement(c, { className });
     });
 }

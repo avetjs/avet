@@ -17,7 +17,7 @@ const {
   loadGetInitialProps,
 } = require('avet-utils');
 
-const send = require('send');
+const sendfile = require('./sendfile');
 
 function renderToHTML(ctx, opts) {
   return doRender(ctx, opts);
@@ -48,7 +48,7 @@ async function renderScriptError(ctx, page, error, customFields = {}, { dev }) {
   if (error.code === 'ENOENT') {
     ctx.type = 'text/javascript';
     ctx.body = `
-      window.__AVET_REGISTER_PAGE('${page}', function() {
+      window.__APP_REGISTER_PAGE('${page}', function() {
         var error = new Error('Page does not exist: ${page}');
         error.statusCode = 404;
 
@@ -63,7 +63,7 @@ async function renderScriptError(ctx, page, error, customFields = {}, { dev }) {
   const errorJson = Object.assign({}, serializeError(dev, error), customFields);
 
   ctx.body = `
-    window.__AVET_REGISTER_PAGE('${page}', function() {
+    window.__APP_REGISTER_PAGE('${page}', function() {
       var error = ${JSON.stringify(errorJson)};
       return { error: error };
     });
@@ -101,19 +101,7 @@ function sendJSON(ctx, obj) {
 }
 
 async function serveStatic(ctx, path, options) {
-  await new Promise((resolve, reject) => {
-    send(ctx.req, path, options)
-      .on('error', err => {
-        reject(err);
-      })
-      .on('headers', () => {
-        ctx.status = 200;
-      })
-      .on('end', () => {
-        resolve();
-      })
-      .pipe(ctx.res);
-  });
+  await sendfile(ctx, path, options);
 }
 
 async function doRender(
@@ -206,7 +194,7 @@ async function doRender(
     Object.assign(
       {},
       {
-        __AVET_DATA__: {
+        __APP_DATA__: {
           props,
           pathname: ctx.path,
           query: ctx.query,

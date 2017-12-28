@@ -212,9 +212,7 @@ module.exports = function onDemandEntryHandler(
     },
 
     middleware() {
-      return function*(next) {
-        const ctx = this;
-
+      return async function(ctx, next) {
         if (stopped) {
           // If this handler is stopped, we need to reload the user's browser.
           // So the user could connect to the actually running handler.
@@ -231,8 +229,9 @@ module.exports = function onDemandEntryHandler(
             ctx.body = '302';
           });
         } else {
-          if (!/^\/_avet\/on-demand-entries-ping/.test(ctx.url))
-            return yield next;
+          if (!/^\/_app\/on-demand-entries-ping/.test(ctx.url)) {
+            return await next();
+          }
 
           const page = normalizePage(ctx.request.query.page);
           const entryInfo = entries[page];

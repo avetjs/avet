@@ -1,41 +1,64 @@
 const path = require('path');
 
-// Build setting
-exports.build = {
-  distDir: '.avet',
-  assetPrefix: '',
-  webpack: null,
-  webpackDevMiddleware: {
-    publicPath: '/_avet/webpack/',
-    noInfo: true,
-    quiet: true,
-    clientLogLevel: 'warning',
-    watchOptions: {
-      ignored: [
-        /(^|[/\\])\../, // .dotfiles
-        /node_modules/,
-      ],
-    },
-  },
-  webpackHotMiddleware: {
-    path: '/_avet/webpack-hmr',
-    log: false,
-    heartbeat: 2500,
-  },
-  babel: {},
-  onDemandEntries: null,
-  hotReload: true,
-  // exportPathMap: await () => {}
-};
+module.exports = appInfo => {
+  const exports = {};
 
-// Setting avet
-exports.avet = {
-  dir: path.join(process.cwd(), ''),
-  dev: true,
-  port: 3000,
-  staticMarkup: false,
-  quite: false,
-  proxy: null,
-  configOrigin: 'default',
-  useFileSystemPublicRoutes: true,
+  // build setting
+  exports.build = {
+    distDir: '.build',
+    assetPrefix: '',
+    webpack: null,
+    webpackDevMiddleware: {
+      publicPath: '/_app/webpack/',
+      noInfo: true,
+      quiet: true,
+      clientLogLevel: 'warning',
+      watchOptions: {
+        ignored: [
+          /(^|[/\\])\../, // .dotfiles
+          /node_modules/,
+        ],
+      },
+    },
+    webpackHotMiddleware: {
+      path: '/_app/webpack-hmr',
+      log: false,
+      heartbeat: 2500,
+    },
+    babel: {},
+    onDemandEntries: null,
+    hotReload: true,
+    // exportPathMap: await () => {}
+  };
+
+  // project setting
+  exports.app = {
+    dir: path.join(process.cwd(), 'web'),
+    dev: true,
+    port: 3000,
+    staticMarkup: false,
+    quite: false,
+    configOrigin: 'default',
+    useFileSystemPublicRoutes: true,
+  };
+
+  exports.core = {
+    name: 'Avet',
+  };
+
+  exports.coreMiddleware = [
+    'meta',
+    'siteFile',
+    'notfound',
+    'bodyParser',
+    'overrideMethod',
+    'avetServer',
+  ];
+
+  exports.static = {
+    prefix: '/static/',
+    dir: path.join(appInfo.baseDir, 'web/static'),
+  };
+
+  return exports;
 };

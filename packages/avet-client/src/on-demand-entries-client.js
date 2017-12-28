@@ -10,7 +10,7 @@ export default () => {
 
   async function ping() {
     try {
-      const url = `/_avet/on-demand-entries-ping?page=${Router.pathname}`;
+      const url = `/_app/on-demand-entries-ping?page=${Router.pathname}`;
       const res = await fetch(url, {
         credentials: 'same-origin',
       });

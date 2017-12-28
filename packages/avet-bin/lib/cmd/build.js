@@ -26,12 +26,6 @@ class BuildCommand extends Command {
         description: 'directory of application, default to `process.cwd()`',
         type: 'string',
       },
-      rootDir: {
-        description:
-          'directory of application root, a application may have multiple root.',
-        type: 'string',
-        default: './',
-      },
       framework: {
         description:
           'specify framework that can be absolute path or npm package',
@@ -58,7 +52,7 @@ class BuildCommand extends Command {
       const devArgs = this.formatArgs(context);
       const options = {
         execArgv: context.execArgv,
-        env: { NODE_ENV: 'production' },
+        env: { NODE_ENV: 'production', AVET_RUN_ENV: 'build' },
       };
 
       yield this.helper.forkNode(this.buildBin, devArgs, options);
@@ -80,14 +74,9 @@ class BuildCommand extends Command {
       argv.baseDir = join(cwd, argv.baseDir);
     }
 
-    if (!isAbsolute(argv.rootDir)) {
-      argv.rootDir = join(argv.baseDir, argv.rootDir);
-    }
-
     argv.framework = utils.getFrameworkPath({
       framework: argv.framework,
       baseDir: argv.baseDir,
-      rootDir: argv.rootDir,
     });
 
     argv.p = undefined;

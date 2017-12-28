@@ -1,8 +1,8 @@
 // this is a prod env
 exports.build = {
-  distDir: 'asset-prod'
-}
+  distDir: 'asset-prod',
+};
 
-exports.avet = {
-  dev: false
-}
+exports.app = {
+  dev: false,
+};
