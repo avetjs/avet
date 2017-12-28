@@ -1,3 +1,3 @@
-# egg & avet
+# avet
 
 ## QuickStart

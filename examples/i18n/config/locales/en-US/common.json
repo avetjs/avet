@@ -1,5 +1,0 @@
-{
-  "integrates_i18n": "this sample integrates i18n for simple internationalization.",
-  "pureComponent": "You can either pass t function to child components.",
-  "extendedComponent": "Or wrap your component using the translate hoc provided by avet-i18n."
-}
