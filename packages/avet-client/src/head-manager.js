@@ -31,7 +31,7 @@ export default class HeadManager {
 
     this.updateTitle(tags.title ? tags.title[0] : null);
 
-    const types = ['meta', 'base', 'link', 'style', 'script'];
+    const types = [ 'meta', 'base', 'link', 'style', 'script' ];
     types.forEach(type => {
       this.updateElements(type, tags[type] || []);
     });
