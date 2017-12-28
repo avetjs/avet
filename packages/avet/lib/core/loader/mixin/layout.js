@@ -28,7 +28,6 @@ module.exports = {
   },
 
   _findLayoutFiles(unit) {
-    let ret = {};
     const layoutPath = path.join(unit.path, 'output/extend/layout.cjs.js');
     const layoutModulePath = path.join(
       unit.modulePath,
@@ -36,13 +35,13 @@ module.exports = {
     );
 
     if (existsSync(layoutPath)) {
-      ret = {
+      return {
         packageName: unit.packageName,
         path: layoutPath,
         relativePath: this.getModuleRelativePath(layoutModulePath),
       };
     }
 
-    return ret;
+    return null;
   },
 };

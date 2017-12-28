@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { loadFile } = require('egg-core').utils;
+// const { loadFile } = require('egg-core').utils;
 
 const debug = require('debug')('avet-core:loader:plugin');
 
@@ -52,7 +52,7 @@ module.exports = {
     debug('Loaded app plugins: %j', Object.keys(appPlugins));
 
     // loader plugins from framework
-    const avetPluginConfigPaths = this.avetPaths.map(avetPath =>
+    const avetPluginConfigPaths = this.eggPaths.map(avetPath =>
       path.join(avetPath, 'config/plugin.default.js')
     );
     const avetPlugins = this.readPluginConfigs(avetPluginConfigPaths);
@@ -205,8 +205,8 @@ module.exports = {
     lookupDirs.push(path.join(this.options.baseDir, 'node_modules'));
 
     // 到 avet 中查找，优先从外往里查找
-    for (let i = this.avetPaths.length - 1; i >= 0; i--) {
-      const avetPath = this.avetPaths[i];
+    for (let i = this.eggPaths.length - 1; i >= 0; i--) {
+      const avetPath = this.eggPaths[i];
       lookupDirs.push(path.join(avetPath, 'node_modules'));
     }
 

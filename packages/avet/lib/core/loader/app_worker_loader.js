@@ -2,6 +2,11 @@ const { AppWorkerLoader } = require('../egg');
 const createLoader = require('./create_loader');
 
 class AvetAppWorkerLoader extends createLoader(AppWorkerLoader) {
+  loadConfig() {
+    this.loadPlugin();
+    super.loadConfig();
+  }
+
   load() {
     // app > plugin > core
     this.loadApplicationExtend();
