@@ -9,6 +9,7 @@ exports.buildApp = require('./lib/build');
 /**
  * Start avet application with cluster mode
  */
+exports.startCluster = require('./lib/start-cluster');
 exports.Application = require('./lib/application');
 exports.Agent = require('./lib/agent');
 exports.AppWorkerLoader = require('./lib/core/loader/app_worker_loader');

@@ -28,9 +28,9 @@ class Server {
     this.dev = options.dev;
 
     if (this.dev) {
-      // require('source-map-support').install({
-      //   hookRequire: true,
-      // });
+      require('source-map-support').install({
+        hookRequire: true,
+      });
     }
 
     this.dir = options.dir;

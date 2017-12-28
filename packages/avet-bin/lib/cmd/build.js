@@ -52,7 +52,7 @@ class BuildCommand extends Command {
       const devArgs = this.formatArgs(context);
       const options = {
         execArgv: context.execArgv,
-        env: { NODE_ENV: 'production' },
+        env: { NODE_ENV: 'production', AVET_RUN_ENV: 'build' },
       };
 
       yield this.helper.forkNode(this.buildBin, devArgs, options);
