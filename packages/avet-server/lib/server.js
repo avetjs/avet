@@ -223,9 +223,9 @@ class Server {
   }
 
   async run(ctx, next) {
-    // if (this.hotReloader) {
-    //   await this.hotReloader.run(ctx, next);
-    // }
+    if (this.hotReloader) {
+      await this.hotReloader.run(ctx, next);
+    }
 
     if (ctx.body) {
       return;
