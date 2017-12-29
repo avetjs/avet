@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ToDoList /> renders the entire list of items 1`] = `
+<div
+  class="todo-list"
+>
+  <div
+    class="item"
+  >
+    <span
+      class="item-mark"
+    >
+      •
+    </span>
+    <span
+      class="item-title"
+    />
+    <a
+      class="item-button"
+    >
+      Mark as Complete
+    </a>
+  </div>
+  <div
+    class="item"
+  >
+    <span
+      class="item-mark"
+    >
+      •
+    </span>
+    <span
+      class="item-title"
+    />
+    <a
+      class="item-button"
+    >
+      Mark as Complete
+    </a>
+  </div>
+</div>
+`;
