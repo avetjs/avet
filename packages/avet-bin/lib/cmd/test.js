@@ -16,25 +16,17 @@ class AvetTestCommand extends TestCommand {
       },
     };
 
-    const commonConfig = {
+    this.jestDefaultConfig = {
       moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx', 'json', 'md' ],
       transform: {
         '^.+\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
         '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
       },
-      testPathIgnorePatterns: [ '/node_modules/' ],
+      testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
+      testPathIgnorePatterns: [ '/node_modules/', 'node' ],
       setupFiles: [ join(__dirname, '../test.setup.js') ],
       snapshotSerializers: [ 'enzyme-to-json/serializer' ],
     };
-
-    this.jestJSDomConfig = Object.assign({}, commonConfig, {
-      testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
-    });
-
-    this.jestNodeConfig = Object.assign({}, commonConfig, {
-      testRegex: '(/^test/.*\\.(test|spec))\\.(ts|tsx|js)$',
-      testEnvironment: 'node',
-    });
   }
 
   *run(context) {
@@ -43,22 +35,14 @@ class AvetTestCommand extends TestCommand {
       env: Object.assign({ NODE_ENV: 'test' }, context.env),
     };
 
-    const pkg = require(join(context.cwd, 'package.json'));
     const binFile = require.resolve('jest-cli/bin/jest.js');
-
-    const jsDomConfig = extend2(true, this.jestJSDomConfig, pkg.jest);
-    const testJSDomArgs = this.formatTestArgs(context, jsDomConfig);
-
-    const nodeConfig = extend2(true, this.jestNodeConfig, pkg.jest);
-    const testNodeArgs = this.formatTestArgs(context, nodeConfig);
-
-    // run web test
-    yield this.helper.forkNode(binFile, testJSDomArgs, opts);
-    // run app test
-    yield this.helper.forkNode(binFile, testNodeArgs, opts);
+    const testArgs = this.formatTestArgs(context);
+    yield this.helper.forkNode(binFile, testArgs, opts);
   }
 
-  formatTestArgs({ argv, cwd }, jestConfig) {
+  formatTestArgs({ argv, cwd }) {
+    const pkg = require(join(cwd, 'package.json'));
+    const jestConfig = extend2(true, this.jestDefaultConfig, pkg.jest);
     const testArgv = Object.assign({}, argv);
 
     testArgv.config = JSON.stringify(jestConfig);
