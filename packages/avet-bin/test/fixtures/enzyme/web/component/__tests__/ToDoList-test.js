@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'enzyme';
 import ToDoList from '../ToDoList';
-import ToDoItem from '../ToDoItem';
 
 function mockItem() {
   return [
@@ -21,7 +20,7 @@ function mockItem() {
 describe('<ToDoList />', () => {
   it('renders the entire list of items', () => {
     const items = [ mockItem(), mockItem() /* , ... */];
-    const wrapper = shallow(<ToDoList items={items} />);
-    expect(wrapper.find(ToDoItem)).toHaveLength(items.length);
+    const wrapper = render(<ToDoList items={items} />);
+    expect(wrapper).toMatchSnapshot();
   });
 });
