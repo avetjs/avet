@@ -23,6 +23,7 @@ class AvetTestCommand extends TestCommand {
         '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
       },
       testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
+      setupFiles: [ join(__dirname, '../test.setup.js') ],
     };
   }
 
@@ -34,12 +35,11 @@ class AvetTestCommand extends TestCommand {
 
     const binFile = require.resolve('jest-cli/bin/jest.js');
     const testArgs = this.formatTestArgs(context);
-
     yield this.helper.forkNode(binFile, testArgs, opts);
   }
 
   formatTestArgs({ argv, cwd }) {
-    const pkg = require(join(context.cwd, 'package.json'));
+    const pkg = require(join(cwd, 'package.json'));
     const jestConfig = extend2(true, this.jestDefaultConfig, pkg.jest);
     const testArgv = Object.assign({}, argv);
 
