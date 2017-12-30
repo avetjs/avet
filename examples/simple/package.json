@@ -5,8 +5,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production EGG_SERVER_ENV=prod node index.js",
-    "dev": "avet-bin dev",
-    "build": "avet-bin build"
+    "dev": "avet-bin dev"
   },
   "dependencies": {
     "avet": "1.0.0-17",
