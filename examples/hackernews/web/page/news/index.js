@@ -4,7 +4,7 @@ import NewsItem from '../../component/news-item';
 
 export default class NewsIndex extends React.Component {
   static async getInitialProps({ httpclient, query }) {
-    return (await httpclient.get('/api/getNewsList', query)).data;
+    return (await httpclient.get('/api/getNewsList', { params: query })).data;
   }
 
   render() {
@@ -18,11 +18,8 @@ export default class NewsIndex extends React.Component {
           })}
 
           <div className="nav">
-            {page > 1 ? (
-              <a href={`/news?page=${page - 1}`}>&lt; prev</a>
-            ) : (
-              <a href={`/news?page=${page + 1}`}>more...</a>
-            )}
+            {page > 1 && <a href={`/news?page=${page - 1}`}>&lt; prev</a>}
+            <a href={`/news?page=${page + 1}`}>more...</a>
           </div>
           <style jsx>{`
             .news-view {

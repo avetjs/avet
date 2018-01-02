@@ -42,3 +42,5 @@ bench/**/.isomorphic
 .stats.json
 .build
 .dist
+
+logs

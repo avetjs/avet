@@ -5,16 +5,16 @@ import { relativeTime } from '../../service/util';
 
 export default class Detail extends React.Component {
   static async getInitialProps({ httpclient, query }) {
-    return (await httpclient.get('/api/getNewsDetail', query)).data;
+    return (await httpclient.get('/api/getNewsDetail', { params: query })).data;
   }
 
   render() {
-    const { comments } = this.props;
+    const { comments, item } = this.props;
 
     return (
       <Layout>
         <div className="item-view view v-transition">
-          <NewsItem />
+          <NewsItem {...item} />
           {comments.length ? (
             <ul className="comments">
               {comments.map(comment => {
@@ -25,7 +25,14 @@ export default class Detail extends React.Component {
                       <a href={`/news/user/${comment.by}`}>{comment.by}</a>
                       {relativeTime(comment.time)}
                     </div>
-                    <div className="comment-content">{comment.text}</div>
+                    <div
+                      className="comment-content"
+                      dangerouslySetInnerHTML={{
+                        __html: `
+                          ${comment.text}
+                        `,
+                      }}
+                    />
                   </li>
                 );
               })}

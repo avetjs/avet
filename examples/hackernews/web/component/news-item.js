@@ -11,11 +11,11 @@ export default ({ id, index, url, title, score, time, by, descendants }) => (
     </p>
     <p className="subtext">
       <span>
-        {score} points by <a href={`/news/user/${by}`}>{by}</a>
+        {score} points by <a href={`/news/user?id=${by}`}>{by}</a>
       </span>
       {relativeTime(time)}
       <span className="comments-link">
-        | <a href={`/news/item/${id}`}>{descendants} comments</a>
+        | <a href={`/news/detail?id=${id}`}>{descendants} comments</a>
       </span>
     </p>
     <style jsx>{`

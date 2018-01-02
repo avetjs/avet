@@ -34,6 +34,7 @@ class NewsController extends Controller {
   async user() {
     const { ctx } = this;
     const { id } = ctx.query;
+    console.log('====', ctx.query);
     const userInfo = await ctx.service.hackerNews.getUser(id);
     ctx.body = { user: userInfo };
   }

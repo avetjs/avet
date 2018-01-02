@@ -4,7 +4,7 @@ import { relativeTime } from '../../service/util';
 
 export default class User extends React.Component {
   static async getInitialProps({ httpclient, query }) {
-    return (await httpclient.get('/api/getNewsUser', query)).data;
+    return (await httpclient.get('/api/getNewsUser', { params: query })).data;
   }
 
   render() {
@@ -26,7 +26,14 @@ export default class User extends React.Component {
             </li>
             <li>
               <span className="label">about:</span>
-              <div className="about">{user.about}</div>
+              <div
+                className="about"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  ${user.about}
+                `,
+                }}
+              />
             </li>
           </ul>
           <p className="links">
