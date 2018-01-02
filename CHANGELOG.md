@@ -1,3 +1,19 @@
+## v1.0.0-18 (2018-01-02)
+
+#### :rocket: New Feature
+
+* `avet-bin`
+  * [#34](https://github.com/avetjs/avet/pull/34) Test settings imporve. ([@okoala](https://github.com/okoala))
+  * [#33](https://github.com/avetjs/avet/pull/33) Add avet-bin jest test. ([@okoala](https://github.com/okoala))
+
+#### :kissing_heart: Example
+
+* [#35](https://github.com/avetjs/avet/pull/35) Add hacker news example. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-17 (2017-12-28)
 
 #### :rocket: New Feature
