@@ -1,6 +1,6 @@
 {
   "name": "avet-bin",
-  "version": "1.0.0-17",
+  "version": "1.0.0-18",
   "description": "avet developer tool",
   "main": "index.js",
   "bin": {
@@ -17,7 +17,7 @@
     "@types/node": "^8.5.2",
     "@types/react-addons-test-utils": "^0.14.20",
     "@types/react-test-renderer": "^16.0.0",
-    "avet-utils": "1.0.0-17",
+    "avet-utils": "1.0.0-18",
     "babel-jest": "^22.0.4",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015-rollup": "^3.0.0",

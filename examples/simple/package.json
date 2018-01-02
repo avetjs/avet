@@ -1,6 +1,6 @@
 {
   "name": "avet-example-simple",
-  "version": "1.0.0-17",
+  "version": "1.0.0-18",
   "description": "this is a avet example",
   "private": true,
   "scripts": {
@@ -8,11 +8,11 @@
     "dev": "avet-bin dev"
   },
   "dependencies": {
-    "avet": "1.0.0-17",
+    "avet": "1.0.0-18",
     "eslint-config-avet": "^0.3.10"
   },
   "devDependencies": {
-    "avet-bin": "1.0.0-17"
+    "avet-bin": "1.0.0-18"
   },
   "tnpm": {
     "mode": "npm"
