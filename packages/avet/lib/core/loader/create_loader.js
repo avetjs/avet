@@ -20,6 +20,7 @@ module.exports = Loader => {
             path: plugin.path,
             modulePath: plugin.modulePath,
             type: 'plugin',
+            isAvetPlugin: plugin.isAvetPlugin,
           });
         }
       }
@@ -37,6 +38,12 @@ module.exports = Loader => {
       });
 
       return dirs;
+    }
+
+    getModuleRelativePath(modulePath) {
+      return path
+        .relative(this.options.baseDir, modulePath)
+        .replace('node_modules/', '');
     }
   }
 

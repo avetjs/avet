@@ -8,13 +8,8 @@ const relative = require('relative');
 const writeFile = promisify(fs.writeFile);
 const rimraf = promisify(require('rimraf'));
 
-module.exports = async function(appConfig, layouts) {
-  const config = Object.assign({}, appConfig);
-
+module.exports = async function(config, layouts) {
   // delete private config
-  delete config.build;
-  delete config.app;
-
   await createLayout(config, layouts);
 };
 
