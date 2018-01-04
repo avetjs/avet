@@ -1,3 +1,14 @@
+## v1.0.0-21 (2018-01-04)
+
+#### :bug: Bug Fix
+
+* `avet-build`, `avet-server`, `avet`
+  * [#40](https://github.com/avetjs/avet/pull/40) Fix missing avetPluginConfig inject. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-20 (2018-01-04)
 
 #### :rocket: New Feature
