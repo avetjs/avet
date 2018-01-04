@@ -24,6 +24,7 @@ module.exports = async function createCompiler(
   dir,
   {
     dev = false,
+    avetPluginConfig = {},
     buildConfig = {},
     appConfig = {},
     layouts = {},
@@ -32,7 +33,7 @@ module.exports = async function createCompiler(
 ) {
   dir = dir.replace(/\/$/i, '');
 
-  await generateLayout(appConfig, layouts);
+  await generateLayout(avetPluginConfig, layouts);
 
   const pluginNodeBabelAlias = getPluginNodeBabelAlias(plugins);
   const pluginModuleBabelAlias = getPluginModuleBabelAlias(plugins);

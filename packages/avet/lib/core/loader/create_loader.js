@@ -20,6 +20,7 @@ module.exports = Loader => {
             path: plugin.path,
             modulePath: plugin.modulePath,
             type: 'plugin',
+            isAvetPlugin: plugin.isAvetPlugin,
           });
         }
       }

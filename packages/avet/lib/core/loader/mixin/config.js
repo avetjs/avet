@@ -27,6 +27,8 @@ module.exports = {
       },
     };
 
+    const avetPluginConfig = {};
+
     const _babelFnList = [];
 
     // Load Application config first
@@ -82,6 +84,10 @@ module.exports = {
         }
 
         debug('Loaded config %s/%s, %j', unit.path, filename, config);
+
+        if (unit.isAvetPlugin) {
+          extend(true, avetPluginConfig, config);
+        }
         extend(true, target, config);
       }
     }
@@ -100,5 +106,6 @@ module.exports = {
     target.appMiddleware = target.appMiddlewares = target.middleware || [];
 
     this.config = target;
+    this.avetPluginConfig = avetPluginConfig;
   },
 };

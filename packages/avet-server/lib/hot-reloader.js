@@ -33,6 +33,7 @@ module.exports = class HotReloader {
     this.appConfig = options.appConfig;
     this.layouts = options.layouts;
     this.plugins = options.plugins;
+    this.avetPluginConfig = options.avetPluginConfig;
   }
 
   async run(ctx, next) {
@@ -44,6 +45,7 @@ module.exports = class HotReloader {
       createCompiler(this.dir, {
         dev: true,
         quiet: this.quiet,
+        avetPluginConfig: this.avetPluginConfig,
         buildConfig: this.buildConfig,
         appConfig: this.appConfig,
         layouts: this.layouts,
@@ -77,6 +79,7 @@ module.exports = class HotReloader {
       createCompiler(this.dir, {
         dev: true,
         quiet: this.quiet,
+        avetPluginConfig: this.avetPluginConfig,
         buildConfig: this.buildConfig,
         appConfig: this.appConfig,
         layouts: this.layouts,

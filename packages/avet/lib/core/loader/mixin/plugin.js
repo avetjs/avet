@@ -153,7 +153,13 @@ module.exports = {
     const pluginPackage = path.join(plugin.path, 'package.json');
     if (fs.existsSync(pluginPackage)) {
       pkg = require(pluginPackage);
-      config = pkg.avetPlugin || pkg.eggPlugin;
+      if (pkg.avetPlugin) {
+        pkg.avetPlugin.isAvetPlugin = true;
+        config = pkg.avetPlugin;
+      } else {
+        config = pkg.eggPlugin;
+      }
+
       if (pkg.version) {
         plugin.version = pkg.version;
       }
@@ -184,6 +190,8 @@ module.exports = {
         plugin[key] = config[key];
       }
     }
+
+    plugin.isAvetPlugin = config.isAvetPlugin;
   },
 
   // Get the real plugin path

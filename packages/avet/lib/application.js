@@ -39,6 +39,10 @@ class Application extends EggApplication {
     return this.loader ? this.loader.layouts : {};
   }
 
+  get avetPluginConfig() {
+    return this.loader ? this.loader.avetPluginConfig : {};
+  }
+
   get [EGG_LOADER]() {
     return AppWorkerLoader;
   }
