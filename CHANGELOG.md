@@ -1,3 +1,14 @@
+## v1.0.0-20 (2018-01-04)
+
+#### :rocket: New Feature
+
+* `avet`
+  * [#39](https://github.com/avetjs/avet/pull/39) Use process.env.**EGG_FRAMEWORK_PATH** to load framework. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-19 (2018-01-04)
 
 #### :bug: Bug Fix
