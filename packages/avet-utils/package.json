@@ -1,7 +1,7 @@
 {
   "name": "avet-utils",
   "description": "Avet utils for all avet projects",
-  "version": "1.0.0-20",
+  "version": "1.0.0-21",
   "scripts": {
     "dev": "taskr dev",
     "build": "taskr release"

@@ -1,7 +1,7 @@
 {
   "name": "avet-shared",
   "description": "avet shared code",
-  "version": "1.0.0-20",
+  "version": "1.0.0-21",
   "scripts": {
     "dev": "taskr dev",
     "build": "taskr release",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "ansi-html": "^0.0.7",
-    "avet-utils": "1.0.0-20",
+    "avet-utils": "1.0.0-21",
     "axios": "^0.17.1",
     "htmlescape": "^1.1.1",
     "http-status": "^1.0.1",
