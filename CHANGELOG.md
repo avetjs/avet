@@ -1,3 +1,19 @@
+## v1.0.0-19 (2018-01-04)
+
+#### :bug: Bug Fix
+
+* `avet-test`, `avet`
+  * [#37](https://github.com/avetjs/avet/pull/37) Npm publish need includeapp folder. ([@okoala](https://github.com/okoala))
+
+#### :nail_care: Enhancement
+
+* `avet`
+  * [#38](https://github.com/avetjs/avet/pull/38) Add index.d.ts. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-18 (2018-01-02)
 
 #### :rocket: New Feature
