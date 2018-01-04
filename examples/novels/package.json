@@ -1,0 +1,31 @@
+{
+  "name": "avet-example-novels",
+  "version": "1.0.0-18",
+  "description": "novels examples for avet",
+  "scripts": {
+    "dev": "npm run tsc:watch && avet-bin dev",
+    "test": "avet-bin test",
+    "tsc": "tsc",
+    "tsc:watch": "tsc -w",
+    "tsc:clean":
+      "rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map}"
+  },
+  "dependencies": {
+    "avet": "1.0.0-18",
+    "avet-typescript": "^1.2.0",
+    "moment": "^2.19.2"
+  },
+  "devDependencies": {
+    "@types/moment": "^2.13.0",
+    "@types/react": "^16.0.25",
+    "@types/react-dom": "^16.0.3",
+    "avet-bin": "1.0.0-18",
+    "egg-mock": "^3.13.1",
+    "eslint": "^4.12.0",
+    "eslint-config-avet": "^0.3.10"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "ts": {}
+}
