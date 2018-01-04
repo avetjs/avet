@@ -5,11 +5,7 @@
   "scripts": {
     "autod": "autod"
   },
-  "files": [
-    "config",
-    "lib",
-    "index.js"
-  ],
+  "files": ["app", "config", "lib", "index.js"],
   "dependencies": {
     "avet-assets": "^0.1.3",
     "avet-build": "1.0.0-18",
