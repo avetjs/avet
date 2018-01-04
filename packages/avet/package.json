@@ -5,15 +5,24 @@
   "scripts": {
     "autod": "autod"
   },
-  "files": ["app", "config", "lib", "index.js"],
+  "files": [
+    "app",
+    "config",
+    "lib",
+    "index.js"
+  ],
   "dependencies": {
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
     "avet-assets": "^0.1.3",
     "avet-build": "1.0.0-18",
     "avet-server": "1.0.0-18",
     "avet-styled-jsx": "^0.2.1",
     "avet-utils": "1.0.0-18",
     "egg": "^2.2.0",
-    "module-alias": "^2.0.3"
+    "module-alias": "^2.0.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "autod": "^2.10.1",
