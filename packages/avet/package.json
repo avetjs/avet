@@ -1,6 +1,6 @@
 {
   "name": "avet",
-  "version": "1.0.0-19",
+  "version": "1.0.0-20",
   "description": "a graceful framework for build web",
   "scripts": {
     "autod": "autod"
@@ -15,10 +15,10 @@
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
     "avet-assets": "^0.1.3",
-    "avet-build": "1.0.0-19",
-    "avet-server": "1.0.0-19",
+    "avet-build": "1.0.0-20",
+    "avet-server": "1.0.0-20",
     "avet-styled-jsx": "^0.2.1",
-    "avet-utils": "1.0.0-19",
+    "avet-utils": "1.0.0-20",
     "egg": "^2.2.0",
     "module-alias": "^2.0.3",
     "react": "^16.2.0",
