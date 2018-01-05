@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
-    "babel-jest": "^22.0.4",
-    "jsdom": "^11.5.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "babel-jest": "22.0.4",
+    "jsdom": "11.5.1",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
     "ts-jest": "22.0.0"
   }
 }
