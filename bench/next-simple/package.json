@@ -5,7 +5,7 @@
     "start": "NODE_ENV=production next build && NODE_ENV=production next start"
   },
   "dependencies": {
-    "next": "4.3.0-canary.1",
+    "next": "5.0.0-zones.1",
     "react": "16.2.0",
     "react-dom": "16.2.0"
   }
