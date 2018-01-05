@@ -16,7 +16,7 @@
     "bench": "loadtest -c 10 -n 50 http://127.0.0.1:3000"
   },
   "devDependencies": {
-    "antd": "2.13.11",
+    "antd": "3.1.0",
     "babel-eslint": "8.1.2",
     "babel-plugin-import": "1.6.3",
     "babel-plugin-transform-runtime": "6.23.0",
