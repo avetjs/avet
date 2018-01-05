@@ -1,3 +1,15 @@
+## v1.0.0-22 (2018-01-05)
+
+#### :bug: Bug Fix
+
+* `avet-bin`
+  * [#57](https://github.com/avetjs/avet/pull/57) Add EGG_SERVER_ENV when run build. ([@okoala](https://github.com/okoala))
+
+#### Committers: 2
+
+* [renovate[bot]](https://github.com/apps/renovate)
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-21 (2018-01-04)
 
 #### :bug: Bug Fix
