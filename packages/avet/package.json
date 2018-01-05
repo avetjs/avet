@@ -25,7 +25,7 @@
     "react-dom": "16.2.0"
   },
   "devDependencies": {
-    "autod": "2.10.1",
+    "autod": "3.0.1",
     "babel-eslint": "8.1.2",
     "chromedriver": "2.34.1",
     "eslint": "4.14.0",
