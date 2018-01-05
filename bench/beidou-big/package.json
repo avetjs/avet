@@ -6,7 +6,7 @@
   },
   "author": "",
   "devDependencies": {
-    "babel-eslint": "7.2.3",
+    "babel-eslint": "8.1.2",
     "babel-loader": "7.1.2",
     "css-loader": "0.28.7",
     "eslint": "4.14.0",
