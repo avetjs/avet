@@ -39,7 +39,7 @@
     "mz": "^2.7.0",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.2.0",
-    "rollup": "^0.50.0",
+    "rollup": "^0.53.0",
     "rollup-plugin-babel": "^3.0.2",
     "source-map-support": "^0.5.0",
     "ts-jest": "^22.0.0"
