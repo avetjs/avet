@@ -1,13 +1,13 @@
 {
   "name": "avet-example-hackernews",
-  "version": "1.0.0-21",
+  "version": "1.0.0-22",
   "description": "hackernews showcase using async/await for avet",
   "dependencies": {
-    "avet": "1.0.0-21",
+    "avet": "1.0.0-22",
     "moment": "2.20.1"
   },
   "devDependencies": {
-    "avet-bin": "1.0.0-21",
+    "avet-bin": "1.0.0-22",
     "egg-mock": "3.14.0",
     "eslint": "4.14.0",
     "eslint-config-avet": "0.3.11",

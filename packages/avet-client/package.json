@@ -1,14 +1,14 @@
 {
   "name": "avet-client",
   "description": "avet client",
-  "version": "1.0.0-21",
+  "version": "1.0.0-22",
   "scripts": {
     "dev": "taskr dev",
     "build": "taskr release"
   },
   "dependencies": {
-    "avet-shared": "1.0.0-21",
-    "avet-utils": "1.0.0-21",
+    "avet-shared": "1.0.0-22",
+    "avet-utils": "1.0.0-22",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-hot-loader": "3.1.3",

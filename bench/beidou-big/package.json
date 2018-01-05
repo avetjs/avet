@@ -1,6 +1,6 @@
 {
   "name": "bench-beidou-big",
-  "version": "1.0.0-21",
+  "version": "1.0.0-22",
   "scripts": {
     "start": "beidou-build && node ./bin/server.js"
   },
