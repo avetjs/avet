@@ -9,7 +9,7 @@
   "devDependencies": {
     "avet-bin": "1.0.0-22",
     "egg-mock": "3.14.0",
-    "eslint": "4.14.0",
+    "eslint": "4.15.0",
     "eslint-config-avet": "0.3.11",
     "react": "16.2.0",
     "react-dom": "16.2.0",
