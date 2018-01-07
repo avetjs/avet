@@ -30,7 +30,7 @@
     "bisheng-plugin-toc": "0.4.4",
     "cross-env": "5.1.3",
     "css-split-webpack-plugin": "0.2.5",
-    "eslint": "4.14.0",
+    "eslint": "4.15.0",
     "eslint-config-avet": "0.3.11",
     "lerna": "2.5.1",
     "lerna-changelog": "0.7.0",
