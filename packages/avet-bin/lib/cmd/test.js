@@ -19,13 +19,13 @@ class AvetTestCommand extends TestCommand {
     this.jestDefaultConfig = {
       moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx', 'json', 'md' ],
       transform: {
-        '^.+\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
-        '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
+        '^.+\\.(ts|tsx)$': require.resolve('ts-jest/preprocessor.js'),
+        '^.+\\.js$': require.resolve('babel-jest'),
       },
       testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
       testPathIgnorePatterns: [ '/node_modules/', 'node' ],
       setupFiles: [ join(__dirname, '../test.setup.js') ],
-      snapshotSerializers: [ 'enzyme-to-json/serializer' ],
+      snapshotSerializers: [ require.resolve('enzyme-to-json/serializer') ],
     };
   }
 
