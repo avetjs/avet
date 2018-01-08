@@ -15,6 +15,8 @@
     "bench": "loadtest -c 10 -n 50 http://127.0.0.1:3000"
   },
   "devDependencies": {
+    "@types/jest": "^22.0.1",
+    "@types/node": "^8.5.7",
     "antd": "^3.1.0",
     "babel-eslint": "^8.1.2",
     "babel-plugin-import": "^1.6.3",
@@ -29,6 +31,7 @@
     "bisheng-plugin-toc": "^0.4.4",
     "cross-env": "^5.1.3",
     "css-split-webpack-plugin": "^0.2.5",
+    "egg-mock": "^3.14.0",
     "eslint": "^4.15.0",
     "eslint-config-avet": "^0.3.11",
     "lerna": "^2.5.1",
