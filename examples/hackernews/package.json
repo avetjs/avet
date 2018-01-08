@@ -4,16 +4,16 @@
   "description": "hackernews showcase using async/await for avet",
   "dependencies": {
     "avet": "1.0.0-22",
-    "moment": "2.20.1"
+    "moment": "^2.20.1"
   },
   "devDependencies": {
     "avet-bin": "1.0.0-22",
-    "egg-mock": "3.14.0",
-    "eslint": "4.15.0",
-    "eslint-config-avet": "0.3.11",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
-    "styled-jsx": "2.2.1"
+    "egg-mock": "^3.14.0",
+    "eslint": "^4.15.0",
+    "eslint-config-avet": "^0.3.11",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "styled-jsx": "^2.2.1"
   },
   "engines": {
     "node": ">=8.9.0"

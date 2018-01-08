@@ -45,12 +45,12 @@
     "ts-jest": "^22.0.0"
   },
   "devDependencies": {
-    "autod": "3.0.1",
-    "babel-eslint": "8.1.2",
-    "eslint": "4.15.0",
-    "eslint-config-avet": "0.3.11",
-    "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "autod": "^3.0.1",
+    "babel-eslint": "^8.1.2",
+    "eslint": "^4.15.0",
+    "eslint-config-avet": "^0.3.11",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "tnpm": {
     "mode": "npm"
