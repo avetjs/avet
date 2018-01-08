@@ -9,6 +9,7 @@ if (typeof window !== 'undefined') {
     '<!doctype html><html><body><div id="root"></div></body></html>';
   global.document = new JSDOM(documentHTML);
   global.window = document.parentWindow;
+  global.navigator = global.window.navigator;
 
   global.window.resizeTo = (width, height) => {
     global.window.innerWidth = width || global.window.innerWidth;

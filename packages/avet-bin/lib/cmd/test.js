@@ -24,6 +24,7 @@ class AvetTestCommand extends TestCommand {
       },
       testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
       testPathIgnorePatterns: [ '/node_modules/', 'node' ],
+      testURL: 'http://localhost',
       setupFiles: [ join(__dirname, '../test.setup.js') ],
       snapshotSerializers: [ require.resolve('enzyme-to-json/serializer') ],
     };

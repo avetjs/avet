@@ -46,14 +46,14 @@ describe('Router', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(Object.keys(pageLoader.loaded).length).toBe(2);
-      expect(Object.keys(pageLoader.loaded)).toEqual(['route1', 'route2']);
+      expect(Object.keys(pageLoader.loaded)).toEqual([ 'route1', 'route2' ]);
     });
 
     it('should run all the jobs', async () => {
       global.__APP_DATA__ = {};
       const pageLoader = new PageLoader();
       const router = new Router('/', {}, '/', { pageLoader });
-      const routes = ['route1', 'route2', 'route3', 'route4'];
+      const routes = [ 'route1', 'route2', 'route3', 'route4' ];
 
       router.doFetchRoute = () => Promise.resolve(request);
 
