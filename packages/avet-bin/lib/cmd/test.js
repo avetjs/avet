@@ -22,7 +22,7 @@ class AvetTestCommand extends TestCommand {
         '^.+\\.(ts|tsx)$': require.resolve('ts-jest/preprocessor.js'),
         '^.+\\.js$': require.resolve('babel-jest'),
       },
-      testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
+      testRegex: '(/__tests__/.*|[^config]*\\.(test|spec))\\.(ts|tsx|js)$',
       testPathIgnorePatterns: [ '/node_modules/', 'node' ],
       testURL: 'http://localhost',
       setupFiles: [ join(__dirname, '../test.setup.js') ],
