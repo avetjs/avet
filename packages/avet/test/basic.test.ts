@@ -8,7 +8,7 @@ describe('Basic', () => {
   let app;
 
   beforeAll(async () => {
-    app = utils.app('apps/demo');
+    app = utils.app('apps/basic');
     await app.ready();
 
     const url = await utils.startLocalServer();
@@ -23,7 +23,7 @@ describe('Basic', () => {
       app.curl(`${url}/stateful`),
       app.curl(`${url}/stateless`),
       app.curl(`${url}/styled-jsx`),
-      app.curl(`${url}/styled-jsx`),
+      app.curl(`${url}/with-cdm`),
 
       app.curl(`${url}/nav`),
       app.curl(`${url}/nav/about`),
@@ -44,4 +44,10 @@ describe('Basic', () => {
   });
 
   afterAll(() => app.close());
+
+  describe('rendering', () => {
+    it('renders a stateless component', async () => {
+      const html = await app.curl();
+    });
+  });
 });
