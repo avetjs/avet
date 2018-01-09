@@ -6,10 +6,14 @@
     "autod": "autod",
     "tsc": "tsc",
     "tsc:watch": "tsc -w",
-    "tsc:clean":
-      "rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map}"
+    "tsc:clean": "rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map}"
   },
-  "files": ["app", "config", "lib", "index.js"],
+  "files": [
+    "app",
+    "config",
+    "lib",
+    "index.js"
+  ],
   "dependencies": {
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
@@ -28,16 +32,16 @@
     "@types/enzyme-to-json": "^1.5.0",
     "@types/jest": "^22.0.0",
     "@types/node": "^8.5.2",
-    "@types/react-addons-test-utils": "^0.14.20",
-    "@types/react-test-renderer": "^16.0.0",
     "@types/react": "^16.0.25",
+    "@types/react-addons-test-utils": "^0.14.20",
     "@types/react-dom": "^16.0.3",
+    "@types/react-test-renderer": "^16.0.0",
     "autod": "^3.0.1",
     "avet-typescript": "^1.3.2",
     "babel-eslint": "^8.1.2",
     "chromedriver": "^2.34.1",
     "eslint": "^4.15.0",
-    "eslint-config-avet": "^0.3.11",
+    "eslint-config-avet": "^0.4.0",
     "wd": "^1.5.0"
   },
   "tnpm": {

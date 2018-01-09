@@ -1,5 +1,5 @@
 import React from 'react';
-import Router from 'next/router';
+import Router from 'avet/router';
 
 export default class extends React.Component {
   constructor(...args) {

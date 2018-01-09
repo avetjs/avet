@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'avet/link';
 
 export default () => (
   <div className="nav-about">
