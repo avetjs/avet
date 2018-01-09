@@ -1,4 +1,4 @@
-const { createBuild } = require('avet-build');
+// const { createBuild } = require('avet-build');
 const Application = require('./application');
 const { getAverConfiguration } = require('./utils');
 
@@ -7,5 +7,5 @@ module.exports = options => {
   const { dir } = app.config.app;
   const config = getAverConfiguration(app);
 
-  createBuild(dir, config);
+  require('avet-build')(dir, config);
 };

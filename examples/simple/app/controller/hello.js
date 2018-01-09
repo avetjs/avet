@@ -1,4 +1,4 @@
-const { Controller } = require('egg');
+const { Controller } = require('avet');
 
 class HelloController extends Controller {
   index() {

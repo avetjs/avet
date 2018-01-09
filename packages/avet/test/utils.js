@@ -1,14 +1,33 @@
+/* global browser */
+
 import * as fs from 'fs';
 import * as path from 'path';
 import * as http from 'http';
 import * as qs from 'querystring';
 import mm from 'egg-mock';
-import urllib from 'urllib';
 
 const fixtures = path.join(__dirname, 'fixtures');
 const avetPath = path.join(__dirname, '..');
 
-export const app = (name: string, options?) => {
+function formatOptions(name, options = {}) {
+  let baseDir;
+  if (typeof name === 'string') {
+    baseDir = name;
+  } else {
+    options = name;
+  }
+  return Object.assign(
+    {},
+    {
+      baseDir: getFilepath(baseDir),
+      framework: avetPath,
+      cache: false,
+    },
+    options
+  );
+}
+
+export const app = (name, options) => {
   options = formatOptions(name, options);
   return mm.app(options);
 };
@@ -18,8 +37,9 @@ let localServer;
 export const startLocalServer = () => {
   return new Promise((resolve, reject) => {
     if (localServer) {
-      return resolve('http://127.0.0.1:' + localServer.address().port);
+      return resolve(`http://127.0.0.1:${localServer.address().port}`);
     }
+
     localServer = http.createServer((req, res) => {
       req.resume();
       req.on('end', () => {
@@ -31,16 +51,15 @@ export const startLocalServer = () => {
           setTimeout(() => {
             res.end(`${req.method} ${req.url}`);
           }, 10000);
-          return;
         } else {
           res.end(`${req.method} ${req.url}`);
         }
       });
     });
 
-    localServer.listen(0, err => {
+    localServer.listen(7001, err => {
       if (err) return reject(err);
-      return resolve('http://127.0.0.1:' + localServer.address().port);
+      return resolve(`http://127.0.0.1:${localServer.address().port}`);
     });
   });
 };
@@ -56,30 +75,9 @@ export const getJSON = (name: string) => {
   return JSON.parse(pkg);
 };
 
-function formatOptions(name, options?) {
-  let baseDir;
-  if (typeof name === 'string') {
-    baseDir = name;
-  } else {
-    options = name;
-  }
-  return Object.assign(
-    {},
-    {
-      baseDir,
-      framework: avetPath,
-      cache: false,
-    },
-    options
-  );
-}
-
-export async function render(path, query = {}): Promise<string> {
-  const res = await urllib.request(path, { data: query });
-  return res.data;
-}
-
-export async function get$(path, query?) {
-  const html = await render(path, query);
-  return cheerio.load(html);
+export async function newPage(path, query = {}): Promise<string> {
+  console.log('##########', path);
+  const page = await browser.newPage();
+  await page.goto(`http://127.0.0.1:7001${path}?${qs.stringify(query)}`);
+  return page;
 }
