@@ -4,8 +4,8 @@ import Link from 'avet/link';
 let count = 0;
 
 export default class SelfReload extends Component {
-  static getInitialProps({ res }) {
-    if (res) return { count: 0 };
+  static getInitialProps({ ctx }) {
+    if (ctx) return { count: 0 };
     count += 1;
 
     return { count };
