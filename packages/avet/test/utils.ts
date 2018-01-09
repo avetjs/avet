@@ -1,7 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as http from 'http';
+import * as qs from 'querystring';
 import mm from 'egg-mock';
+import urllib from 'urllib';
 
 const fixtures = path.join(__dirname, 'fixtures');
 const avetPath = path.join(__dirname, '..');
@@ -70,4 +72,14 @@ function formatOptions(name, options?) {
     },
     options
   );
+}
+
+export async function render(path, query = {}): Promise<string> {
+  const res = await urllib.request(path, { data: query });
+  return res.data;
+}
+
+export async function get$(path, query?) {
+  const html = await render(path, query);
+  return cheerio.load(html);
 }

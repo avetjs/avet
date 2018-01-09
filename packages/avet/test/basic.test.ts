@@ -1,17 +1,24 @@
-import * as utils from './utils';
+import {
+  app as mockApp,
+  getFilepath,
+  startLocalServer,
+  render,
+  get$,
+} from './utils';
+import cheerio from 'cheerio';
 import mm from 'egg-mock';
 
 describe('Basic', () => {
   afterEach(mm.restore);
 
-  const baseDir = utils.getFilepath('apps/basic');
+  const baseDir = getFilepath('apps/basic');
   let app;
 
   beforeAll(async () => {
-    app = utils.app('apps/basic');
+    app = mockApp('apps/basic');
     await app.ready();
 
-    const url = await utils.startLocalServer();
+    const url = await startLocalServer();
     await Promise.all([
       app.curl(`${url}/async-props`),
       app.curl(`${url}/empty-get-initial-props`),
@@ -47,7 +54,11 @@ describe('Basic', () => {
 
   describe('rendering', () => {
     it('renders a stateless component', async () => {
-      const html = await app.curl();
+      const html = await render('/stateless');
+      expect(
+        html.includes('<meta charSet="utf-8" class="avet-head"/>')
+      ).toBeTruthy();
+      expect(html.includes('My component!')).toBeTruthy();
     });
   });
 });
