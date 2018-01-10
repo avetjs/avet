@@ -1,4 +1,5 @@
 const { join } = require('path');
+const { existsSync } = require('fs');
 const { TestCommand } = require('egg-bin');
 const globby = require('globby');
 const extend2 = require('extend2');
@@ -12,14 +13,15 @@ class AvetTestCommand extends TestCommand {
 
     this.jestDefaultConfig = {
       testEnvironment: require.resolve('../jest/puppeteer_environment.js'),
+      globalSetup: require.resolve('../jest/global_setup.js'),
       globalTeardown: require.resolve('../jest/teardown.js'),
-      globalSetup: require.resolve('../jest/setup.js'),
+      setupFiles: [ require.resolve('../jest/setup.js') ],
       moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx', 'json', 'md' ],
       transform: {
         '^.+\\.(ts|tsx)$': require.resolve('ts-jest/preprocessor.js'),
         '^.+\\.js$': require.resolve('../jest/transformer.js'),
       },
-      testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
+      testRegex: '(/__test__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
       testPathIgnorePatterns: [ '/node_modules/', 'node', 'config' ],
       testURL: 'http://localhost',
       snapshotSerializers: [ require.resolve('enzyme-to-json/serializer') ],
@@ -39,6 +41,12 @@ class AvetTestCommand extends TestCommand {
 
   formatTestArgs({ argv, cwd }) {
     const pkg = require(join(cwd, 'package.json'));
+
+    const setupFile = join(cwd, 'jest.setup.js');
+    if (existsSync(setupFile)) {
+      this.jestDefaultConfig.setupFiles.push(setupFile);
+    }
+
     const jestConfig = extend2(true, this.jestDefaultConfig, pkg.jest);
     const testArgv = Object.assign({}, argv);
 

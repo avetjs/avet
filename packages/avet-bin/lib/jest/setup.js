@@ -1,15 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+const { JSDOM } = require('jsdom');
 
-const Enzyme = require('enzyme');
-const puppeteer = require('puppeteer');
-const mkdirp = require('mkdirp');
-const Adapter = require('enzyme-adapter-react-16');
-
-const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
-
-Enzyme.configure({ adapter: new Adapter() });
+if (typeof window === 'undefined') {
+  const documentHTML =
+    '<!doctype html><html><body><div id="root"></div></body></html>';
+  const { window } = new JSDOM(documentHTML);
+  global.window = window;
+  global.document = window.document;
+  global.navigator = window.navigator;
+}
 
 global.requestAnimationFrame =
   global.requestAnimationFrame ||
@@ -17,14 +15,13 @@ global.requestAnimationFrame =
     return setTimeout(cb, 0);
   };
 
-global.puppeteer = puppeteer;
+const Enzyme = require('enzyme');
 
-module.exports = async function() {
-  const browser = await puppeteer.launch();
-  // store the browser instance so we can teardown it later
-  global.browser = browser;
+let Adapter;
+if (process.env.REACT === '15') {
+  Adapter = require('enzyme-adapter-react-15');
+} else {
+  Adapter = require('enzyme-adapter-react-16');
+}
 
-  // file the wsEndpoint for TestEnvironments
-  mkdirp.sync(DIR);
-  fs.writeFileSync(path.join(DIR, 'wsEndpoint'), browser.wsEndpoint());
-};
+Enzyme.configure({ adapter: new Adapter() });

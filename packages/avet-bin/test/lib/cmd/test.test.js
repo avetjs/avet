@@ -26,6 +26,31 @@ describe('Basic', () => {
       .expect('code', 0)
       .end(done);
   });
+
+  it('should only test files specified by TESTS argv', done => {
+    fork(avetBin, [ 'test', 'test/a.test.js' ], {
+      cwd,
+      env: { TESTS: 'test/**/*.test.js' },
+    })
+      .expect('stderr', /should success/)
+      .expect('stderr', /a\.test\.js/)
+      .notExpect('stderr', /b\/b.test.js/)
+      .expect('code', 0)
+      .end(done);
+  });
+
+  it('should auto require test/.setup.js', () => {
+    // example: https://github.com/lelandrichardson/enzyme-example-mocha
+    return (
+      fork(avetBin, [ 'test' ], {
+        cwd: join(__dirname, '../../fixtures/enzyme-setup'),
+      })
+        // .debug()
+        .expect('stderr', /3 passed/)
+        .expect('code', 0)
+        .end()
+    );
+  });
 });
 
 describe('Enzyme', () => {
