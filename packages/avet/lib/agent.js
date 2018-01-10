@@ -11,7 +11,7 @@ class AvetAgent extends EggAgent {
   }
 
   get [EGG_PATH]() {
-    return path.dirname(__dirname);
+    return path.join(__dirname, '..');
   }
 }
 

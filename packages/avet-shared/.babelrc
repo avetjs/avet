@@ -1,18 +1,8 @@
 {
-  "presets": [
-    ["env", {"targets": { "browsers": [">1%"] }}],
-    "react"
-  ],
+  "presets": [["env", { "targets": { "browsers": [">1%"] } }], "react"],
   "plugins": [
     "transform-object-rest-spread",
     "transform-class-properties",
     "transform-runtime"
-  ],
-  "env": {
-    "test": {
-      "presets": [
-        "es2015"
-       ]
-    }
-  }
+  ]
 }

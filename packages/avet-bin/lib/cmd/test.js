@@ -17,15 +17,18 @@ class AvetTestCommand extends TestCommand {
     };
 
     this.jestDefaultConfig = {
+      testEnvironment: require.resolve('../jest/puppeteer_environment.js'),
+      globalTeardown: require.resolve('../jest/teardown.js'),
+      globalSetup: require.resolve('../jest/setup.js'),
       moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx', 'json', 'md' ],
       transform: {
-        '^.+\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
-        '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
+        '^.+\\.(ts|tsx)$': require.resolve('ts-jest/preprocessor.js'),
+        '^.+\\.js$': require.resolve('../jest/transformer.js'),
       },
       testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
-      testPathIgnorePatterns: [ '/node_modules/', 'node' ],
-      setupFiles: [ join(__dirname, '../test.setup.js') ],
-      snapshotSerializers: [ 'enzyme-to-json/serializer' ],
+      testPathIgnorePatterns: [ '/node_modules/', 'node', 'config' ],
+      testURL: 'http://localhost',
+      snapshotSerializers: [ require.resolve('enzyme-to-json/serializer') ],
     };
   }
 
@@ -35,7 +38,7 @@ class AvetTestCommand extends TestCommand {
       env: Object.assign({ NODE_ENV: 'test' }, context.env),
     };
 
-    const binFile = require.resolve('jest-cli/bin/jest.js');
+    const binFile = require.resolve('jest/bin/jest.js');
     const testArgs = this.formatTestArgs(context);
     yield this.helper.forkNode(binFile, testArgs, opts);
   }

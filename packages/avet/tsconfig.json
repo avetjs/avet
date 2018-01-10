@@ -1,0 +1,41 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "charset": "utf8",
+    "allowJs": false,
+    "pretty": true,
+    "noEmitOnError": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "inlineSourceMap": true,
+    "importHelpers": true,
+    "jsx": "react-native"
+  },
+  "include": [
+    "node_modules/@types",
+    "typings",
+    "index.d.ts",
+    "app.ts",
+    "agent.ts",
+    "app/**/*",
+    "config/**/*",
+    "web/**/*"
+  ],
+  "exclude": [
+    "app/public",
+    "app/views",
+    "web/static",
+    "web/page/__test__",
+    "web/component/__test__"
+  ]
+}
