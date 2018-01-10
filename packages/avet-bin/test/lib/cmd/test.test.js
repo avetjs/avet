@@ -61,12 +61,16 @@ describe('Enzyme', () => {
   });
 });
 
-describe('Puppeteer', () => {
-  it('should success', done => {
-    fork(avetBin, [ 'test' ], {
-      cwd: join(__dirname, '../../fixtures/puppeteer'),
-    })
-      .expect('code', 0)
-      .end(done);
-  });
-});
+describe(
+  'Puppeteer',
+  () => {
+    it('should success', done => {
+      fork(avetBin, [ 'test' ], {
+        cwd: join(__dirname, '../../fixtures/puppeteer'),
+      })
+        .expect('code', 0)
+        .end(done);
+    });
+  },
+  10000
+);
