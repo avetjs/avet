@@ -85,9 +85,13 @@ module.exports = {
 
         debug('Loaded config %s/%s, %j', unit.path, filename, config);
 
-        if (unit.isAvetPlugin) {
+        if (
+          unit.isAvetPlugin ||
+          Object.keys(avetPluginConfig).some(v => !!config[v])
+        ) {
           extend(true, avetPluginConfig, config);
         }
+
         extend(true, target, config);
       }
     }
