@@ -1,6 +1,3 @@
 {
-  "name": "test-files-glob",
-  "scripts": {
-    "test": "node ../../../bin/avet-bin.js test"
-  }
+  "name": "test-files-glob"
 }

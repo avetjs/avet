@@ -17,6 +17,15 @@ describe('Basic', () => {
       .expect('code', 0)
       .end(done);
   });
+
+  it('should only test files specified by TESTS', done => {
+    fork(avetBin, [ 'test' ], { cwd, env: { TESTS: 'test/a.test.js' } })
+      .expect('stderr', /should success/)
+      .expect('stderr', /a\.test\.js/)
+      .notExpect('stderr', /b\/b.test.js/)
+      .expect('code', 0)
+      .end(done);
+  });
 });
 
 describe('Enzyme', () => {
