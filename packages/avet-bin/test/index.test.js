@@ -5,6 +5,10 @@ describe('test/index.test.js', () => {
   const avetBin = require.resolve('../bin/avet-bin.js');
   const cwd = join(__dirname, 'fixtures/test-files');
 
+  it('shoud success', () => {
+    expect(true);
+  });
+
   describe('global options', () => {
     it('should show version', done => {
       fork(avetBin, [ '--version' ], { cwd })

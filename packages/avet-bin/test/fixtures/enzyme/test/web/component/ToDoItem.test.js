@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ToDoItem from '../ToDoItem';
+import ToDoItem from '../../../web/component/ToDoItem';
 
 function mockItem(obj) {
   return Object.assign(

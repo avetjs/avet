@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'enzyme';
-import ToDoList from '../ToDoList';
+import ToDoList from '../../../web/component/ToDoList';
 
 function mockItem() {
   return [

@@ -1,6 +1,5 @@
 {
-  "name": "enzyme",
-  "version": "0.1.0",
+  "name": "enzyme-setup",
   "devDependencies": {
     "babel-jest": "22.0.4",
     "react": "16.2.0",
