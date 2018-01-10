@@ -1,10 +1,11 @@
 /* global browser */
 
-import * as fs from 'fs';
-import * as path from 'path';
-import * as http from 'http';
-import * as qs from 'querystring';
-import mm from 'egg-mock';
+const fs = require('fs');
+const path = require('path');
+const http = require('http');
+const qs = require('querystring');
+const { spawn } = require('child_process');
+const mm = require('egg-mock');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const avetPath = path.join(__dirname, '..');
@@ -19,7 +20,7 @@ function formatOptions(name, options = {}) {
   return Object.assign(
     {},
     {
-      baseDir: getFilepath(baseDir),
+      baseDir: exports.getFilepath(baseDir),
       framework: avetPath,
       cache: false,
     },
@@ -27,14 +28,51 @@ function formatOptions(name, options = {}) {
   );
 }
 
-export const app = (name, options) => {
+exports.buildApp = async name => {
+  const baseDir = exports.getFilepath(name);
+  const cwd = path.resolve(__dirname, '../');
+
+  return new Promise((resolve, reject) => {
+    const instance = spawn(
+      'node',
+      [ 'node_modules/.bin/avet-bin', 'build', '--baseDir', baseDir ],
+      { cwd }
+    );
+
+    function handleStdout(data) {
+      const message = data.toString();
+      if (/done/.test(message)) {
+        resolve(instance);
+      }
+      process.stdout.write(message);
+    }
+
+    function handleStderr(data) {
+      process.stderr.write(data.toString());
+    }
+
+    instance.stdout.on('data', handleStdout);
+    instance.stderr.on('data', handleStderr);
+
+    instance.on('close', () => {
+      instance.stdout.removeListener('data', handleStdout);
+      instance.stderr.removeListener('data', handleStderr);
+    });
+
+    instance.on('error', err => {
+      reject(err);
+    });
+  });
+};
+
+exports.mockApp = (name, options) => {
   options = formatOptions(name, options);
   return mm.app(options);
 };
 
 let localServer;
 
-export const startLocalServer = () => {
+exports.startLocalServer = () => {
   return new Promise((resolve, reject) => {
     if (localServer) {
       return resolve(`http://127.0.0.1:${localServer.address().port}`);
@@ -66,18 +104,17 @@ export const startLocalServer = () => {
 
 process.once('exit', () => localServer && localServer.close());
 
-export const getFilepath = (name: string) => {
+exports.getFilepath = name => {
   return path.join(fixtures, name);
 };
 
-export const getJSON = (name: string) => {
-  const pkg = fs.readFileSync(getFilepath(name), 'utf8');
+exports.getJSON = name => {
+  const pkg = fs.readFileSync(exports.getFilepath(name), 'utf8');
   return JSON.parse(pkg);
 };
 
-export async function newPage(path, query = {}): Promise<string> {
-  console.log('##########', path);
+exports.renderPage = async (path, query = {}) => {
   const page = await browser.newPage();
   await page.goto(`http://127.0.0.1:7001${path}?${qs.stringify(query)}`);
   return page;
-}
+};

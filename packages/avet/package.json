@@ -37,6 +37,7 @@
     "avet-bin": "^1.0.0-22",
     "avet-typescript": "^1.3.2",
     "babel-eslint": "^8.1.2",
+    "egg-mock": "^3.14.0",
     "eslint": "^4.15.0",
     "eslint-config-avet": "^0.4.0",
     "ts-jest": "^22.0.1",
