@@ -46,6 +46,7 @@ describe('Basic', () => {
         cwd: join(__dirname, '../../fixtures/enzyme-setup'),
       })
         // .debug()
+        .expect('stderr', /custom jest setup/)
         .expect('stderr', /3 passed/)
         .expect('code', 0)
         .end()
