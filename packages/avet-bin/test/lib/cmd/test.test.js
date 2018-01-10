@@ -39,18 +39,15 @@ describe('Basic', () => {
       .end(done);
   });
 
-  it('should auto require test/.setup.js', () => {
-    // example: https://github.com/lelandrichardson/enzyme-example-mocha
-    return (
-      fork(avetBin, [ 'test' ], {
-        cwd: join(__dirname, '../../fixtures/enzyme-setup'),
-      })
-        // .debug()
-        .expect('stderr', /custom jest setup/)
-        .expect('stderr', /3 passed/)
-        .expect('code', 0)
-        .end()
-    );
+  it('should auto require jest.setup.js', done => {
+    fork(avetBin, [ 'test' ], {
+      cwd: join(__dirname, '../../fixtures/enzyme-setup'),
+    })
+      // .debug()
+      .expect('stdout', /custom jest setup/)
+      .expect('stderr', /3 passed/)
+      .expect('code', 0)
+      .end(done);
   });
 });
 
