@@ -8,13 +8,7 @@ class AvetTestCommand extends TestCommand {
     super(rawArgv);
 
     this.usage = 'Usage: avet-bin test [files] [options]';
-    this.options = {
-      grep: {
-        description: 'only run tests matching <pattern>',
-        alias: 'g',
-        type: 'array',
-      },
-    };
+    this.options = {};
 
     this.jestDefaultConfig = {
       testEnvironment: require.resolve('../jest/puppeteer_environment.js'),
@@ -50,6 +44,7 @@ class AvetTestCommand extends TestCommand {
 
     testArgv.config = JSON.stringify(jestConfig);
     testArgv.reporter = testArgv.reporter || process.env.TEST_REPORTER;
+    testArgv.verbose = testArgv.verbose != null ? testArgv.verbose : true;
 
     let files = testArgv._.slice();
     if (!files.length) {
