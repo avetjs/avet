@@ -1,3 +1,24 @@
+## v1.0.0-23 (2018-01-10)
+
+#### :bug: Bug Fix
+
+* `avet`
+  * [#64](https://github.com/avetjs/avet/pull/64) App config rewrit
+    e avet plugin config correctly. ([@okoala](https://github.com/okoal
+    a))
+  * [#62](https://github.com/avetjs/avet/pull/62) Fix test env conf
+    ig. ([@okoala](https://github.com/okoala))
+
+#### :nail_care: Enhancement
+
+* `avet-bin`, `avet-build`, `avet-client`, `avet-server`, `avet-sha red`, `avet-utils`, `avet`
+  * [#63](https://github.com/avetjs/avet/pull/63) Feat test. ([@okoala](https://github.com/okoala))
+
+#### Committers: 2
+
+* [renovate[bot]](https://github.com/apps/renovate)
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-22 (2018-01-05)
 
 #### :bug: Bug Fix
