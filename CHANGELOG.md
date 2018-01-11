@@ -1,3 +1,23 @@
+## v1.0.0-24 (2018-01-11)
+
+#### :bug: Bug Fix
+
+* `avet-bin`
+  * [#67](https://github.com/avetjs/avet/pull/67) Add missing jsdom. ([@okoala](https://gi
+    thub.com/okoala))
+
+#### :nail_care: Enhancement
+
+* `avet-bin`, `avet`
+  * [#68](https://github.com/avetjs/avet/pull/68) Improve test. ([@okoala](https://github.
+    com/okoala))
+  * [#65](https://github.com/avetjs/avet/pull/65) Add puppeteer test. ([@okoala](https://g
+    ithub.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-23 (2018-01-10)
 
 #### :bug: Bug Fix
