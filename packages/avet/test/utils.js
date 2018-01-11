@@ -4,8 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const qs = require('querystring');
-const { spawn } = require('child_process');
+const { fork } = require('child_process');
 const mm = require('egg-mock');
+const urllib = require('urllib');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const avetPath = path.join(__dirname, '..');
@@ -22,33 +23,40 @@ function formatOptions(name, options = {}) {
     {
       baseDir: exports.getFilepath(baseDir),
       framework: avetPath,
-      cache: false,
+      // cache: false,
     },
     options
   );
 }
 
-exports.buildApp = async name => {
+let serverUrl;
+
+exports.startApp = async name => {
   const baseDir = exports.getFilepath(name);
   const cwd = path.resolve(__dirname, '../');
+  const port = 7001;
 
   return new Promise((resolve, reject) => {
-    const instance = spawn(
-      'node',
-      [ 'node_modules/.bin/avet-bin', 'build', '--baseDir', baseDir ],
-      { cwd }
+    const instance = fork(
+      'node_modules/.bin/avet-bin',
+      [ 'dev', '--baseDir', baseDir, '--port', port ],
+      { cwd, env: { NODE_ENV: 'development' }, silent: true }
     );
 
     function handleStdout(data) {
       const message = data.toString();
-      if (/done/.test(message)) {
-        resolve(instance);
+      if (/avet started/.test(message)) {
+        serverUrl = `http://127.0.0.1:${port}`;
+        resolve({
+          instance,
+          url: serverUrl,
+        });
       }
-      process.stdout.write(message);
+      // process.stdout.write(message);
     }
 
-    function handleStderr(data) {
-      process.stderr.write(data.toString());
+    function handleStderr() {
+      // process.stderr.write(data.toString());
     }
 
     instance.stdout.on('data', handleStdout);
@@ -65,9 +73,9 @@ exports.buildApp = async name => {
   });
 };
 
-exports.mockApp = (name, options) => {
+exports.mockServer = (name, options) => {
   options = formatOptions(name, options);
-  return mm.app(options);
+  return mm.cluster(options);
 };
 
 let localServer;
@@ -75,7 +83,7 @@ let localServer;
 exports.startLocalServer = () => {
   return new Promise((resolve, reject) => {
     if (localServer) {
-      return resolve(`http://127.0.0.1:${localServer.address().port}`);
+      return resolve(serverUrl);
     }
 
     localServer = http.createServer((req, res) => {
@@ -95,9 +103,11 @@ exports.startLocalServer = () => {
       });
     });
 
-    localServer.listen(7001, err => {
+    localServer.listen(0, err => {
       if (err) return reject(err);
-      return resolve(`http://127.0.0.1:${localServer.address().port}`);
+
+      serverUrl = `http://127.0.0.1:${localServer.address().port}`;
+      return resolve(serverUrl);
     });
   });
 };
@@ -115,6 +125,11 @@ exports.getJSON = name => {
 
 exports.renderPage = async (path, query = {}) => {
   const page = await browser.newPage();
-  await page.goto(`http://127.0.0.1:7001${path}?${qs.stringify(query)}`);
+  await page.goto(`${serverUrl}${path}?${qs.stringify(query)}`);
   return page;
+};
+
+exports.curl = async (path, params = {}) => {
+  const options = Object.assign(params, { timeout: 10000 });
+  return await urllib.request(path, options);
 };

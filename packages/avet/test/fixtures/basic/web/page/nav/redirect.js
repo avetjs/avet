@@ -4,7 +4,7 @@ const Page = () => <p>This is the page</p>;
 
 Page.getInitialProps = ctx => {
   if (ctx) {
-    ctx.res.writeHead(302, { Location: '/nav/about' });
+    ctx.redirect('/nav/about');
   } else {
     Router.push('/nav/about');
   }

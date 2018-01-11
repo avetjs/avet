@@ -12,7 +12,7 @@ module.exports = () => {
       });
 
       expect(
-        html.head.includes('<meta charSet="utf-8" class="avet-head"/>')
+        html.head.includes('<meta charset="utf-8" class="app-head">')
       ).toBeTruthy();
       expect(html.body.includes('My component!')).toBeTruthy();
 

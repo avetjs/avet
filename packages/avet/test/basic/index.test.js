@@ -1,64 +1,58 @@
-const {
-  mockApp,
-  buildApp,
-  // getFilepath,
-  startLocalServer,
-} = require('../utils');
+const { startApp, curl } = require('../utils');
 
 const mm = require('egg-mock');
 const rendering = require('./rendering');
 
 const timeout = 40000;
 
-describe(
-  'Basic',
-  () => {
-    afterEach(mm.restore);
+describe('Basic', () => {
+  afterEach(mm.restore);
 
-    // const baseDir = getFilepath('basic');
-    let app;
+  // const baseDir = getFilepath('basic');
+  let server;
 
-    const url = startLocalServer();
-    beforeAll(async () => {
-      try {
-        await buildApp('basic');
-      } catch (err) {
-        console.error(err);
-      }
-      // app = mockApp('basic');
-      // await app.ready();
+  beforeAll(async () => {
+    try {
+      server = await startApp('basic');
+    } catch (err) {
+      console.error(err);
+    }
 
-      await Promise.all([
-        app.curl(`${url}/async-props`),
-        app.curl(`${url}/empty-get-initial-props`),
-        app.curl(`${url}/error`),
-        app.curl(`${url}/finish-response`),
-        app.curl(`${url}/head`),
-        app.curl(`${url}/json`),
-        app.curl(`${url}/link`),
-        app.curl(`${url}/stateful`),
-        app.curl(`${url}/stateless`),
-        app.curl(`${url}/styled-jsx`),
-        app.curl(`${url}/with-cdm`),
-        app.curl(`${url}/nav`),
-        app.curl(`${url}/nav/about`),
-        app.curl(`${url}/nav/querystring`),
-        app.curl(`${url}/nav/self-reload`),
-        app.curl(`${url}/nav/self-reload`),
-        app.curl(`${url}/nav/shallow-routing`),
-        app.curl(`${url}/nav/redirect`),
-        app.curl(`${url}/nav/as-path`),
-        app.curl(`${url}/nav/as-path-using-router`),
-        app.curl(`${url}/nested-cdm/index`),
-        app.curl(`${url}/hmr/about`),
-        app.curl(`${url}/hmr/contact`),
-        app.curl(`${url}/hmr/counter`),
-      ]);
-    }, timeout);
+    await Promise.all([
+      curl(`${server.url}/async-props`),
+      // curl(`${url}/empty-get-initial-props`),
+      curl(`${server.url}/error`),
+      curl(`${server.url}/finish-response`),
+      curl(`${server.url}/head`),
+      curl(`${server.url}/json`),
+      curl(`${server.url}/link`),
+      curl(`${server.url}/stateful`),
+      curl(`${server.url}/stateless`),
+      curl(`${server.url}/styled-jsx`),
+      curl(`${server.url}/with-cdm`),
+      curl(`${server.url}/nav`),
+      curl(`${server.url}/nav/about`),
+      curl(`${server.url}/nav/querystring`),
+      curl(`${server.url}/nav/self-reload`),
+      curl(`${server.url}/nav/self-reload`),
+      curl(`${server.url}/nav/shallow-routing`),
+      curl(`${server.url}/nav/redirect`),
+      curl(`${server.url}/nav/as-path`),
+      curl(`${server.url}/nav/as-path-using-router`),
+      curl(`${server.url}/nested-cdm/index`),
+      curl(`${server.url}/hmr/about`),
+      curl(`${server.url}/hmr/contact`),
+      curl(`${server.url}/hmr/counter`),
+    ]);
 
-    afterAll(() => app.close());
+    await new Promise(resolve => {
+      setTimeout(resolve, 10000);
+    });
+  }, timeout);
 
-    rendering();
-  },
-  timeout
-);
+  afterAll(() => {
+    server.instance.send('app-exit');
+  });
+
+  rendering();
+});
