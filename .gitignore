@@ -9,7 +9,8 @@ dist
 .changelog
 
 # dependencies
-node_modules
+/*/*/node_modules
+/node_modules
 
 # logs
 *.log
@@ -42,5 +43,6 @@ bench/**/.isomorphic
 .stats.json
 .build
 .dist
+.cache
 
 logs
