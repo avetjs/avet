@@ -39,17 +39,26 @@ describe('Basic', () => {
       .end(done);
   });
 
-  it('should auto require test/.setup.js', () => {
-    // example: https://github.com/lelandrichardson/enzyme-example-mocha
-    return (
-      fork(avetBin, [ 'test' ], {
-        cwd: join(__dirname, '../../fixtures/enzyme-setup'),
-      })
-        // .debug()
-        .expect('stderr', /3 passed/)
-        .expect('code', 0)
-        .end()
-    );
+  it('should auto require jest.setup.js', done => {
+    fork(avetBin, [ 'test' ], {
+      cwd: join(__dirname, '../../fixtures/enzyme-setup'),
+    })
+      // .debug()
+      .expect('stdout', /custom jest setup/)
+      .expect('stderr', /3 passed/)
+      .expect('code', 0)
+      .end(done);
+  });
+});
+
+describe('Real project', () => {
+  it('should build successfully', done => {
+    fork(avetBin, [ 'build' ], {
+      cwd: join(__dirname, '../../fixtures/example'),
+    })
+      .expect('stdout', /build done/)
+      .expect('code', 0)
+      .end(done);
   });
 });
 
@@ -61,16 +70,12 @@ describe('Enzyme', () => {
   });
 });
 
-describe(
-  'Puppeteer',
-  () => {
-    it('should success', done => {
-      fork(avetBin, [ 'test' ], {
-        cwd: join(__dirname, '../../fixtures/puppeteer'),
-      })
-        .expect('code', 0)
-        .end(done);
-    });
-  },
-  10000
-);
+describe('Puppeteer', () => {
+  it('should success', done => {
+    fork(avetBin, [ 'test' ], {
+      cwd: join(__dirname, '../../fixtures/puppeteer'),
+    })
+      .expect('code', 0)
+      .end(done);
+  });
+});

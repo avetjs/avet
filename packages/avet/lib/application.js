@@ -7,6 +7,7 @@ const AvetServer = require('avet-server/lib/server');
 
 const EGG_LOADER = Symbol.for('egg#loader');
 const EGG_PATH = Symbol.for('egg#eggPath');
+// const EGG_READY_TIMEOUT_ENV = Symbol('EggCore#eggReadyTimeoutEnv');
 
 class Application extends EggApplication {
   constructor(...opts) {
