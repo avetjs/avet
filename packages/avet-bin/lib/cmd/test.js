@@ -16,6 +16,9 @@ class AvetTestCommand extends TestCommand {
       globalSetup: require.resolve('../jest/global_setup.js'),
       globalTeardown: require.resolve('../jest/teardown.js'),
       setupFiles: [ require.resolve('../jest/setup.js') ],
+      setupTestFrameworkScriptFile: require.resolve(
+        '../jest/framework_setup.js'
+      ),
       moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx', 'json', 'md' ],
       transform: {
         '^.+\\.(ts|tsx)$': require.resolve('ts-jest/preprocessor.js'),

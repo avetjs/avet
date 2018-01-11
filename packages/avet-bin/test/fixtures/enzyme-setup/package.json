@@ -1,8 +1,5 @@
 {
   "name": "enzyme-setup",
-  "scripts": {
-    "test": "node ../../../bin/avet-bin.js test"
-  },
   "devDependencies": {
     "babel-jest": "22.0.4",
     "react": "16.2.0",

@@ -5,8 +5,6 @@ const os = require('os');
 const puppeteer = require('puppeteer');
 const mkdirp = require('mkdirp');
 
-const Enzyme = require('enzyme');
-
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 
 module.exports = async function() {

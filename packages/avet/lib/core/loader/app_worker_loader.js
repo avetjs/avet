@@ -14,7 +14,6 @@ class AvetAppWorkerLoader extends createLoader(AppWorkerLoader) {
     this.loadResponseExtend();
     this.loadContextExtend();
     this.loadHelperExtend();
-
     this.loadLayout();
 
     // app > plugin

@@ -51,6 +51,17 @@ describe('Basic', () => {
   });
 });
 
+describe('Real project', () => {
+  it('should build successfully', done => {
+    fork(avetBin, [ 'build' ], {
+      cwd: join(__dirname, '../../fixtures/example'),
+    })
+      .expect('stdout', /build done/)
+      .expect('code', 0)
+      .end(done);
+  });
+});
+
 describe('Enzyme', () => {
   it('should success', done => {
     fork(avetBin, [ 'test' ], { cwd: join(__dirname, '../../fixtures/enzyme') })
@@ -59,16 +70,12 @@ describe('Enzyme', () => {
   });
 });
 
-describe(
-  'Puppeteer',
-  () => {
-    it('should success', done => {
-      fork(avetBin, [ 'test' ], {
-        cwd: join(__dirname, '../../fixtures/puppeteer'),
-      })
-        .expect('code', 0)
-        .end(done);
-    });
-  },
-  10000
-);
+describe('Puppeteer', () => {
+  it('should success', done => {
+    fork(avetBin, [ 'test' ], {
+      cwd: join(__dirname, '../../fixtures/puppeteer'),
+    })
+      .expect('code', 0)
+      .end(done);
+  });
+});
