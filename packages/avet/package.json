@@ -7,14 +7,10 @@
     "test": "avet-bin test",
     "tsc": "tsc",
     "tsc:watch": "tsc -w",
-    "tsc:clean": "rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map}"
+    "tsc:clean":
+      "rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map}"
   },
-  "files": [
-    "app",
-    "config",
-    "lib",
-    "index.js"
-  ],
+  "files": ["app", "config", "lib", "index.js"],
   "dependencies": {
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",

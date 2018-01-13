@@ -1,10 +1,4 @@
 {
   "name": "enzyme",
-  "version": "0.1.0",
-  "devDependencies": {
-    "babel-jest": "22.0.4",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
-    "ts-jest": "22.0.1"
-  }
+  "version": "0.1.0"
 }

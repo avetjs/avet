@@ -90,6 +90,8 @@ module.exports = {
           Object.keys(avetPluginConfig).some(v => !!config[v])
         ) {
           extend(true, avetPluginConfig, config);
+          delete avetPluginConfig.build;
+          delete avetPluginConfig.app;
         }
 
         extend(true, target, config);
