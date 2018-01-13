@@ -187,7 +187,7 @@ async function doRender(
 
   if (ctx.res.finished) return;
 
-  if (!Document.prototype || !Document.prototype.isReactComponent) {
+  if (!Document.prototype) {
     throw new Error('_document.js is not exporting a React element');
   }
 

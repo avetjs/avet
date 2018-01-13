@@ -2,7 +2,6 @@ const path = require('path');
 const EggApplication = require('./core/egg').Application;
 const AppWorkerLoader = require('./core/loader/app_worker_loader');
 const { getAverConfiguration } = require('./utils');
-const AvetServer = require('avet-server/lib/server');
 
 const EGG_LOADER = Symbol.for('egg#loader');
 const EGG_PATH = Symbol.for('egg#eggPath');
@@ -19,6 +18,7 @@ class Application extends EggApplication {
     // don't run in build env
     if (process.env.AVET_RUN_ENV !== 'build') {
       const config = getAverConfiguration(this);
+      const AvetServer = require('avet-server/lib/server');
       this.avetServer = new AvetServer(config);
       this.beforeStart(async () => {
         // check env is local and need prepare ready
