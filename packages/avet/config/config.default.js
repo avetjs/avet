@@ -40,6 +40,12 @@ module.exports = appInfo => {
     quite: false,
     configOrigin: 'default',
     useFileSystemPublicRoutes: true,
+    staticOptions: {
+      // cache control max age for the files
+      maxAge: 365000000,
+      buffer: true,
+      gzip: true,
+    },
   };
 
   exports.core = {
