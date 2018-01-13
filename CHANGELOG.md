@@ -1,3 +1,14 @@
+## v1.0.0-26 (2018-01-13)
+
+#### :rocket: New Feature
+
+* `avet-server`, `avet`
+  * [#70](https://github.com/avetjs/avet/pull/70) Add avet page asset cache. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-25 (2018-01-13)
 
 #### :rocket: New Feature
