@@ -1,3 +1,14 @@
+## v1.0.0-25 (2018-01-13)
+
+#### :rocket: New Feature
+
+* `avet-bin`, `avet-server`, `avet`
+  * [#69](https://github.com/avetjs/avet/pull/69) Add test node_modules. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-24 (2018-01-11)
 
 #### :bug: Bug Fix
