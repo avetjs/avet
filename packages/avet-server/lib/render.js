@@ -32,7 +32,7 @@ async function renderScript(ctx, page, opts) {
   try {
     const path = join(opts.dir, opts.dist, 'bundles', 'page', page);
     const realPath = await resolvePath(path);
-    await serveStatic(ctx, realPath);
+    await serveStatic(ctx, realPath, ctx.app.config.app.staticOptions);
   } catch (err) {
     if (err.code === 'ENOENT') {
       renderScriptError(err, ctx, page, {}, opts);
