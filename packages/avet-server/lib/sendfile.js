@@ -23,7 +23,7 @@ async function sendfile(ctx, filepath, options = {}) {
 
   ctx.status = 200;
 
-  if (options.enableGzip) ctx.vary('Accept-Encoding');
+  if (options.gzip) ctx.vary('Accept-Encoding');
 
   if (!file.buffer) {
     const stats = await fs.stat(file.path);
@@ -65,10 +65,7 @@ async function sendfile(ctx, filepath, options = {}) {
   }
 
   const shouldGzip =
-    options.enableGzip &&
-    file.length > 1024 &&
-    acceptGzip &&
-    compressible(file.type);
+    options.gzip && file.length > 1024 && acceptGzip && compressible(file.type);
 
   if (file.buffer) {
     if (shouldGzip) {

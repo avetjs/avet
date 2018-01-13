@@ -212,7 +212,7 @@ class Server {
     }
 
     try {
-      return await serveStatic(ctx, path);
+      return await serveStatic(ctx, path, this.options.appConfig.staticOptions);
     } catch (err) {
       if (err.code === 'ENOENT') {
         this.render404(ctx);
