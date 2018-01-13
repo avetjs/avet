@@ -1,5 +1,4 @@
 const path = require('path');
-const moduleAlias = require('module-alias');
 const EggApplication = require('./core/egg').Application;
 const AppWorkerLoader = require('./core/loader/app_worker_loader');
 const { getAverConfiguration } = require('./utils');
@@ -12,12 +11,6 @@ const EGG_PATH = Symbol.for('egg#eggPath');
 class Application extends EggApplication {
   constructor(...opts) {
     super(...opts);
-
-    // Create aliases of directories and register custom module paths
-    this.addAlias = moduleAlias.addAlias;
-    this.addAliases = moduleAlias.addAliases;
-    this.addPath = moduleAlias.addPath;
-
     // this[EGG_READY_TIMEOUT_ENV] = Number.parseInt(
     //   process.env.EGG_READY_TIMEOUT_ENV || 20000,
     //   10
