@@ -100,7 +100,7 @@ module.exports = () => {
       const html = await page.evaluate(() => {
         return {
           head: document.head.innerHTML,
-          body: document.body.textContent,
+          body: document.body.innerHTML,
         };
       });
       expect(html.body).toContain('<div>Hello</div>');
@@ -111,7 +111,7 @@ module.exports = () => {
       const page = await renderPage('/styled-jsx');
       const { style, styleId } = await page.evaluate(() => {
         return {
-          style: document.querySelector('style'),
+          style: document.querySelector('style[data-styled-jsx]').innerHTML,
           styleId: document.querySelector('#blue-box').getAttribute('class'),
         };
       });
