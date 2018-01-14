@@ -1,5 +1,5 @@
-import { World } from '../components/world';
-import { Hello } from '../components/hello.jsx';
+import { World } from '../component/world';
+import { Hello } from '../component/hello.jsx';
 
 export default () => (
   <div>

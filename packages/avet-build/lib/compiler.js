@@ -74,7 +74,6 @@ module.exports = async function createCompiler(
         entries[entryName] = [ `${join(avetPagesDir, p)}?entry` ];
       }
     }
-
     return entries;
   }
 
@@ -93,7 +92,7 @@ module.exports = async function createCompiler(
 
   const entry = async () => {
     const pages = await getPages({
-      dir,
+      dir: join(dir, 'page'),
       dev,
       pagesGlobPattern: 'page/**/*.js',
     });

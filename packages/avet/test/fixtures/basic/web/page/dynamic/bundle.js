@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 const HelloBundle = dynamic({
   modules: props => {
     const components = {
-      HelloContext: import('../../components/hello-context'),
-      Hello1: import('../../components/hello1'),
+      HelloContext: import('../../component/hello-context'),
+      Hello1: import('../../component/hello1'),
     };
 
     if (props.showMore) {
-      components.Hello2 = import('../../components/hello2');
+      components.Hello2 = import('../../component/hello2');
     }
 
     return components;
