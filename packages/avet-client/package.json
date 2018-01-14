@@ -28,7 +28,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.15.0",
-    "eslint-config-avet": "^0.3.11",
+    "eslint-config-avet": "^0.4.1",
     "node-notifier": "^5.1.2",
     "taskr": "^1.1.0"
   },

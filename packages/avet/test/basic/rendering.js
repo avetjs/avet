@@ -18,5 +18,81 @@ module.exports = () => {
 
       page.close();
     });
+
+    it('renders a stateful component', async () => {
+      const page = await renderPage('/stateful');
+      const answer = await page.evaluate(() => {
+        return document.getElementById('answer').textContent;
+      });
+
+      expect(answer).toEqual('The answer is 42');
+      page.close();
+    });
+
+    it('header helper renders header information', async () => {
+      const page = await renderPage('/head');
+      const html = await page.evaluate(() => {
+        return {
+          head: document.head.innerHTML,
+          body: document.body.textContent,
+        };
+      });
+
+      expect(html.head).toContain(
+        '<meta charset="iso-8859-5" class="app-head">'
+      );
+      expect(html.head).toContain('<meta content="my meta" class="app-head">');
+      expect(html.body).toContain('I can haz meta tags');
+
+      page.close();
+    });
+
+    it('header helper dedups tags', async () => {
+      const page = await renderPage('/head');
+      const html = await page.evaluate(() => {
+        return {
+          head: document.head.innerHTML,
+          body: document.body.textContent,
+        };
+      });
+
+      expect(html.head).toContain(
+        '<meta charset="iso-8859-5" class="app-head">'
+      );
+      expect(html.head).not.toContain(
+        '<meta charset="utf-8" class="app-head">'
+      );
+      expect(html.head).toContain('<meta content="my meta" class="app-head">');
+      expect(html.head).toContain(
+        '<link rel="stylesheet" href="/dup-style.css" class="app-head"><link rel="stylesheet" href="/dup-style.css" class="app-head">'
+      );
+      expect(html.head).toContain(
+        '<link rel="stylesheet" href="dedupe-style.css" class="app-head">'
+      );
+      expect(html.head).not.toContain(
+        '<link rel="stylesheet" href="dedupe-style.css" class="app-head"><link rel="stylesheet" href="dedupe-style.css" class="app-head">'
+      );
+
+      page.close();
+    });
+
+    it('header helper renders Fragment children', async () => {
+      const page = await renderPage('/head');
+      const html = await page.evaluate(() => {
+        return {
+          head: document.head.innerHTML,
+          body: document.body.textContent,
+        };
+      });
+
+      expect(html.head).toContain(
+        '<title class="app-head">Fragment title</title>'
+      );
+      expect(html.head).toContain(
+        '<meta content="meta fragment" class="app-head">'
+      );
+
+      page.close();
+    });
   });
 };

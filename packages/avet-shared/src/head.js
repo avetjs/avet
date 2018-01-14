@@ -21,6 +21,12 @@ function reduceComponents(components) {
     .map(c => c.props.children)
     .map(children => React.Children.toArray(children))
     .reduce((a, b) => a.concat(b), [])
+    .reduce((a, b) => {
+      if (React.Fragment && b.type === React.Fragment) {
+        return a.concat(React.Children.toArray(b.props.children));
+      }
+      return a.concat(b);
+    }, [])
     .reverse()
     .concat(...defaultHead())
     .filter(c => !!c)
@@ -42,17 +48,23 @@ function onStateChange(head) {
   }
 }
 
-const METATYPES = [ 'name', 'httpEquiv', 'charSet', 'itemProp' ];
+const METATYPES = [ 'name', 'httpEquiv', 'charSet', 'itemProp', 'property' ];
 
 // returns a function for filtering head child elements
 // which shouldn't be duplicated, like <title/>.
 
 function unique() {
+  const keys = new Set();
   const tags = new Set();
   const metaTypes = new Set();
   const metaCategories = {};
 
   return h => {
+    if (h.key && h.key.startsWith('.$')) {
+      if (keys.has(h.key)) return false;
+      keys.add(h.key);
+    }
+
     switch (h.type) {
       case 'title':
       case 'base':
@@ -62,7 +74,7 @@ function unique() {
       case 'meta':
         for (let i = 0, len = METATYPES.length; i < len; i++) {
           const metatype = METATYPES[i];
-          if (!Object.prototype.hasOwnProperty.call(h, metatype)) continue;
+          if (!h.props.hasOwnProperty(metatype)) continue;
 
           if (metatype === 'charSet') {
             if (metaTypes.has(metatype)) return false;
