@@ -1,3 +1,4 @@
+const { existsSync } = require('fs');
 const { join, sep } = require('path');
 const { createHash } = require('crypto');
 const extend = require('extend2');
@@ -48,7 +49,36 @@ module.exports = async function createCompiler(
     })
   );
 
-  const defaultEntries = dev
+  async function getPages({ dir, dev, pagesGlobPattern }) {
+    let pages;
+
+    if (dev) {
+      pages = await glob('page/+(_document|_error).+(js|jsx)', { cwd: dir });
+    } else {
+      pages = await glob(pagesGlobPattern, { cwd: dir });
+    }
+
+    return pages;
+  }
+
+  function getPageEntries(pages) {
+    const entries = {};
+    for (const p of pages) {
+      entries[join('bundles', p.replace('.jsx', '.js'))] = [ `./${p}?entry` ];
+    }
+
+    // The default pages (_document.js and _error.js) are only added when they're not provided by the user
+    for (const p of defaultPages) {
+      const entryName = join('bundles', 'page', p);
+      if (!entries[entryName]) {
+        entries[entryName] = [ `${join(avetPagesDir, p)}?entry` ];
+      }
+    }
+
+    return entries;
+  }
+
+  const devEntries = dev
     ? [
       require.resolve('avet-client/lib/webpack-hot-middleware-client'),
       require.resolve('avet-client/lib/on-demand-entries-client'),
@@ -62,49 +92,42 @@ module.exports = async function createCompiler(
   let totalPages;
 
   const entry = async () => {
+    const pages = await getPages({
+      dir,
+      dev,
+      pagesGlobPattern: 'page/**/*.js',
+    });
+    const pageEntries = getPageEntries(pages);
+    // Used for commons chunk calculations
+    totalPages = pages.length;
+    if (pages.indexOf(documentPage) !== -1) {
+      totalPages = totalPages - 1;
+    }
+
     const entries = {
-      'main.js': [ ...defaultEntries, mainJS ],
+      'main.js': [
+        ...devEntries, // Adds hot middleware and ondemand entries in development
+        mainJS, // Main entrypoint in the client folder
+      ],
+      ...pageEntries,
     };
-
-    const pages = await glob('page/**/*.js', { cwd: dir });
-    const devPages = pages.filter(
-      p => p === 'page/_document.js' || p === 'page/_error.js'
-    );
-
-    // In the dev environment, on-demand-entry-handler will take care of
-    // managing pages.
-    if (dev) {
-      for (const p of devPages) {
-        entries[join('bundles', p)] = [ `./${p}?entry` ];
-      }
-    } else {
-      for (const p of pages) {
-        entries[join('bundles', p)] = [ `./${p}?entry` ];
-      }
-    }
-
-    for (const p of defaultPages) {
-      const entryName = join('bundles', 'page', p);
-      if (!entries[entryName]) {
-        entries[entryName] = [ `${join(avetPagesDir, p)}?entry` ];
-      }
-    }
-
-    totalPages = pages.filter(p => p !== documentPage).length;
 
     return entries;
   };
 
   const webpackPlugins = [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(
+        dev ? 'development' : 'production'
+      ),
+    }),
+    new CaseSensitivePathPlugin(),
     new webpack.IgnorePlugin(/(precomputed)/, /node_modules.+(elliptic)/),
     new webpack.LoaderOptionsPlugin({
       options: {
         context: dir,
         customInterpolateName(url) {
           return interpolateNames.get(this.resourcePath) || url;
-        },
-        resolve: {
-          extensions: [ '.ts', '.tsx', '.js' ],
         },
       },
     }),
@@ -118,8 +141,17 @@ module.exports = async function createCompiler(
       name: 'commons',
       filename: 'commons.js',
       minChunks(module, count) {
+        if (
+          dev &&
+          module.context &&
+          module.context.indexOf(`${sep}react${sep}`) >= 0
+        ) {
+          return true;
+        }
+
         // Move react-dom into commons.js always
         if (
+          dev &&
           module.context &&
           module.context.indexOf(`${sep}react-dom${sep}`) >= 0
         ) {
@@ -142,6 +174,33 @@ module.exports = async function createCompiler(
         return count >= totalPages * 0.5;
       },
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'react',
+      filename: 'react.js',
+      minChunks(module, count) {
+        if (dev) {
+          return false;
+        }
+
+        if (
+          module.resource &&
+          module.resource.includes(`${sep}react-dom${sep}`) &&
+          count >= 0
+        ) {
+          return true;
+        }
+
+        if (
+          module.resource &&
+          module.resource.includes(`${sep}react${sep}`) &&
+          count >= 0
+        ) {
+          return true;
+        }
+
+        return false;
+      },
+    }),
     // This chunk contains all the webpack related code. So, all the changes
     // related to that happens to this chunk.
     // It won't touch commons.js and that gives us much better re-build perf.
@@ -149,14 +208,8 @@ module.exports = async function createCompiler(
       name: 'manifest',
       filename: 'manifest.js',
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(
-        dev ? 'development' : 'production'
-      ),
-    }),
     new PagesPlugin(),
     new DynamicChunksPlugin(),
-    new CaseSensitivePathPlugin(),
   ];
 
   if (dev) {
@@ -175,13 +228,22 @@ module.exports = async function createCompiler(
   } else {
     webpackPlugins.push(new webpack.IgnorePlugin(/react-hot-loader/));
     webpackPlugins.push(
-      new CombineAssetsPlugin({
-        input: [ 'manifest.js', 'commons.js', 'main.js' ],
-        output: 'app.js',
-      }),
       new UglifyJSPlugin({
+        exclude: /react\.js/,
         parallel: true,
         sourceMap: false,
+        uglifyOptions: {
+          compress: {
+            comparisons: false,
+          },
+        },
+      })
+    );
+    webpackPlugins.push(
+      // Combines manifest.js commons.js and main.js into app.js in production
+      new CombineAssetsPlugin({
+        input: [ 'manifest.js', 'react.js', 'commons.js', 'main.js' ],
+        output: 'app.js',
       })
     );
     webpackPlugins.push(new webpack.optimize.ModuleConcatenationPlugin());
@@ -215,27 +277,28 @@ module.exports = async function createCompiler(
     mainBabelOptions.plugins.push(pluginModuleBabelAlias);
   }
 
-  const rules = (dev
+  const devLoaders = dev
     ? [
       {
-        test: /\.js(\?[^?]*)?$/,
+        test: /\.(js|jsx)(\?[^?]*)?$/,
         loader: 'hot-self-accept-loader',
         include: [ join(dir, 'page'), avetPagesDir ],
       },
       {
-        test: /\.js(\?[^?]*)?$/,
+        test: /\.(js|jsx)(\?[^?]*)?$/,
         loader: require.resolve('react-hot-loader/webpack'),
         exclude: /node_modules/,
       },
     ]
-    : []
-  ).concat([
+    : [];
+
+  const loaders = [
     {
       test: /\.json$/,
       loader: require.resolve('json-loader'),
     },
     {
-      test: /\.(js|json)(\?[^?]*)?$/,
+      test: /\.(js|jsx|json)(\?[^?]*)?$/,
       loader: 'emit-file-loader',
       include: [ dir, avetPagesDir ],
       exclude(str) {
@@ -243,12 +306,35 @@ module.exports = async function createCompiler(
       },
       options: {
         name: 'dist/[path][name].[ext]',
+        // We need to strip off .jsx on the server. Otherwise require without .jsx doesn't work.
+        interpolateName: name => name.replace('.jsx', '.js'),
+        validateFileName(file) {
+          const cases = [
+            { from: '.js', to: '.jsx' },
+            { from: '.jsx', to: '.js' },
+          ];
+
+          for (const item of cases) {
+            const { from, to } = item;
+            if (file.slice(-from.length) !== from) {
+              continue;
+            }
+
+            const filePath = file.slice(0, -from.length) + to;
+
+            if (existsSync(filePath)) {
+              throw new Error(
+                `Both ${from} and ${to} file found. Please make sure you only have one of both.`
+              );
+            }
+          }
+        },
         // By default, our babel config does not transpile ES2015 module syntax because
         // webpack knows how to handle them. (That's how it can do tree-shaking)
         // But Node.js doesn't know how to handle them. So, we have to transpile them here.
         transform({ content, sourceMap, interpolatedName }) {
           // Only handle .js files
-          if (!/\.js$/.test(interpolatedName)) {
+          if (!/\.(js|jsx)$/.test(interpolatedName)) {
             return { content, sourceMap };
           }
 
@@ -261,6 +347,9 @@ module.exports = async function createCompiler(
             // That's why we need to do it here.
             // See more: https://github.com/zeit/next.js/issues/951
             plugins: [
+              require.resolve(
+                join(__dirname, './babel/plugins/remove-dotjsx-from-import.js')
+              ),
               [
                 require.resolve(
                   'babel-plugin-transform-es2015-modules-commonjs'
@@ -347,7 +436,7 @@ module.exports = async function createCompiler(
       },
       options: mainBabelOptions,
     },
-  ]);
+  ];
 
   let webpackConfig = {
     context: dir,
@@ -367,9 +456,17 @@ module.exports = async function createCompiler(
         return `webpack:///${resourcePath}?${id}`;
       },
       // This saves chunks with the name given via require.ensure()
-      chunkFilename: '[name]',
+      chunkFilename: '[name]-[chunkhash].js',
     },
     resolve: {
+      alias: {
+        // This bypasses React's check for production mode. Since we know it is in production this way.
+        // This allows us to exclude React from being uglified. Saving multiple seconds per build.
+        'react-dom': dev
+          ? 'react-dom/cjs/react-dom.development.js'
+          : 'react-dom/cjs/react-dom.production.min.js',
+      },
+      extensions: [ '.js', '.jsx', '.json' ],
       modules: [ avetNodeModulesDir, 'node_modules', ...nodePathList ],
     },
     resolveLoader: {
@@ -382,7 +479,7 @@ module.exports = async function createCompiler(
     },
     plugins: webpackPlugins,
     module: {
-      rules,
+      rules: [ ...devLoaders, ...loaders ],
     },
     devtool: dev ? 'cheap-module-inline-source-map' : false,
     performance: { hints: false },

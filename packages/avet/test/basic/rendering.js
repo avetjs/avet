@@ -94,5 +94,29 @@ module.exports = () => {
 
       page.close();
     });
+
+    it('should render the page with custom extension', async () => {
+      const page = await renderPage('/custom-extension');
+      const html = await page.evaluate(() => {
+        return {
+          head: document.head.innerHTML,
+          body: document.body.textContent,
+        };
+      });
+      expect(html.body).toContain('<div>Hello</div>');
+      expect(html.body).toContain('<div>World</div>');
+    });
+
+    it('renders styled jsx', async () => {
+      const page = await renderPage('/styled-jsx');
+      const { style, styleId } = await page.evaluate(() => {
+        return {
+          style: document.querySelector('style'),
+          styleId: document.querySelector('#blue-box').getAttribute('class'),
+        };
+      });
+
+      expect(style).toContain(`p.${styleId}{color:blue`);
+    });
   });
 };

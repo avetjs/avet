@@ -55,8 +55,8 @@ exports.startApp = async name => {
       // process.stdout.write(message);
     }
 
-    function handleStderr() {
-      // process.stderr.write(data.toString());
+    function handleStderr(data) {
+      process.stderr.write(data.toString());
     }
 
     instance.stdout.on('data', handleStdout);
