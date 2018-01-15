@@ -1,3 +1,14 @@
+## v1.0.0-27 (2018-01-15)
+
+#### :nail_care: Enhancement
+
+* `avet-build`, `avet-client`, `avet-server`, `avet-shared`, `avet-utils`, `avet`
+  * [#71](https://github.com/avetjs/avet/pull/71) Sync next.js core and test. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-26 (2018-01-13)
 
 #### :rocket: New Feature
