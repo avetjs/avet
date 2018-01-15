@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import htmlescape from 'htmlescape';
 import flush from 'styled-jsx/server';
 
+const Fragment =
+  React.Fragment ||
+  function Fragment({ children }) {
+    return children;
+  };
+
 const mixinHtmlComponents = [];
 const mixinHeadComponents = [];
 const mixinMainComponents = [];
@@ -10,7 +16,7 @@ const mixinMainComponents = [];
 function getPagePathname(pathname, avetExport) {
   if (!avetExport) return pathname;
   if (pathname === '/') return '/index.js';
-  return `${pathname}/index.js`;
+  return `${pathname}.js`;
 }
 
 function isReactComponent(Component) {
@@ -98,7 +104,7 @@ export class Head extends Component {
   getPreloadDynamicChunks() {
     const { chunks, __APP_DATA__ } = this.context._documentProps;
     const { assetPrefix } = __APP_DATA__;
-    return chunks.map(chunk => (
+    return chunks.filenames.map(chunk => (
       <link
         key={chunk}
         rel="preload"
@@ -133,6 +139,7 @@ export class Head extends Component {
 
     return (
       <head {...this.props} {...mixinProps}>
+        {(head || []).map((h, i) => React.cloneElement(h, { key: h.key || i }))}
         <link
           rel="preload"
           href={`${assetPrefix}/_app/${buildId}/page${pagePathname}`}
@@ -140,12 +147,11 @@ export class Head extends Component {
         />
         <link
           rel="preload"
-          href={`${assetPrefix}/_app/${buildId}/page/_error/index.js`}
+          href={`${assetPrefix}/_app/${buildId}/page/_error.js`}
           as="script"
         />
         {this.getPreloadDynamicChunks()}
         {this.getPreloadMainLinks()}
-        {(head || []).map((h, i) => React.cloneElement(h, { key: i }))}
         {mixinChild}
         {styles || null}
         {this.props.children}
@@ -177,16 +183,20 @@ export class Main extends Component {
     }
 
     return (
-      <div className={className}>
+      <Fragment className={className}>
         {mixinMain}
         <div id="__app" dangerouslySetInnerHTML={{ __html: html }} />
         <div id="__app-error" dangerouslySetInnerHTML={{ __html: errorHtml }} />
-      </div>
+      </Fragment>
     );
   }
 }
 
 export class AvetScript extends Component {
+  static propTypes = {
+    nonce: PropTypes.string,
+  };
+
   static contextTypes = {
     _documentProps: PropTypes.any,
   };
@@ -225,8 +235,8 @@ export class AvetScript extends Component {
     const { chunks, __APP_DATA__ } = this.context._documentProps;
     const { assetPrefix } = __APP_DATA__;
     return (
-      <div>
-        {chunks.map(chunk => (
+      <Fragment>
+        {chunks.filenames.map(chunk => (
           <script
             async
             key={chunk}
@@ -234,7 +244,7 @@ export class AvetScript extends Component {
             src={`${assetPrefix}/_app/webpack/chunks/${chunk}`}
           />
         ))}
-      </div>
+      </Fragment>
     );
   }
 
@@ -243,12 +253,13 @@ export class AvetScript extends Component {
     const { pathname, avetExport, buildId, assetPrefix } = __APP_DATA__;
     const pagePathname = getPagePathname(pathname, avetExport);
 
-    __APP_DATA__.chunks = chunks;
+    __APP_DATA__.chunks = chunks.names;
 
     return (
-      <div>
+      <Fragment>
         {staticMarkup ? null : (
           <script
+            nonce={this.props.nonce}
             dangerouslySetInnerHTML={{
               __html: `
           __APP_DATA__ = ${htmlescape(__APP_DATA__)}
@@ -277,11 +288,11 @@ export class AvetScript extends Component {
           async
           id={'__APP_PAGE__/_error'}
           type="text/javascript"
-          src={`${assetPrefix}/_app/${buildId}/page/_error/index.js`}
+          src={`${assetPrefix}/_app/${buildId}/page/_error.js`}
         />
         {staticMarkup ? null : this.getDynamicChunks()}
         {staticMarkup ? null : this.getScripts()}
-      </div>
+      </Fragment>
     );
   }
 }

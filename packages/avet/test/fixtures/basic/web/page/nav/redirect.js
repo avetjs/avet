@@ -2,7 +2,7 @@ import Router from 'avet/router';
 
 const Page = () => <p>This is the page</p>;
 
-Page.getInitialProps = ctx => {
+Page.getInitialProps = ({ ctx }) => {
   if (ctx) {
     ctx.redirect('/nav/about');
   } else {

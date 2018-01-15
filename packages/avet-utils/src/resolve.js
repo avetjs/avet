@@ -28,13 +28,21 @@ function getPaths(id) {
   const i = sep === '/' ? id : id.replace(/\//g, sep);
 
   if (i.slice(-3) === '.js') return [ i ];
+  if (i.slice(-4) === '.jsx') return [ i ];
   if (i.slice(-5) === '.json') return [ i ];
 
   if (i[i.length - 1] === sep) {
-    return [ `${i}index.js`, `${i}index.json` ];
+    return [ `${i}index.js`, `${i}index.jsx`, `${i}index.json` ];
   }
 
-  return [ `${i}.js`, join(i, 'index.js'), `${i}.json`, join('i', 'index.json') ];
+  return [
+    `${i}.js`,
+    join(i, 'index.js'),
+    `${i}.jsx`,
+    join(i, 'index.jsx'),
+    `${i}.json`,
+    join(i, 'index.json'),
+  ];
 }
 
 async function isFile(p) {

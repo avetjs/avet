@@ -11,14 +11,14 @@ const TYPE_IMPORT = 'Import';
 const buildImport = args =>
   template(`
   (
-    typeof window === 'undefined' ?
+    typeof require.resolveWeak !== 'function' ?
       new (require('avet/dynamic').SameLoopPromise)((resolve, reject) => {
         eval('require.ensure = function (deps, callback) { callback(require) }')
         require.ensure([], (require) => {
           let m = require(SOURCE)
-          m.__webpackChunkName = '${args.name}.js'
+          m.__webpackChunkName = '${args.name}'
           resolve(m);
-        }, 'chunks/${args.name}.js');
+        }, 'chunks/${args.name}');
       })
       :
       new (require('avet/dynamic').SameLoopPromise)((resolve, reject) => {
@@ -35,7 +35,7 @@ const buildImport = args =>
           } catch(error) {
             reject(error)
           }
-        }, 'chunks/${args.name}.js');
+        }, 'chunks/${args.name}');
       })
   )
 `);
@@ -62,6 +62,7 @@ module.exports = exports = () => ({
       if (path.node.callee.type === TYPE_IMPORT) {
         const moduleName = path.node.arguments[0].value;
         const sourceFilename = state.file.opts.filename;
+
         const modulePath = getModulePath(sourceFilename, moduleName);
         const modulePathHash = Crypto.createHash('md5')
           .update(modulePath)
@@ -72,9 +73,10 @@ module.exports = exports = () => ({
           ''
         );
 
-        const name = `${relativeModulePath.replace(/[^\w]/g, '_')}_${
-          modulePathHash
-        }`;
+        const name = `${relativeModulePath.replace(
+          /[^\w]/g,
+          '_'
+        )}_${modulePathHash}`;
 
         const newImport = buildImport({
           name,

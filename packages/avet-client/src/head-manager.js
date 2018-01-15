@@ -72,7 +72,7 @@ export default class HeadManager {
 function reactElementToDOM({ type, props }) {
   const el = document.createElement(type);
   for (const p in props) {
-    if (!Object.prototype.hasOwnProperty.call(props, p)) continue;
+    if (!props.hasOwnProperty(p)) continue;
     if (p === 'children' || p === 'dangerouslySetInnerHTML') continue;
 
     const attr = DOMAttributeNames[p] || p.toLowerCase();

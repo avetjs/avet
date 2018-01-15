@@ -4,8 +4,8 @@ import HTTPStatus from 'http-status';
 import Head from './head';
 
 export default class Error extends React.Component {
-  static getInitialProps({ res, err }) {
-    const statusCode = res ? res.statusCode : err ? err.statusCode : null;
+  static getInitialProps({ ctx, error }) {
+    const statusCode = ctx ? ctx.statusCode : error ? error.statusCode : null;
     return { statusCode };
   }
 

@@ -80,7 +80,9 @@ class Server {
     const routes = {
       // This is to support, webpack dynamic imports in production.
       '/_app/webpack/chunks/:name': async (ctx, params) => {
-        ctx.set('cache-control', 'max-age=365000000, immutable');
+        if (!this.dev) {
+          ctx.set('Cache-Control', 'max-age=31536000, immutable');
+        }
         const p = join(this.dir, this.dist, 'chunks', params.name);
         await this.serveStatic(ctx, p);
       },
@@ -273,7 +275,7 @@ class Server {
     } catch (err) {
       if (err.code === 'ENOENT') {
         ctx.status = 404;
-        return this.renderErrorToHTML(null, ctx);
+        return this.renderErrorToHTML(err, ctx);
       }
       if (!this.quiet) console.error(err);
       ctx.status = 500;

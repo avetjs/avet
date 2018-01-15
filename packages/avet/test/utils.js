@@ -129,6 +129,22 @@ exports.renderPage = async (path, query = {}) => {
   return page;
 };
 
+exports.getPage = async (path, query = {}) => {
+  const page = await browser.newPage();
+  await page.goto(`${serverUrl}${path}?${qs.stringify(query)}`);
+  const html = await page.evaluate(() => {
+    return {
+      head: document.head.innerHTML,
+      body: document.body.textContent,
+    };
+  });
+
+  html.page = page;
+  html.close = () => page.close.call(page);
+
+  return html;
+};
+
 exports.curl = async (path, params = {}) => {
   const options = Object.assign(params, { timeout: 10000 });
   return await urllib.request(path, options);

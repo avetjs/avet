@@ -2,6 +2,7 @@ const { startApp, curl } = require('../utils');
 
 const mm = require('egg-mock');
 const rendering = require('./rendering');
+const dynamic = require('./dynamic');
 
 const timeout = 40000;
 
@@ -30,6 +31,7 @@ describe('Basic', () => {
       curl(`${server.url}/stateless`),
       curl(`${server.url}/styled-jsx`),
       curl(`${server.url}/with-cdm`),
+      curl(`${server.url}/custom-extension`),
       curl(`${server.url}/nav`),
       curl(`${server.url}/nav/about`),
       curl(`${server.url}/nav/querystring`),
@@ -55,4 +57,5 @@ describe('Basic', () => {
   });
 
   rendering();
+  dynamic();
 });

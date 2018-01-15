@@ -16,6 +16,7 @@ const {
   resolvePath,
   requireModule,
   loadGetInitialProps,
+  getAvailableChunks,
 } = require('avet-utils');
 
 const sendfile = require('./sendfile');
@@ -50,7 +51,8 @@ async function renderScriptError(ctx, page, error, customFields = {}, { dev }) {
     ctx.type = 'text/javascript';
     ctx.body = `
       window.__APP_REGISTER_PAGE('${page}', function() {
-        var error = new Error('Page does not exist: ${page}');
+        var error;
+        error = new Error('Page does not exist: ${page}');
         error.statusCode = 404;
 
         return { error: error };
@@ -161,15 +163,18 @@ async function doRender(
     let head;
     let errorHtml = '';
     try {
-      html = render(app);
+      if (err && dev) {
+        errorHtml = render(createElement(ErrorDebug, { error: err }));
+      } else if (err) {
+        errorHtml = render(app);
+      } else {
+        html = render(app);
+      }
     } finally {
       head = Head.rewind() || defaultHead();
     }
-    const chunks = loadChunks({ dev, dir, dist, availableChunks });
 
-    if (err && dev) {
-      errorHtml = render(createElement(ErrorDebug, { error: err }));
-    }
+    const chunks = loadChunks({ dev, dir, dist, availableChunks });
 
     return { html, head, errorHtml, chunks };
   };
@@ -246,17 +251,24 @@ async function ensurePage(page, { hotReloader }) {
 
 function loadChunks({ dev, dir, dist, availableChunks }) {
   const flushedChunks = flushChunks();
-  const validChunks = [];
+  const response = {
+    names: [],
+    filenames: [],
+  };
+
+  if (dev) {
+    availableChunks = getAvailableChunks(dir, dist);
+  }
 
   for (const chunk of flushedChunks) {
-    const filename = join(dir, dist, 'chunks', chunk);
-    const exists = dev ? existsSync(filename) : availableChunks[chunk];
-    if (exists) {
-      validChunks.push(chunk);
+    const filename = availableChunks[chunk];
+    if (filename) {
+      response.names.push(chunk);
+      response.filenames.push(filename);
     }
   }
 
-  return validChunks;
+  return response;
 }
 
 module.exports = {

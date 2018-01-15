@@ -1,7 +1,7 @@
 import dynamic from 'avet/dynamic';
-import Welcome from '../../components/welcome';
+import Welcome from '../../component/welcome';
 
-const Welcome2 = dynamic(import('../../components/welcome'));
+const Welcome2 = dynamic(import('../../component/welcome'));
 
 export default () => (
   <div>
