@@ -1,4 +1,4 @@
 const EmptyInitialPropsPage = () => <div>My Page</div>;
-EmptyInitialPropsPage.getInitialProps = () => {};
+EmptyInitialPropsPage.getInitialProps = () => null;
 
 export default EmptyInitialPropsPage;

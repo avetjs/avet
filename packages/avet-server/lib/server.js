@@ -208,6 +208,7 @@ class Server {
 
   async serveStatic(ctx, path) {
     if (!this.isServeableUrl(path)) {
+      console.log('===============', path);
       return this.render404(ctx);
     }
 
@@ -273,7 +274,7 @@ class Server {
     } catch (err) {
       if (err.code === 'ENOENT') {
         ctx.status = 404;
-        return this.renderErrorToHTML(null, ctx);
+        return this.renderErrorToHTML(err, ctx);
       }
       if (!this.quiet) console.error(err);
       ctx.status = 500;

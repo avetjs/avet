@@ -50,7 +50,8 @@ async function renderScriptError(ctx, page, error, customFields = {}, { dev }) {
     ctx.type = 'text/javascript';
     ctx.body = `
       window.__APP_REGISTER_PAGE('${page}', function() {
-        var error = new Error('Page does not exist: ${page}');
+        var error;
+        error = new Error('Page does not exist: ${page}');
         error.statusCode = 404;
 
         return { error: error };
@@ -161,15 +162,18 @@ async function doRender(
     let head;
     let errorHtml = '';
     try {
-      html = render(app);
+      if (err && dev) {
+        errorHtml = render(createElement(ErrorDebug, { error: err }));
+      } else if (err) {
+        errorHtml = render(app);
+      } else {
+        html = render(app);
+      }
     } finally {
       head = Head.rewind() || defaultHead();
     }
-    const chunks = loadChunks({ dev, dir, dist, availableChunks });
 
-    if (err && dev) {
-      errorHtml = render(createElement(ErrorDebug, { error: err }));
-    }
+    const chunks = loadChunks({ dev, dir, dist, availableChunks });
 
     return { html, head, errorHtml, chunks };
   };
