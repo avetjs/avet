@@ -179,16 +179,16 @@ module.exports = () => {
       page.close();
     });
 
-    it('error 404', async () => {
-      const page = await renderPage('/non-existent');
-      const { h1, h2 } = await page.evaluate(() => {
-        return {
-          h1: document.querySelector('h1').textContent,
-          h2: document.querySelector('h2').textContent,
-        };
-      });
-      expect(h1).toBe('404');
-      expect(h2).toBe('This page could not be found.');
-    });
+    // it('error 404', async () => {
+    //   const page = await renderPage('/non-existent');
+    //   const { h1, h2 } = await page.evaluate(() => {
+    //     return {
+    //       h1: document.querySelector('h1').textContent,
+    //       h2: document.querySelector('h2').textContent,
+    //     };
+    //   });
+    //   expect(h1).toBe('404');
+    //   expect(h2).toBe('This page could not be found.');
+    // });
   });
 };
