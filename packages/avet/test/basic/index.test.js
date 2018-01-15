@@ -2,6 +2,7 @@ const { startApp, curl } = require('../utils');
 
 const mm = require('egg-mock');
 const rendering = require('./rendering');
+const dynamic = require('./dynamic');
 
 const timeout = 40000;
 
@@ -56,4 +57,5 @@ describe('Basic', () => {
   });
 
   rendering();
+  dynamic();
 });

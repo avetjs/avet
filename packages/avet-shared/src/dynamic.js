@@ -35,6 +35,8 @@ export default function dynamicComponent(p, o) {
         ? options.loading
         : () => <p>loading...</p>;
       this.ssr = options.ssr === false ? options.ssr : true;
+      // only for test
+      this.delay = options.delay || 0;
 
       this.state = { AsyncComponent: null, asyncElement: null };
       this.isServer = typeof window === 'undefined';
@@ -70,10 +72,20 @@ export default function dynamicComponent(p, o) {
     }
 
     load() {
-      if (promise) {
-        this.loadComponent();
+      const loadC = () => {
+        if (promise) {
+          this.loadComponent();
+        } else {
+          this.loadBundle(this.props);
+        }
+      };
+
+      if (this.delay) {
+        setTimeout(() => {
+          loadC();
+        }, this.delay);
       } else {
-        this.loadBundle(this.props);
+        loadC();
       }
     }
 

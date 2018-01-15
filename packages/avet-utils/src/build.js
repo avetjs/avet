@@ -2,8 +2,8 @@ const { existsSync, readdirSync } = require('fs');
 const { join } = require('path');
 
 module.exports = {
-  IS_BUNDLED_PAGE: /^bundles[/\\]page.*\.js$/,
-  MATCH_ROUTE_NAME: /^bundles[/\\]page[/\\](.*)\.js$/,
+  IS_BUNDLED_PAGE: /^bundles[/\\]page.*\.(js|jsx)$/,
+  MATCH_ROUTE_NAME: /^bundles[/\\]page[/\\](.*)\.(js|jsx)$/,
 
   getAvailableChunks: distDir => {
     const chunksDir = join(distDir, 'chunks');
@@ -14,7 +14,8 @@ module.exports = {
 
     chunkFiles.forEach(filename => {
       if (/\.js$/.test(filename)) {
-        chunksMap[filename] = true;
+        const chunkName = filename.replace(/-.*/, '');
+        chunksMap[chunkName] = filename;
       }
     });
 

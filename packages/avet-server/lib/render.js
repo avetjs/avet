@@ -16,6 +16,7 @@ const {
   resolvePath,
   requireModule,
   loadGetInitialProps,
+  getAvailableChunks,
 } = require('avet-utils');
 
 const sendfile = require('./sendfile');
@@ -250,17 +251,24 @@ async function ensurePage(page, { hotReloader }) {
 
 function loadChunks({ dev, dir, dist, availableChunks }) {
   const flushedChunks = flushChunks();
-  const validChunks = [];
+  const response = {
+    names: [],
+    filenames: [],
+  };
+
+  if (dev) {
+    availableChunks = getAvailableChunks(dir, dist);
+  }
 
   for (const chunk of flushedChunks) {
-    const filename = join(dir, dist, 'chunks', chunk);
-    const exists = dev ? existsSync(filename) : availableChunks[chunk];
-    if (exists) {
-      validChunks.push(chunk);
+    const filename = availableChunks[chunk];
+    if (filename) {
+      response.names.push(chunk);
+      response.filenames.push(filename);
     }
   }
 
-  return validChunks;
+  return response;
 }
 
 module.exports = {

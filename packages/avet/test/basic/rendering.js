@@ -190,5 +190,25 @@ module.exports = () => {
     //   expect(h1).toBe('404');
     //   expect(h2).toBe('This page could not be found.');
     // });
+
+    it('should navigate as expected', async () => {
+      const page = await renderPage('/nav/with-hoc');
+      const text = await page.evaluate(
+        () => document.querySelector('#pathname').textContent
+      );
+
+      expect(text).toBe('Current path: /nav/with-hoc');
+      page.close();
+    });
+
+    it('should include asPath', async () => {
+      const page = await renderPage('/nav/with-hoc');
+      const text = await page.evaluate(
+        () => document.querySelector('#asPath').textContent
+      );
+
+      expect(text).toBe('Current asPath: /nav/with-hoc');
+      page.close();
+    });
   });
 };
