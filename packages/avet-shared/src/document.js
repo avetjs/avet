@@ -183,11 +183,11 @@ export class Main extends Component {
     }
 
     return (
-      <Fragment className={className}>
+      <div className={className}>
         {mixinMain}
         <div id="__app" dangerouslySetInnerHTML={{ __html: html }} />
         <div id="__app-error" dangerouslySetInnerHTML={{ __html: errorHtml }} />
-      </Fragment>
+      </div>
     );
   }
 }

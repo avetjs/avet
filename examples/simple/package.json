@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "avet": "1.0.0-26",
-    "eslint-config-avet": "0.3.11"
+    "eslint-config-avet": "0.4.1"
   },
   "devDependencies": {
     "avet-bin": "1.0.0-26"
