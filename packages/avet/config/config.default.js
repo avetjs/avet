@@ -9,9 +9,8 @@ module.exports = appInfo => {
     assetPrefix: '',
     webpack: null,
     webpackDevMiddleware: {
+      logLevel: 'silent',
       publicPath: '/_app/webpack/',
-      noInfo: true,
-      quiet: true,
       clientLogLevel: 'warning',
       watchOptions: {
         ignored: [
