@@ -37,6 +37,8 @@
     "friendly-errors-webpack-plugin": "^1.6.1",
     "glob-promise": "^3.3.0",
     "json-loader": "^0.5.7",
+    "koa": "^2.4.1",
+    "koa-compose": "^4.0.0",
     "loader-utils": "^1.1.0",
     "lodash": "^4.17.4",
     "md5-file": "^3.2.3",

@@ -7,6 +7,9 @@ module.exports = appInfo => {
   exports.build = {
     distDir: '.build',
     assetPrefix: '',
+    devServer: {
+      port: 7010,
+    },
     webpack: null,
     webpackDevMiddleware: {
       logLevel: 'silent',

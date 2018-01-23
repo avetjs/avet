@@ -12,7 +12,6 @@
     "etag": "^1.8.1",
     "glob-promise": "^3.3.0",
     "http-errors": "^1.6.2",
-    "koa-compose": "^4.0.0",
     "koa-send": "^4.1.2",
     "mime-types": "^2.1.17",
     "mkdirp-then": "^1.2.0",

@@ -7,7 +7,7 @@ const { existsSync, readFileSync, writeFileSync } = require('fs');
 const { renderToHTML } = require('./render');
 const { getAvailableChunks, printAndExit } = require('avet-utils');
 
-module.exports = async function (dir, options) {
+module.exports = async function(dir, options) {
   dir = resolve(dir);
   const avetDir = join(dir, options.distDir);
 
@@ -58,7 +58,7 @@ module.exports = async function (dir, options) {
   if (typeof options.buildConfig.exportPathMap !== 'function') {
     printAndExit(
       '> Could not found "exportPathMap" function in config \n' +
-      '> "avet export" uses that function build html pages.'
+        '> "avet export" uses that function build html pages.'
     );
   }
 

@@ -1,5 +1,4 @@
 const { join } = require('path');
-const { existsSync } = require('fs');
 const { createElement } = require('react');
 const { renderToString, renderToStaticMarkup } = require('react-dom/server');
 const generateETag = require('etag');
