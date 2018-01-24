@@ -77,7 +77,7 @@ class Server {
 
       // This is to support, webpack dynamic import support with HMR
       '/_app/webpack/:id': async (ctx, params) => {
-        const p = join(this.dir, this.dist, 'chunks', params.id);
+        const p = join(this.dir, this.dist, params.id);
         await this.serveStatic(ctx, p);
       },
 
