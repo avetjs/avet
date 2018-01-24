@@ -1,3 +1,14 @@
+## v1.0.0-29 (2018-01-24)
+
+#### :bug: Bug Fix
+
+* `avet`
+  * [#73](https://github.com/avetjs/avet/pull/73) If have set body and skip next. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-28 (2018-01-24)
 
 #### :rocket: New Feature
