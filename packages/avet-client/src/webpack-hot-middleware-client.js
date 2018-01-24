@@ -1,4 +1,4 @@
-import webpackHotMiddlewareClient from 'webpack-hot-middleware/client?overlay=false&reload=true&path=/_app/webpack-hmr';
+import webpackHotMiddlewareClient from 'webpack-hot-middleware/client?overlay=false&reload=true&path=http://127.0.0.1:7010/_app/webpack-hmr';
 import Router from 'avet-shared/lib/router';
 
 export default () => {

@@ -14,7 +14,7 @@ const {
 
 const { getAvailableChunks } = require('avet-utils');
 
-const internalPrefixes = [ /^\/_app\//, /^\/static\// ];
+const internalPrefixes = [ /^\/_app\// ];
 
 const blockedPages = {
   '/_document': true,
@@ -22,7 +22,7 @@ const blockedPages = {
 };
 
 class Server {
-  constructor(options) {
+  constructor(options, app) {
     this.options = options;
 
     this.dev = options.dev;
@@ -37,7 +37,7 @@ class Server {
     this.dist = options.buildConfig.distDir;
 
     this.router = new Router();
-    this.hotReloader = this.dev ? this.getHotReloader(options) : null;
+    this.hotReloader = this.dev ? this.getHotReloader(app) : null;
 
     this.buildStats = !this.dev
       ? require(join(this.dir, this.dist, 'build-stats.json'))
@@ -59,21 +59,9 @@ class Server {
     this.defineRoutes();
   }
 
-  getHotReloader(options) {
-    const HotReloader = require('./hot-reloader');
-    return new HotReloader(options);
-  }
-
-  async prepare() {
-    if (this.hotReloader) {
-      await this.hotReloader.start();
-    }
-  }
-
-  async close() {
-    if (this.hotReloader) {
-      await this.hotReloader.stop();
-    }
+  getHotReloader(app) {
+    const HotReloader = require('./adaptar/hot-reloader');
+    return new HotReloader(app);
   }
 
   defineRoutes() {
@@ -89,7 +77,7 @@ class Server {
 
       // This is to support, webpack dynamic import support with HMR
       '/_app/webpack/:id': async (ctx, params) => {
-        const p = join(this.dir, this.dist, 'chunks', params.id);
+        const p = join(this.dir, this.dist, params.id);
         await this.serveStatic(ctx, p);
       },
 
@@ -164,21 +152,22 @@ class Server {
         }
 
         if (this.dev) {
-          try {
-            await this.hotReloader.ensurePage(page);
-          } catch (error) {
-            await renderScriptError(ctx, page, error, {}, this.renderOpts);
-
+          const result = await this.hotReloader.ensurePage(page);
+          if (result.error) {
+            await renderScriptError(
+              ctx,
+              page,
+              result.error,
+              {},
+              this.renderOpts
+            );
             return;
-          }
-
-          const compilationErr = await this.getCompilationError();
-          if (compilationErr) {
+          } else if (result.compilationError) {
             const customFields = { statusCode: 500 };
             await renderScriptError(
               ctx,
               page,
-              compilationErr,
+              result.compilationError,
               customFields,
               this.renderOpts
             );
@@ -188,11 +177,6 @@ class Server {
 
         await renderScript(ctx, page, this.renderOpts);
       },
-
-      // '/static/:path*': async (ctx, params) => {
-      //   const p = join(this.dir, 'static', ...(params.path || []));
-      //   await this.serveStatic(ctx, p);
-      // },
     };
 
     if (this.options.appConfig.useFileSystemPublicRoutes) {
@@ -224,11 +208,7 @@ class Server {
     }
   }
 
-  async run(ctx, next) {
-    if (this.hotReloader) {
-      await this.hotReloader.run(ctx, next);
-    }
-
+  async run(ctx) {
     if (ctx.body) {
       return;
     }
@@ -262,14 +242,6 @@ class Server {
   }
 
   async renderToHTML(ctx) {
-    if (this.dev) {
-      const compilationErr = await this.getCompilationError();
-      if (compilationErr) {
-        ctx.status = 500;
-        return this.renderErrorToHTML(compilationErr, ctx);
-      }
-    }
-
     try {
       return await renderToHTML(ctx, this.renderOpts);
     } catch (err) {
@@ -289,14 +261,6 @@ class Server {
   }
 
   async renderErrorToHTML(err, ctx) {
-    if (this.dev) {
-      const compilationErr = await this.getCompilationError();
-      if (compilationErr) {
-        ctx.status = 500;
-        return renderErrorToHTML(compilationErr, ctx, this.renderOpts);
-      }
-    }
-
     try {
       return await renderErrorToHTML(err, ctx, this.renderOpts);
     } catch (err2) {
@@ -353,16 +317,6 @@ class Server {
 
     ctx.set('Cache-Control', 'max-age=365000000, immutable');
     return true;
-  }
-
-  async getCompilationError() {
-    if (!this.hotReloader) return;
-
-    const errors = await this.hotReloader.getCompilationErrors();
-    if (!errors.size) return;
-
-    // Return the very first error we found.
-    return Array.from(errors.values())[0][0];
   }
 
   handleBuildHash(filename, hash, ctx) {

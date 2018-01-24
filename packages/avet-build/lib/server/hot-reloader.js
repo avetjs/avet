@@ -1,17 +1,16 @@
 const { join, relative, sep } = require('path');
-const avetBuild = require('avet-build');
+const webpack = require('webpack');
+const compose = require('koa-compose');
+const { IS_BUNDLED_PAGE } = require('avet-utils');
 
-const webpack = avetBuild.requireModule('webpack');
 const {
   WebpackDevMiddleware,
   WebpackHotMiddleware,
   createCompiler,
-} = avetBuild;
+} = require('../../');
 
-const clean = require('avet-build/lib/clean');
-const { IS_BUNDLED_PAGE } = require('avet-utils');
+const clean = require('../clean');
 const onDemandEntryHandler = require('./on-demand-entry-handler');
-const compose = require('koa-compose');
 
 module.exports = class HotReloader {
   constructor(options) {
@@ -34,6 +33,8 @@ module.exports = class HotReloader {
     this.layouts = options.layouts;
     this.plugins = options.plugins;
     this.avetPluginConfig = options.avetPluginConfig;
+
+    this.run = this.run.bind(this);
   }
 
   async run(ctx, next) {

@@ -19,13 +19,7 @@ class Application extends EggApplication {
     if (process.env.AVET_RUN_ENV !== 'build') {
       const config = getAverConfiguration(this);
       const AvetServer = require('avet-server/lib/server');
-      this.avetServer = new AvetServer(config);
-      this.beforeStart(async () => {
-        // check env is local and need prepare ready
-        if (this.config.env === 'local') {
-          await this.avetServer.prepare();
-        }
-      });
+      this.avetServer = new AvetServer(config, this);
     }
   }
 

@@ -1,14 +1,12 @@
 const { join } = require('path');
 const { EventEmitter } = require('events');
-const DynamicEntryPlugin = require('avet-build').requireModule(
-  'webpack/lib/DynamicEntryPlugin'
-);
+const DynamicEntryPlugin = require('webpack/lib/DynamicEntryPlugin');
+const touch = require('touch');
 const {
   resolvePath,
   MATCH_ROUTE_NAME,
   IS_BUNDLED_PAGE,
 } = require('avet-utils');
-const touch = require('touch');
 
 const ADDED = 'symbol_added';
 const BUILDING = 'symbol_building';
@@ -207,6 +205,7 @@ module.exports = function onDemandEntryHandler(
         function processCallback(err) {
           if (err) return reject(err);
           resolve();
+          console.log(`> Builded page: ${page}`);
         }
       });
     },

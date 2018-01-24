@@ -11,6 +11,7 @@
     "index.js"
   ],
   "dependencies": {
+    "@koa/cors": "^2.2.1",
     "@taskr/babel": "^1.1.0",
     "@taskr/clear": "^1.1.0",
     "avet-client": "1.0.0-27",
@@ -37,6 +38,8 @@
     "friendly-errors-webpack-plugin": "^1.6.1",
     "glob-promise": "^3.3.0",
     "json-loader": "^0.5.7",
+    "koa": "^2.4.1",
+    "koa-compose": "^4.0.0",
     "loader-utils": "^1.1.0",
     "lodash": "^4.17.4",
     "md5-file": "^3.2.3",
@@ -48,6 +51,7 @@
     "relative": "^3.0.2",
     "rimraf": "^2.6.2",
     "taskr": "^1.1.0",
+    "touch": "^3.1.0",
     "traverse": "^0.6.6",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "uuid": "^3.1.0",

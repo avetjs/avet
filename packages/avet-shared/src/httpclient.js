@@ -3,7 +3,7 @@ import axios from 'axios';
 function getBaseURL(ctx) {
   if (ctx) {
     let port = '7001';
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'production' && process.env.PORT) {
       port = process.env.PORT;
     }
     return `http://127.0.0.1:${port}`;
