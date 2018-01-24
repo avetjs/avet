@@ -1,5 +1,6 @@
 const HotReloader = require('./hot-reloader');
 const Koa = require('koa');
+const cors = require('@koa/cors');
 
 module.exports = class HotReloaderAgentServer {
   constructor(app, options) {
@@ -30,10 +31,14 @@ module.exports = class HotReloaderAgentServer {
   startServer() {
     this.app = new Koa();
 
+    this.app.use(cors());
     this.app.use(this.hotReloader.run);
 
-    this.app.listen(this.eggApplication.config.build.devServer.port, () => {
-      this.eggApplication.logger.info('Hot Reloader devServer Started.');
+    const { port } = this.eggApplication.config.build.devServer;
+    this.app.listen(port, () => {
+      this.eggApplication.logger.info(
+        `hot reloader devServer started at port ${port}`
+      );
     });
   }
 

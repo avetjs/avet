@@ -5,9 +5,10 @@ module.exports = () => {
     });
     const isStaticRoute = /static/.test(ctx.path);
     const isPublicRoute = /public/.test(ctx.path);
+    const isBuildRoute = /(webpack-hmr|on-demand-entries-ping)/.test(ctx.path);
 
     // if route define in app/router.js or static route or public route
-    if (!isAppRoute && !isStaticRoute && !isPublicRoute) {
+    if (!isAppRoute && !isStaticRoute && !isPublicRoute && !isBuildRoute) {
       await ctx.avetServer.run(ctx);
     }
 

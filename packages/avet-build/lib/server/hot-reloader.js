@@ -33,6 +33,8 @@ module.exports = class HotReloader {
     this.layouts = options.layouts;
     this.plugins = options.plugins;
     this.avetPluginConfig = options.avetPluginConfig;
+
+    this.run = this.run.bind(this);
   }
 
   async run(ctx, next) {

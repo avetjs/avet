@@ -11,6 +11,7 @@
     "index.js"
   ],
   "dependencies": {
+    "@koa/cors": "^2.2.1",
     "@taskr/babel": "^1.1.0",
     "@taskr/clear": "^1.1.0",
     "avet-client": "1.0.0-27",
