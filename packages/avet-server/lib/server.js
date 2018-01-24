@@ -22,7 +22,7 @@ const blockedPages = {
 };
 
 class Server {
-  constructor(options) {
+  constructor(options, app) {
     this.options = options;
 
     this.dev = options.dev;
@@ -37,7 +37,7 @@ class Server {
     this.dist = options.buildConfig.distDir;
 
     this.router = new Router();
-    this.hotReloader = this.dev ? this.getHotReloader(options) : null;
+    this.hotReloader = this.dev ? this.getHotReloader(app) : null;
 
     this.buildStats = !this.dev
       ? require(join(this.dir, this.dist, 'build-stats.json'))
@@ -59,9 +59,9 @@ class Server {
     this.defineRoutes();
   }
 
-  getHotReloader(options) {
+  getHotReloader(app) {
     const HotReloader = require('./adaptar/hot-reloader');
-    return new HotReloader(options);
+    return new HotReloader(app);
   }
 
   defineRoutes() {

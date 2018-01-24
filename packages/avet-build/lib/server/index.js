@@ -2,31 +2,29 @@ const HotReloader = require('./hot-reloader');
 const Koa = require('koa');
 
 module.exports = class HotReloaderAgentServer {
-  constructor(eggApplication, options) {
-    this.eggApplication = eggApplication;
+  constructor(app, options) {
+    this.eggApplication = app;
     this.hotReloader = new HotReloader(options);
 
-    eggApplication.messenger.on('event_hotreloader_stop', async () => {
+    app.messenger.on('event_hotreloader_stop', async () => {
       await this.hotReloader.stop();
     });
 
-    eggApplication.messenger.on('event_hotreloader_ensure_page', async data => {
+    app.messenger.on('event_hotreloader_ensure_page', async data => {
       await this.hotReloader.onDemandEntries.ensurePage(data.page);
-      eggApplication.messenger.sendToApp(
-        'event_hotreloader_ensure_page_success',
-        {
-          status: 1,
-          trace_id: data.trace_id,
-        }
-      );
+      app.messenger.sendToApp('event_hotreloader_ensure_page_success', {
+        status: 1,
+        trace_id: data.trace_id,
+      });
     });
 
-    this.prepare().startServer();
+    this.prepare().then(() => {
+      this.startServer();
+    });
   }
 
   async prepare() {
     await this.hotReloader.start();
-    return this;
   }
 
   startServer() {
