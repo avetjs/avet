@@ -1,3 +1,15 @@
+## v1.0.0-28 (2018-01-24)
+
+#### :rocket: New Feature
+
+* `avet-build`, `avet-client`, `avet-server`, `avet-shared`, `avet`
+  * [#72](https://github.com/avetjs/avet/pull/72) Move hot reloader to agent pro
+    cess. ([@okoala](https://github.com/okoala))
+
+#### Committers: 1
+
+* 仙森 ([okoala](https://github.com/okoala))
+
 ## v1.0.0-27 (2018-01-15)
 
 #### :nail_care: Enhancement
