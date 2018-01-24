@@ -3,7 +3,6 @@ const assert = require('assert');
 const fs = require('fs');
 
 const initCwd = process.cwd();
-
 module.exports = { getFrameworkPath };
 
 function getFrameworkPath({ framework, baseDir }) {

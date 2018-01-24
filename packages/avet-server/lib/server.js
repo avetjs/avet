@@ -281,10 +281,7 @@ class Server {
   // Check url is serveable.
   isServeableUrl(url) {
     const resolved = resolve(url);
-    if (
-      resolved.indexOf(join(this.dir, this.dist) + sep) !== 0 &&
-      resolved.indexOf(join(this.dir, 'static') + sep) !== 0
-    ) {
+    if (resolved.indexOf(join(this.dir, this.dist) + sep) !== 0) {
       // Seems like the user is trying to traverse the filesystem.
       return false;
     }

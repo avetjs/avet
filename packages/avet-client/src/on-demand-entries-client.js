@@ -1,5 +1,4 @@
 /* global location */
-
 import Router from 'avet-shared/lib/router';
 import fetch from 'unfetch';
 

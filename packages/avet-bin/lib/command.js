@@ -11,13 +11,10 @@ class Command extends BaseCommand {
 
   get context() {
     const context = super.context;
-
     // compatible
     if (context.debugPort) context.debug = context.debugPort;
-
     // remove unuse args
     context.argv.$0 = undefined;
-
     return context;
   }
 }

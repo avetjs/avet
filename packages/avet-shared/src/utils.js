@@ -16,7 +16,6 @@ export function execOnce(fn) {
 
 export function deprecated(fn, message) {
   if (process.env.NODE_ENV === 'production') return fn;
-
   let warned = false;
   const newFn = function(...args) {
     if (!warned) {
@@ -25,7 +24,6 @@ export function deprecated(fn, message) {
     }
     return fn.apply(this, args);
   };
-
   // copy all properties
   Object.assign(newFn, fn);
 
