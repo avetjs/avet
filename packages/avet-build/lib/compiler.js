@@ -92,10 +92,11 @@ module.exports = async function createCompiler(
 
   const entry = async () => {
     const pages = await getPages({
-      dir: join(dir, 'page'),
+      dir,
       dev,
       pagesGlobPattern: 'page/**/*.js',
     });
+
     const pageEntries = getPageEntries(pages);
     // Used for commons chunk calculations
     totalPages = pages.length;

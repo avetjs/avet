@@ -11,7 +11,7 @@ class IndexPage extends React.Component {
     return (
       <div className="index-container">
         <Header />
-        <h1>hello test workssssssssssss</h1>
+        <h1>hello test work</h1>
         <p>{this.props.hello}</p>
       </div>
     );

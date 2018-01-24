@@ -12,7 +12,7 @@ module.exports = async function build(dir, options) {
   // remove pre distdir.
   del(dist, { force: true });
 
-  console.log('build ing...');
+  console.log('> Build project ing...');
 
   const compiler = await createCompiler(dir, options);
 
@@ -25,7 +25,7 @@ module.exports = async function build(dir, options) {
     throw err;
   }
 
-  console.log('build done.');
+  console.log('> Build project done.');
   process.exit(0);
   // await replaceCurrentBuild(dir, dist);
 };

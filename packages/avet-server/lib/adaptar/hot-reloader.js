@@ -14,7 +14,7 @@ module.exports = class HotReloader {
   }
 
   async ensurePage(page) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       const trace_id = +new Date();
       this.app.messenger.sendToAgent('event_hotreloader_ensure_page', {
         page,
@@ -31,11 +31,10 @@ module.exports = class HotReloader {
           timer = null;
         }
         if (new Date() - t1 > this.timeout) {
-          reject(new Error('ensure page timeout'));
           clearInterval(timer);
           timer = null;
         }
-      }, 200);
+      }, 2000);
     });
   }
 };

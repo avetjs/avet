@@ -12,11 +12,23 @@ module.exports = class HotReloaderAgentServer {
     });
 
     app.messenger.on('event_hotreloader_ensure_page', async data => {
-      await this.hotReloader.onDemandEntries.ensurePage(data.page);
-      app.messenger.sendToApp('event_hotreloader_ensure_page_success', {
+      const result = {
         status: 1,
         trace_id: data.trace_id,
-      });
+      };
+
+      try {
+        await this.hotReloader.onDemandEntries.ensurePage(data.page);
+      } catch (error) {
+        result.error = error;
+      }
+
+      const compilationError = await this.getCompilationError();
+      if (compilationError) {
+        result.compilationError = compilationError;
+      }
+
+      app.messenger.sendToApp('event_hotreloader_ensure_page_success', result);
     });
 
     this.prepare().then(() => {

@@ -205,6 +205,7 @@ module.exports = function onDemandEntryHandler(
         function processCallback(err) {
           if (err) return reject(err);
           resolve();
+          console.log(`> Builded page: ${page}`);
         }
       });
     },
