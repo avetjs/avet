@@ -1,11 +1,11 @@
 {
   "name": "bench-avet-simple",
-  "version": "1.0.0-28",
+  "version": "1.0.0-29",
   "scripts": {
     "start": "avet-bin build && avet-bin start"
   },
   "devDependencies": {
-    "avet": "1.0.0-28",
-    "avet-bin": "1.0.0-28"
+    "avet": "1.0.0-29",
+    "avet-bin": "1.0.0-29"
   }
 }
