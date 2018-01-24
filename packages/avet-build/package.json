@@ -1,7 +1,7 @@
 {
   "name": "avet-build",
   "description": "avet build",
-  "version": "1.0.0-27",
+  "version": "1.0.0-28",
   "scripts": {
     "autod": "autod",
     "test": "avet-bin test"
@@ -14,9 +14,9 @@
     "@koa/cors": "^2.2.1",
     "@taskr/babel": "^1.1.0",
     "@taskr/clear": "^1.1.0",
-    "avet-client": "1.0.0-27",
-    "avet-shared": "1.0.0-27",
-    "avet-utils": "1.0.0-27",
+    "avet-client": "1.0.0-28",
+    "avet-shared": "1.0.0-28",
+    "avet-utils": "1.0.0-28",
     "babel-core": "^6.26.0",
     "babel-generator": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "autod": "^3.0.1",
-    "avet-bin": "1.0.0-27",
+    "avet-bin": "1.0.0-28",
     "babel-eslint": "^8.1.2",
     "eslint": "^4.15.0",
     "eslint-config-avet": "^0.3.11",
