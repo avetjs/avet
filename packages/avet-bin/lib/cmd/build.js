@@ -47,7 +47,6 @@ class BuildCommand extends Command {
     if (this.isPlugin) {
       this.buildPluginExtend(context);
       this.buildPluginMain(context);
-      return null;
     } else {
       const devArgs = this.formatArgs(context);
       const options = {
@@ -130,7 +129,7 @@ class BuildCommand extends Command {
         promise = promise.then(() =>
           rollup.rollup(rollupOptions).then(bundle =>
             bundle.write({
-              dest: `output/${filepath.replace('.js', '')}.${format}.js`,
+              file: join(context.cwd, `output/${filepath.replace('.js', '')}.${format}.js`),
               format,
               sourceMap: true,
               moduleName: format === 'umd' ? this.modulePkg.name : undefined,
@@ -145,7 +144,6 @@ class BuildCommand extends Command {
 
   buildPluginMain(context) {
     if (!existsSync(join(context.cwd, 'index.js'))) return;
-
     let promise = Promise.resolve();
 
     const rollupOptions = {
@@ -168,18 +166,20 @@ class BuildCommand extends Command {
       ],
     };
 
-    [ ('es', 'cjs', 'umd') ].forEach(format => {
-      promise = promise.then(() =>
-        rollup.rollup(rollupOptions).then(bundle =>
-          bundle.write({
-            dest: `index.${format}.js`,
+    [ 'es', 'cjs', 'umd' ].forEach(format => {
+      promise = promise.then(() => {
+        rollup.rollup(rollupOptions).then(async bundle => {
+          await bundle.write({
+            file: join(context.cwd, `output/index.${format}.js`),
             format,
             sourceMap: true,
             moduleName: format === 'umd' ? this.modulePkg.name : undefined,
-          })
-        )
-      );
+          });
+        });
+      });
     });
+
+    promise.catch(err => console.error(err.stack));
   }
 }
 
