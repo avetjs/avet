@@ -2,6 +2,23 @@ const HotReloader = require('./hot-reloader');
 const Koa = require('koa');
 const cors = require('@koa/cors');
 
+function parseErrorStack(e) {
+  if (!e || !e.stack) {
+    return [];
+  }
+
+  const stacktraceParser = require('stacktrace-parser');
+  const stack = Array.isArray(e.stack)
+    ? e.stack
+    : stacktraceParser.parse(e.stack);
+
+  let framesToPop = typeof e.framesToPop === 'number' ? e.framesToPop : 0;
+  while (framesToPop--) {
+    stack.shift();
+  }
+  return stack;
+}
+
 module.exports = class HotReloaderAgentServer {
   constructor(app, options) {
     this.eggApplication = app;
@@ -20,12 +37,12 @@ module.exports = class HotReloaderAgentServer {
       try {
         await this.hotReloader.onDemandEntries.ensurePage(data.page);
       } catch (error) {
-        result.error = error;
+        result.error = parseErrorStack(error);
       }
 
       const compilationError = await this.getCompilationError();
       if (compilationError) {
-        result.compilationError = compilationError;
+        result.compilationError = parseErrorStack(compilationError);
       }
 
       app.messenger.sendToApp('event_hotreloader_ensure_page_success', result);
