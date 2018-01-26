@@ -9,7 +9,6 @@ function getPluginBabelAlias(plugins, entryname) {
   names.forEach(name => {
     const plugin = plugins[name];
     const modulePath = join(plugin.path, entryname);
-
     if (!existsSync(modulePath)) return;
 
     hasAlias = true;
@@ -31,11 +30,11 @@ function getPluginBabelAlias(plugins, entryname) {
 }
 
 function getPluginNodeBabelAlias(plugins) {
-  return getPluginBabelAlias(plugins, 'index.umd.js');
+  return getPluginBabelAlias(plugins, 'output/index.umd.js');
 }
 
 function getPluginModuleBabelAlias(plugins) {
-  return getPluginBabelAlias(plugins, 'index.cjs.js');
+  return getPluginBabelAlias(plugins, 'output/index.cjs.js');
 }
 
 module.exports = {
