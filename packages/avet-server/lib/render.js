@@ -12,6 +12,7 @@ const xssFilters = require('xss-filters');
 const { getHttpClient } = require('avet-shared/lib/httpclient');
 
 const {
+  isResSent,
   resolvePath,
   requireModule,
   loadGetInitialProps,
@@ -73,7 +74,8 @@ async function renderScriptError(ctx, page, error, customFields = {}, { dev }) {
 }
 
 function sendHTML(ctx, html, { dev }) {
-  if (ctx.res.finished) return;
+  if (isResSent(ctx.res)) return;
+
   const etag = generateETag(html);
 
   if (ctx.fresh) {
@@ -94,7 +96,7 @@ function sendHTML(ctx, html, { dev }) {
 }
 
 function sendJSON(ctx, obj) {
-  if (ctx.res.finished) return;
+  if (isResSent(ctx.res)) return;
 
   const json = JSON.stringify(obj);
   ctx.type = 'application/json';
@@ -147,7 +149,7 @@ async function doRender(
 
   const props = await loadGetInitialProps(Component, _ctx);
 
-  if (ctx.res.finished) return;
+  if (isResSent(ctx.res)) return;
 
   const renderPage = () => {
     const app = createElement(App, {
@@ -189,7 +191,7 @@ async function doRender(
   // So, it'll prevent issues like this: https://git.io/vHLtb
   const devBuildId = Date.now();
 
-  if (ctx.res.finished) return;
+  if (isResSent(ctx.res)) return;
 
   if (!Document.prototype) {
     throw new Error('_document.js is not exporting a React element');
