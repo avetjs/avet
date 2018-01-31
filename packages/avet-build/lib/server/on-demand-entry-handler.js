@@ -153,6 +153,8 @@ module.exports = function onDemandEntryHandler(
     );
   }, 5000);
 
+  disposeHandler.unref();
+
   function stop() {
     clearInterval(disposeHandler);
     stopped = true;
