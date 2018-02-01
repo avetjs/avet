@@ -9,6 +9,7 @@ module.exports = function(content, sourceMap) {
     null,
     `${content}
     (function (Component, route) {
+      if(!Component) return
       if (!module.hot) return
       if (!__resourceQuery) return
 
