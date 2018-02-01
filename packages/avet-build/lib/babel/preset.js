@@ -33,7 +33,11 @@ module.exports = (opts = {}) => {
       require.resolve('babel-plugin-transform-class-properties'),
       [
         require.resolve('babel-plugin-transform-runtime'),
-        opts['transform-runtime'] || {},
+        opts['transform-runtime'] || {
+          helpers: false,
+          polyfill: false,
+          regenerator: true,
+        },
       ],
       ...plugins,
       [
