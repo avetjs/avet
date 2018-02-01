@@ -2,24 +2,28 @@ import React from 'react';
 import ansiHTML from 'ansi-html';
 import Head from './head';
 
-export default ({ error, error: { name, message, module } }) => (
-  <div style={styles.errorDebug}>
-    <Head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    </Head>
-    {module ? (
-      <h1 style={styles.heading}>Error in {module.rawRequest}</h1>
-    ) : null}
-    {name === 'ModuleBuildError' ? (
-      <pre
-        style={styles.stack}
-        dangerouslySetInnerHTML={{ __html: ansiHTML(encodeHtml(message)) }}
-      />
-    ) : (
-      <StackTrace error={error} />
-    )}
-  </div>
-);
+export default ({ error }) => {
+  return (
+    <div style={styles.errorDebug}>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+      {error.module ? (
+        <h1 style={styles.heading}>Error in {error.module.rawRequest}</h1>
+      ) : null}
+      {error.name === 'ModuleBuildError' ? (
+        <pre
+          style={styles.stack}
+          dangerouslySetInnerHTML={{
+            __html: ansiHTML(encodeHtml(error.message)),
+          }}
+        />
+      ) : (
+        <StackTrace error={error} />
+      )}
+    </div>
+  );
+};
 
 const StackTrace = ({ error: { name, message, stack } }) => (
   <div>

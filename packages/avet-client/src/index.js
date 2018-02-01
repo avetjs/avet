@@ -50,6 +50,8 @@ let ErrorDebugComponent;
 let Component;
 let stripAnsi = s => s;
 
+const prod = process.env.NODE_ENV === 'production';
+
 export const emitter = new EventEmitter();
 
 export default async ({
@@ -61,14 +63,17 @@ export default async ({
     await pageLoader.waitForChunk(chunkName);
   }
 
+  let _err = err;
+
   stripAnsi = passedStripAnsi || stripAnsi;
   ErrorDebugComponent = passedDebugComponent;
   ErrorComponent = await pageLoader.loadPage('/_error');
 
   try {
     Component = await pageLoader.loadPage(pathname);
-  } catch (err) {
-    console.error(stripAnsi(`${err.message}\n${err.stack}`));
+  } catch (error) {
+    console.error(stripAnsi(`${error.message}\n${error.stack}`));
+    _err = error;
     Component = ErrorComponent;
   }
 
@@ -76,7 +81,7 @@ export default async ({
     pageLoader,
     Component,
     ErrorComponent,
-    err,
+    err: _err,
   });
 
   const emitter = new EventEmitter();
@@ -86,7 +91,7 @@ export default async ({
   });
 
   const hash = location.hash.substring(1);
-  render({ Component, props, hash, err, emitter });
+  render({ Component, props, hash, err: _err, emitter });
 
   return emitter;
 };
@@ -112,7 +117,6 @@ export async function render(props) {
 // 404 and 500 errors are special kind of errors
 // and they are still handle via the main render method.
 export async function renderError(error) {
-  const prod = process.env.NODE_ENV === 'production';
   // We need to unmount the current app component because it's
   // in the inconsistant state.
   // Otherwise, we need to face issues when the issue is fixed and

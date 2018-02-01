@@ -37,12 +37,20 @@ module.exports = class HotReloaderAgentServer {
       try {
         await this.hotReloader.onDemandEntries.ensurePage(data.page);
       } catch (error) {
-        result.error = parseErrorStack(error);
+        result.error = {
+          name: error.name,
+          message: error.message,
+          stack: parseErrorStack(error),
+        };
       }
 
       const compilationError = await this.getCompilationError();
       if (compilationError) {
-        result.compilationError = parseErrorStack(compilationError);
+        result.compilationError = {
+          name: compilationError.name,
+          message: compilationError.message,
+          stack: parseErrorStack(compilationError),
+        };
       }
 
       app.messenger.sendToApp('event_hotreloader_ensure_page_success', result);

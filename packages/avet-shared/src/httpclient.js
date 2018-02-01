@@ -18,8 +18,11 @@ export function getHttpClient(ctx, options = {}) {
     Object.keys(headers).forEach(key => {
       axios.defaults.headers.common[key] = headers[key];
     });
+
     // 设置 ip
-    axios.defaults.headers.common['X-Forwarded-For'] = ctx.ip;
+    if (ctx.ip) {
+      axios.defaults.headers.common['X-Forwarded-For'] = ctx.ip;
+    }
   }
 
   const baseURL = getBaseURL(ctx);
