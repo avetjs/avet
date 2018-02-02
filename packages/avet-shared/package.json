@@ -1,7 +1,7 @@
 {
   "name": "avet-shared",
   "description": "avet shared code",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "scripts": {
     "dev": "taskr dev",
     "build": "taskr release",
