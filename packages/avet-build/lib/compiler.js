@@ -368,6 +368,7 @@ module.exports = async function createCompiler(
                     'avet/head': relativeResolve('avet-shared/lib/head'),
                     'avet/router': relativeResolve('avet-shared/lib/router'),
                     'avet/error': relativeResolve('avet-shared/lib/error'),
+                    'avet/httpclient': relativeResolve('avet-shared/lib/httpclient'),
                     'avet/document': relativeResolve('../.external/document'),
                     'avet/config': relativeResolve('../.external/config'),
                   },

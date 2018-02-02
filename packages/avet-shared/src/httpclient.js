@@ -32,3 +32,5 @@ export function getHttpClient(ctx, options = {}) {
 
   return axios;
 }
+
+export default getHttpClient();
