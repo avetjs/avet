@@ -12,7 +12,7 @@ module.exports = () => {
     }
 
     if (!ctx.body && !ctx.res.finished) {
-      next();
+      await next();
     }
   };
 };
