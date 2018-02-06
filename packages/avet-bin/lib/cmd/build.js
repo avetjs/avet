@@ -107,6 +107,14 @@ class BuildCommand extends Command {
             babelrc: false,
             presets: [
               require.resolve('babel-preset-es2015-rollup'),
+              [
+                require.resolve('babel-preset-env'),
+                {
+                  targets: {
+                    browsers: '>1%',
+                  },
+                },
+              ],
               require.resolve('babel-preset-stage-2'),
               require.resolve('babel-preset-react'),
             ],
@@ -129,7 +137,10 @@ class BuildCommand extends Command {
         promise = promise.then(() =>
           rollup.rollup(rollupOptions).then(bundle =>
             bundle.write({
-              file: join(context.cwd, `output/${filepath.replace('.js', '')}.${format}.js`),
+              file: join(
+                context.cwd,
+                `output/${filepath.replace('.js', '')}.${format}.js`
+              ),
               format,
               sourceMap: true,
               moduleName: format === 'umd' ? this.modulePkg.name : undefined,
@@ -155,6 +166,14 @@ class BuildCommand extends Command {
             babelrc: false,
             presets: [
               require.resolve('babel-preset-es2015-rollup'),
+              [
+                require.resolve('babel-preset-env'),
+                {
+                  targets: {
+                    browsers: '>1%',
+                  },
+                },
+              ],
               require.resolve('babel-preset-stage-2'),
               require.resolve('babel-preset-react'),
             ],
