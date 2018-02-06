@@ -1,11 +1,11 @@
 {
   "name": "bench-avet-big",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "scripts": {
     "start": "avet-bin build && avet-bin start"
   },
   "devDependencies": {
-    "avet": "1.2.6",
-    "avet-bin": "1.2.6"
+    "avet": "1.2.7",
+    "avet-bin": "1.2.7"
   }
 }
