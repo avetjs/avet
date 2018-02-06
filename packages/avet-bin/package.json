@@ -39,7 +39,7 @@
     "jest-environment-node": "^22.0.4",
     "jsdom": "^11.5.1",
     "mz": "^2.7.0",
-    "puppeteer": "^0.13.0",
+    "puppeteer": "^1.0.0",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.2.0",
     "rollup": "^0.53.0",
