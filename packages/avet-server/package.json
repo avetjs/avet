@@ -1,10 +1,10 @@
 {
   "name": "avet-server",
   "description": "avet server",
-  "version": "1.2.3",
+  "version": "1.2.6",
   "dependencies": {
-    "avet-build": "1.2.3",
-    "avet-shared": "1.2.3",
+    "avet-build": "1.2.6",
+    "avet-shared": "1.2.6",
     "avet-utils": "1.2.1",
     "compressible": "^2.0.12",
     "debug": "^3.1.0",

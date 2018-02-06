@@ -1,7 +1,7 @@
 {
   "name": "avet-shared",
   "description": "avet shared code",
-  "version": "1.2.3",
+  "version": "1.2.6",
   "scripts": {
     "dev": "taskr dev",
     "build": "taskr release",
@@ -27,7 +27,7 @@
     "@taskr/clear": "^1.1.0",
     "@taskr/esnext": "^1.1.0",
     "@taskr/watch": "^1.1.0",
-    "avet-bin": "1.2.1",
+    "avet-bin": "1.2.6",
     "babel-eslint": "^8.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
