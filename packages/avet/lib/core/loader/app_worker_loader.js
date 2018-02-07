@@ -8,26 +8,30 @@ class AvetAppWorkerLoader extends createLoader(AppWorkerLoader) {
   }
 
   load() {
-    // app > plugin > core
-    this.loadApplicationExtend();
-    this.loadRequestExtend();
-    this.loadResponseExtend();
-    this.loadContextExtend();
-    this.loadHelperExtend();
+    if (process.env.AVET_RUN_ENV !== 'build') {
+      // app > plugin > core
+      this.loadApplicationExtend();
+      this.loadRequestExtend();
+      this.loadResponseExtend();
+      this.loadContextExtend();
+      this.loadHelperExtend();
+    }
 
     // avet layout
     this.loadLayout();
 
-    // app > plugin
-    this.loadCustomApp();
-    // app > plugin
-    this.loadService();
-    // app > plugin > core
-    this.loadMiddleware();
-    // app
-    this.loadController();
-    // app
-    this.loadRouter(); // 依赖 controller
+    if (process.env.AVET_RUN_ENV !== 'build') {
+      // app > plugin
+      this.loadCustomApp();
+      // app > plugin
+      this.loadService();
+      // app > plugin > core
+      this.loadMiddleware();
+      // app
+      this.loadController();
+      // app
+      this.loadRouter(); // 依赖 controller
+    }
   }
 }
 

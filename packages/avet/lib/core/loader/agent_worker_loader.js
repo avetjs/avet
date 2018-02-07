@@ -11,8 +11,10 @@ class AvetAgentWorkerLoader extends createLoader(AgentWorkerLoader) {
   }
 
   load() {
-    this.loadAgentExtend();
-    this.loadCustomAgent();
+    if (process.env.AVET_RUN_ENV !== 'build') {
+      this.loadAgentExtend();
+      this.loadCustomAgent();
+    }
 
     // avet layout
     this.loadLayout();
