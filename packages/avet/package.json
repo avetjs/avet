@@ -1,6 +1,6 @@
 {
   "name": "avet",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "a graceful framework for build web",
   "scripts": {
     "autod": "autod",
