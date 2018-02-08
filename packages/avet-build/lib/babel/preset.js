@@ -2,7 +2,9 @@ const relativeResolve = require('../root-module-relative-path')(require);
 // const absoluteResolve = require('../absolute-path')(require);
 
 const envPlugins = {
-  development: [ require.resolve('babel-plugin-transform-react-jsx-source') ],
+  development: [
+    require.resolve('babel-plugin-transform-react-jsx-source'),
+  ],
   production: [
     require.resolve('babel-plugin-transform-react-remove-prop-types'),
   ],
@@ -33,11 +35,7 @@ module.exports = (opts = {}) => {
       require.resolve('babel-plugin-transform-class-properties'),
       [
         require.resolve('babel-plugin-transform-runtime'),
-        opts['transform-runtime'] || {
-          helpers: false,
-          polyfill: false,
-          regenerator: true,
-        },
+        opts['transform-runtime'] || {},
       ],
       ...plugins,
       [
