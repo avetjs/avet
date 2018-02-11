@@ -1,6 +1,6 @@
 {
   "lerna": "2.5.1",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "changelog": {
     "repo": "avetjs/avet",
     "labels": {
