@@ -1,9 +1,9 @@
 {
   "name": "avet-example-hackernews",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "hackernews showcase using async/await for avet",
   "dependencies": {
-    "avet": "1.2.12",
+    "avet": "1.2.13",
     "moment": "^2.20.1"
   },
   "devDependencies": {

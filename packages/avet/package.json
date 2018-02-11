@@ -1,6 +1,6 @@
 {
   "name": "avet",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "a graceful framework for build web",
   "scripts": {
     "autod": "autod",
@@ -20,7 +20,7 @@
     "@types/react-dom": "^16.0.3",
     "avet-assets": "^1.0.0",
     "avet-build": "1.2.10",
-    "avet-server": "1.2.12",
+    "avet-server": "1.2.13",
     "avet-styled-jsx": "^0.2.1",
     "avet-utils": "1.2.1",
     "egg": "^2.2.0",
