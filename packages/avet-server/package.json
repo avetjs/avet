@@ -1,7 +1,7 @@
 {
   "name": "avet-server",
   "description": "avet server",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "dependencies": {
     "avet-build": "1.2.10",
     "avet-shared": "1.2.7",
