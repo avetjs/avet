@@ -37,7 +37,7 @@ class Server {
     this.dist = options.buildConfig.distDir;
 
     this.router = new Router();
-    this.quite = options.quite;
+    this.quiet = options.appConfig.quiet;
 
     this.hotReloader = this.dev ? this.getHotReloader(app) : null;
 

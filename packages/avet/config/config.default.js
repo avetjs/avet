@@ -39,7 +39,7 @@ module.exports = appInfo => {
     dev: true,
     port: 3000,
     staticMarkup: false,
-    quite: false,
+    quiet: false,
     configOrigin: 'default',
     useFileSystemPublicRoutes: true,
     staticOptions: {
