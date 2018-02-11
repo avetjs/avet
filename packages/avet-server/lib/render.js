@@ -36,7 +36,7 @@ async function renderScript(ctx, page, opts) {
     await serveStatic(ctx, realPath, ctx.app.config.app.staticOptions);
   } catch (err) {
     if (err.code === 'ENOENT') {
-      renderScriptError(err, ctx, page, {}, opts);
+      renderScriptError(ctx, page, err, {}, opts);
     }
   }
 }
@@ -129,7 +129,7 @@ async function doRender(
 
   await ensurePage(page, { dir, hotReloader });
 
-  let [ Component, Document ] = await Promise.all([
+  let [Component, Document] = await Promise.all([
     requireModule(join(dir, dist, 'dist', 'page', page)),
     requireModule(join(dir, dist, 'dist', 'page', '_document')),
   ]);
