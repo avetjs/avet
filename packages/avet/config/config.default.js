@@ -46,7 +46,7 @@ module.exports = appInfo => {
       // cache control max age for the files
       maxAge: 365000000,
       buffer: true,
-      gzip: true,
+      gzip: false,
     },
   };
 

@@ -35,6 +35,12 @@ async function renderScript(ctx, page, opts) {
     const realPath = await resolvePath(path);
     await serveStatic(ctx, realPath, ctx.app.config.app.staticOptions);
   } catch (err) {
+    if (ctx.logger) {
+      ctx.logger.error(err);
+    } else {
+      console.error(err);
+    }
+
     if (err.code === 'ENOENT') {
       renderScriptError(ctx, page, err, {}, opts);
     }
