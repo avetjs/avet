@@ -135,7 +135,7 @@ async function doRender(
 
   await ensurePage(page, { dir, hotReloader });
 
-  let [Component, Document] = await Promise.all([
+  let [ Component, Document ] = await Promise.all([
     requireModule(join(dir, dist, 'dist', 'page', page)),
     requireModule(join(dir, dist, 'dist', 'page', '_document')),
   ]);

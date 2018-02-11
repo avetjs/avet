@@ -37,6 +37,8 @@ class Server {
     this.dist = options.buildConfig.distDir;
 
     this.router = new Router();
+    this.quite = options.quite;
+
     this.hotReloader = this.dev ? this.getHotReloader(app) : null;
 
     this.buildStats = !this.dev
@@ -249,6 +251,11 @@ class Server {
         ctx.status = 404;
         return this.renderErrorToHTML(err, ctx);
       }
+
+      if (ctx.logger) {
+        ctx.logger.error(err);
+      }
+
       if (!this.quiet) console.error(err);
       ctx.status = 500;
       return this.renderErrorToHTML(err, ctx);
