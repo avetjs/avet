@@ -8,6 +8,10 @@ export default class Store {
       this.state = state;
     }
 
+    this.createStore();
+  }
+
+  createStore() {
     const store =
       process.env.NODE_ENV === 'production'
         ? new StoreModel(this.state)

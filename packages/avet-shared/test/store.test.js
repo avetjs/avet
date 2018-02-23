@@ -86,7 +86,7 @@ describe('new Store()', () => {
 });
 
 describe('<Provider>', () => {
-  const createChild = (storeKey = 'store') => {
+  const createChild = (storeKey = 'appStore') => {
     class Child extends Component {
       render() {
         return <div />;
@@ -106,51 +106,48 @@ describe('<Provider>', () => {
 
     const spy = jest.spyOn(console, 'error');
     const tree = TestUtils.renderIntoDocument(
-      <Provider store={store}>
+      <Provider store={{ store }}>
         <Child />
       </Provider>
     );
     expect(spy).not.toHaveBeenCalled();
 
     const child = TestUtils.findRenderedComponentWithType(tree, Child);
-    expect(child.context.store).toBe(store);
+    expect(child.context.appStore.store).not.toBeNull();
   });
 
   it('should pass mapped state as props', () => {
-    const state = { a: 'b' };
-    const store = { subscribe: jest.fn(), getState: () => state };
-    const ConnectedChild = connect(Object)(Child);
+    const store = new Store({ a: 'b' });
+    store.subscribe = jest.fn();
+
+    const ConnectedChild = connect()(Child);
 
     const mountedProvider = mount(
-      <Provider store={store}>
+      <Provider store={{ store }}>
         <ConnectedChild />
       </Provider>
     );
 
     const child = mountedProvider.find(Child).first();
-    expect(child.props()).toEqual({
-      a: 'b',
-      store,
-    });
+    expect(child.props().store.a).toEqual(store.state.a);
     expect(store.subscribe).toBeCalled();
   });
 
   it('should transform string selector', () => {
-    const state = { a: 'b', b: 'c', c: 'd' };
-    const store = { subscribe: jest.fn(), getState: () => state };
-    const ConnectedChild = connect('a, b')(Child);
+    const store = new Store({ a: 'b', b: 'c', c: 'd' });
+    store.subscribe = jest.fn();
+
+    const ConnectedChild = connect()(Child);
     const mountedProvider = mount(
-      <Provider store={store}>
+      <Provider store={{ store }}>
         <ConnectedChild />
       </Provider>
     );
 
     const child = mountedProvider.find(Child).first();
-    expect(child.props()).toEqual({
-      a: 'b',
-      b: 'c',
-      store,
-    });
+    expect(child.props().store.a).toEqual(store.state.a);
+    expect(child.props().store.b).toEqual(store.state.b);
+    expect(child.props().store.c).toEqual(store.state.c);
     expect(store.subscribe).toBeCalled();
   });
 
@@ -159,11 +156,11 @@ describe('<Provider>', () => {
     jest.spyOn(store, 'subscribe');
     jest.spyOn(store, 'unsubscribe');
 
-    const ConnectedChild = connect(Object)(Child);
+    const ConnectedChild = connect()(Child);
 
     expect(store.subscribe).not.toHaveBeenCalled();
     const mountedProvider = mount(
-      <Provider store={store}>
+      <Provider store={{ store }}>
         <ConnectedChild />
       </Provider>
     );
@@ -174,7 +171,7 @@ describe('<Provider>', () => {
       .find('Child')
       .first()
       .instance();
-    expect(child.props).toEqual({ store });
+    expect(child.props.store.a).toBeUndefined();
 
     store.setState({ a: 'b' });
     await sleep(1);
@@ -183,7 +180,8 @@ describe('<Provider>', () => {
       .find('Child')
       .first()
       .instance();
-    expect(child.props).toEqual({ a: 'b', store });
+
+    expect(child.props.store.a).toEqual('b');
 
     expect(store.unsubscribe).not.toHaveBeenCalled();
     mountedProvider.unmount();
@@ -193,33 +191,45 @@ describe('<Provider>', () => {
 
 describe('smoke test', () => {
   it('should render', done => {
-    const actions = ({ getState, setState }) => ({
-      incrementTwice(state) {
-        setState({ count: state.count + 1 });
+    class TestStore extends Store {
+      constructor() {
+        const state = {
+          count: 0,
+        };
+
+        super(state);
+      }
+
+      incrementTwice = state => {
+        this.setState({ count: state.count + 1 });
         return new Promise(r =>
           setTimeout(() => {
-            r({ count: getState().count + 1 });
+            r({ count: this.getState().count + 1 });
           }, 20)
         );
-      },
-    });
-    const App = connect('count', actions)(({ count, incrementTwice }) => (
-      <button id="some_button" onClick={incrementTwice}>
-        count: {count}
+      };
+    }
+
+    const testStore = new TestStore();
+
+    const App = connect()(({ testStore }) => (
+      <button id="some_button" onClick={testStore.incrementTwice}>
+        count: {testStore.count}
       </button>
     ));
-    const store = new Store({ count: 0 });
+
     const provider = (
-      <Provider store={store}>
+      <Provider store={{ testStore }}>
         <App />
       </Provider>
     );
+
     const mountedProvider = mount(provider);
-    expect(store.getState()).toEqual({ count: 0 });
+    expect(testStore.getState()).toEqual({ count: 0 });
     const button = mountedProvider.find('#some_button').simulate('click');
-    expect(store.getState()).toEqual({ count: 1 });
+    expect(testStore.getState()).toEqual({ count: 1 });
     setTimeout(() => {
-      expect(store.getState()).toEqual({ count: 2 });
+      expect(testStore.getState()).toEqual({ count: 2 });
       expect(button.text()).toBe('count: 2');
       done();
     }, 30);

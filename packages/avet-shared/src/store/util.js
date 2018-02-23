@@ -8,13 +8,50 @@ export function mapActions(actions, store) {
   return mapped;
 }
 
+const excludeProps = [
+  'state',
+  'action',
+  'setState',
+  'getState',
+  'subscribe',
+  'unsubscribe',
+];
+
 // select('foo,bar') creates a function of the form: ({ foo, bar }) => ({ foo, bar })
 export function select(properties) {
-  if (typeof properties === 'string') properties = properties.split(/\s*,\s*/);
-  return state => {
+  const props = {};
+  if (properties) {
+    properties.split(/\s*,\s*/).forEach(v => {
+      const p = v.split(/\s*\.\s*/);
+      if (!p[0]) {
+        props[p[0]] = [];
+      }
+      props[p[0]].push(p[1]);
+    });
+  }
+
+  return (state, storename, store) => {
     const selected = {};
-    for (let i = 0; i < properties.length; i++) {
-      selected[properties[i]] = state[properties[i]];
+    const currentSelectProps = props[storename];
+    if (!currentSelectProps || !currentSelectProps.length) {
+      for (const s in store) {
+        if (!excludeProps.includes(s)) {
+          if (typeof store[s] === 'function') {
+            selected[s] = store.action(store[s]);
+          }
+        }
+      }
+      for (const k in state) {
+        selected[k] = state[k];
+      }
+    } else {
+      for (let i = 0; i < currentSelectProps.length; i++) {
+        const key = currentSelectProps[i];
+        if (excludeProps.includes(key)) {
+          continue;
+        }
+        selected[key] = state[key] || store[key];
+      }
     }
     return selected;
   };

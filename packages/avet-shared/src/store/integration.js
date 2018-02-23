@@ -1,13 +1,13 @@
 import { createElement, Children, Component } from 'react';
-import { assign, select, mapActions } from './util';
+import { assign, select } from './util';
 
 const CONTEXT_TYPES = {
-  store: () => {},
+  appStore: () => {},
 };
 
 export class Provider extends Component {
   getChildContext() {
-    return { store: this.props.store };
+    return { appStore: this.props.store };
   }
   render() {
     return Children.only(this.props.children);
@@ -17,58 +17,70 @@ export class Provider extends Component {
 Provider.childContextTypes = CONTEXT_TYPES;
 
 /** Wire a component up to the store. Passes state as props, re-renders on change.
- *  @param {Function|Array|String} mapStateToProps  A function mapping of store state to prop values, or an array/CSV of properties to map.
- *  @param {Function|Object} [actions] 				Action functions (pure state mappings), or a factory returning them. Every action function gets current state as the first parameter and any other params next
+ *  @param {String} mapStoreToProps  A function mapping of store state to prop values, or an array/CSV of properties to map.
  *  @returns {Component} ConnectedComponent
  *  @example
- *    const Foo = connect('foo,bar')( ({ foo, bar }) => <div /> )
- *  @example
- *    const actions = { someAction }
- *    const Foo = connect('foo,bar', actions)( ({ foo, bar, someAction }) => <div /> )
- *  @example
- *    @connect( state => ({ foo: state.foo, bar: state.bar }) )
- *    export class Foo { render({ foo, bar }) { } }
+ *    const Foo = connect('xxStore.foo,xxStore.bar')( ({ xxStore }) => <div /> )
  */
-export function connect(mapStateToProps, actions) {
-  if (typeof mapStateToProps !== 'function') {
-    mapStateToProps = select(mapStateToProps || []);
+export function connect(mapStoreToProps) {
+  if (mapStoreToProps && typeof mapStoreToProps !== 'string') {
+    throw Error('mapStoreToProps only support string');
   }
+
+  mapStoreToProps = select(mapStoreToProps);
 
   return Child => {
     function Wrapper(props, context) {
       Component.call(this, props, context);
 
-      const { store } = context;
-      let state = mapStateToProps(store ? store.getState() : {}, props);
-      const boundActions = actions ? mapActions(actions, store) : { store };
-      const update = () => {
-        const mapped = mapStateToProps(
-          store ? store.getState() : {},
-          this.props
-        );
-        for (const i in mapped)
-          if (mapped[i] !== state[i]) {
-            state = mapped;
-            return this.forceUpdate();
+      const { appStore } = context;
+      const stores = {};
+
+      for (const s in appStore) {
+        const store = appStore[s];
+
+        const state = mapStoreToProps(store ? store.getState() : {}, s, store);
+        stores[s] = assign({}, state);
+
+        appStore[s].__update = () => {
+          const mapped = mapStoreToProps(
+            store ? store.getState() : {},
+            s,
+            store
+          );
+
+          for (const i in mapped) {
+            if (mapped[i] !== state[i]) {
+              stores[s] = mapped;
+              return this.forceUpdate();
+            }
           }
-        for (const i in state)
-          if (!(i in mapped)) {
-            state = mapped;
-            return this.forceUpdate();
+
+          for (const i in state) {
+            if (!(i in mapped)) {
+              stores[s] = mapped;
+              return this.forceUpdate();
+            }
           }
-      };
+        };
+      }
+
       this.componentDidMount = () => {
-        update();
-        store.subscribe(update);
+        for (const s in appStore) {
+          const store = appStore[s];
+          store.__update();
+          store.subscribe(store.__update);
+        }
       };
+
       this.componentWillUnmount = () => {
-        store.unsubscribe(update);
+        for (const s in appStore) {
+          const store = appStore[s];
+          store.unsubscribe(store.__update);
+        }
       };
-      this.render = () =>
-        createElement(
-          Child,
-          assign(assign(assign({}, boundActions), this.props), state)
-        );
+
+      this.render = () => createElement(Child, assign({}, stores, this.props));
     }
 
     Wrapper.contextTypes = CONTEXT_TYPES;
