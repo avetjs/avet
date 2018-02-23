@@ -1,0 +1,37 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "react-native",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "inlineSourceMap": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016"
+    ]
+  },
+  "include": [
+    "../typings",
+    "../index.d.ts",
+    "."
+  ],
+  "exclude": [
+    ".avet",
+    "asset-prod",
+    "static",
+    "page/__test__",
+    "component/__test__"
+  ]
+}

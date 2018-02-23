@@ -18,7 +18,17 @@ function strUpperCamelize(str) {
   return first + property.substring(1);
 }
 
+function isServer() {
+  return typeof window === 'undefined';
+}
+
+function isBrowser() {
+  return typeof window !== 'undefined';
+}
+
 module.exports = {
   printAndExit,
   strUpperCamelize,
+  isServer,
+  isBrowser,
 };

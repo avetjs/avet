@@ -11,7 +11,7 @@
     "allowJs": false,
     "pretty": true,
     "noEmitOnError": false,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -29,14 +29,10 @@
     "app.ts",
     "agent.ts",
     "app/**/*",
-    "config/**/*",
-    "web/**/*"
+    "config/**/*"
   ],
   "exclude": [
     "app/public",
-    "app/views",
-    "web/static",
-    "web/page/__test__",
-    "web/component/__test__"
+    "app/views"
   ]
 }
