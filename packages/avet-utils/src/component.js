@@ -7,9 +7,10 @@ function isResSent(res) {
 }
 
 async function loadGetInitialProps(Component, ctx) {
-  if (!Component.getInitialProps) return {};
+  const getProps = Component.getInitialProps || Component.getProps;
+  if (!getProps) return {};
 
-  const props = await Component.getInitialProps(ctx);
+  const props = await getProps(ctx);
   if (ctx.res && isResSent(ctx.res)) {
     return props;
   }
