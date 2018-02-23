@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-describe('createStore()', () => {
+describe('new Store()', () => {
   it('should be instantiable', () => {
     const store = new Store();
     expect(store).toMatchObject({
@@ -188,5 +188,40 @@ describe('<Provider>', () => {
     expect(store.unsubscribe).not.toHaveBeenCalled();
     mountedProvider.unmount();
     expect(store.unsubscribe).toBeCalled();
+  });
+});
+
+describe('smoke test', () => {
+  it('should render', done => {
+    const actions = ({ getState, setState }) => ({
+      incrementTwice(state) {
+        setState({ count: state.count + 1 });
+        return new Promise(r =>
+          setTimeout(() => {
+            r({ count: getState().count + 1 });
+          }, 20)
+        );
+      },
+    });
+    const App = connect('count', actions)(({ count, incrementTwice }) => (
+      <button id="some_button" onClick={incrementTwice}>
+        count: {count}
+      </button>
+    ));
+    const store = new Store({ count: 0 });
+    const provider = (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+    const mountedProvider = mount(provider);
+    expect(store.getState()).toEqual({ count: 0 });
+    const button = mountedProvider.find('#some_button').simulate('click');
+    expect(store.getState()).toEqual({ count: 1 });
+    setTimeout(() => {
+      expect(store.getState()).toEqual({ count: 2 });
+      expect(button.text()).toBe('count: 2');
+      done();
+    }, 30);
   });
 });
