@@ -143,14 +143,19 @@ class Server {
           } else if (result.compilationError) {
             return await renderScriptError(ctx, page, result.compilationError);
           }
-        }
-
-        const p = join(this.dir, this.dist, 'bundles', 'page', `${page}.js`);
-
-        // [production] If the page is not exists, we need to send a proper Next.js style 404
-        // Otherwise, it'll affect the multi-zones feature.
-        if (!await fsAsync.exists(p)) {
-          return await renderScriptError(ctx, page, { code: 'ENOENT' });
+        } else {
+          const p = join(
+            this.dir,
+            this.dist,
+            'bundles',
+            'page',
+            `${page || 'index'}.js`
+          );
+          // [production] If the page is not exists, we need to send a proper Next.js style 404
+          // Otherwise, it'll affect the multi-zones feature.
+          if (!await fsAsync.exists(p)) {
+            return await renderScriptError(ctx, page, { code: 'ENOENT' });
+          }
         }
 
         await renderScript(ctx, page, this.renderOpts);
