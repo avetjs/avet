@@ -62,13 +62,13 @@ module.exports = function onDemandEntryHandler(
   let stopped = false;
   let reloadCallbacks = new EventEmitter();
 
-  compiler.plugin('make', function(compilation, done) {
+  compiler.plugin('make', (compilation, done) => {
     invalidator.startBuilding();
 
     const allEntries = Object.keys(entries).map(page => {
       const { name, entry } = entries[page];
       entries[page].status = BUILDING;
-      return addEntry(compilation, this.context, name, entry);
+      return addEntry(compilation, compiler.context, name, entry);
     });
 
     Promise.all(allEntries)
