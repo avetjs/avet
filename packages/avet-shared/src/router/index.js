@@ -93,25 +93,13 @@ export const createRouter = function(...args) {
 // Export the actual Router class, which is usually used inside the server
 export const Router = _Router;
 
-export function _notifyBuildIdMismatch(nextRoute) {
-  if (SingletonRouter.onAppUpdated) {
-    SingletonRouter.onAppUpdated(nextRoute);
-  } else {
-    console.warn(
-      `An app update detected. Loading the SSR version of "${nextRoute}"`
-    );
-    window.location.href = nextRoute;
-  }
-}
-
 export function _rewriteUrlForAvetExport(url) {
   const [ , hash ] = url.split('#');
   url = url.replace(/#.*/, '');
 
-  let [ path, qs ] = url.split('?');
-  path = path.replace(/\/$/, '');
+  const [ path, qs ] = url.split('?');
 
-  let newPath = `${path}/`;
+  let newPath = `${path.replace(/\/$/, '')}/`;
   if (qs) {
     newPath = `${newPath}?${qs}`;
   }

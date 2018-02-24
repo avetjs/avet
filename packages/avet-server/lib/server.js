@@ -1,6 +1,7 @@
 const { resolve, join, sep } = require('path');
 const { readFileSync } = require('fs');
 const { STATUS_CODES } = require('http');
+const fsAsync = require('mz/fs');
 const Router = require('./router');
 
 const {
@@ -119,16 +120,8 @@ class Server {
       '/_app/:buildId/page/_error*': async (ctx, params) => {
         if (!this.handleBuildId(params.buildId, ctx.response)) {
           const error = new Error('INVALID_BUILD_ID');
-          const customFields = { buildIdMismatched: true };
 
-          await renderScriptError(
-            ctx,
-            '/_error',
-            error,
-            customFields,
-            this.renderOpts
-          );
-          return;
+          return await renderScriptError(ctx, '/_error', error);
         }
         const p = join(this.dir, this.dist, 'bundles/page/_error.js');
         await this.serveStatic(ctx, p);
@@ -140,41 +133,24 @@ class Server {
 
         if (!this.handleBuildId(params.buildId, ctx)) {
           const error = new Error('INVALID_BUILD_ID');
-          const customFields = { buildIdMismatched: true };
-
-          await renderScriptError(
-            ctx,
-            page,
-            error,
-            customFields,
-            this.renderOpts
-          );
-
-          return;
+          return await renderScriptError(ctx, page, error);
         }
 
         if (this.dev) {
           const result = await this.hotReloader.ensurePage(page);
           if (result.error) {
-            await renderScriptError(
-              ctx,
-              page,
-              result.error,
-              {},
-              this.renderOpts
-            );
-            return;
+            return await renderScriptError(ctx, page, result.error);
           } else if (result.compilationError) {
-            const customFields = { statusCode: 500 };
-            await renderScriptError(
-              ctx,
-              page,
-              result.compilationError,
-              customFields,
-              this.renderOpts
-            );
-            return;
+            return await renderScriptError(ctx, page, result.compilationError);
           }
+        }
+
+        const p = join(this.dir, this.dist, 'bundles', 'page', `${page}.js`);
+
+        // [production] If the page is not exists, we need to send a proper Next.js style 404
+        // Otherwise, it'll affect the multi-zones feature.
+        if (!await fsAsync.exists(p)) {
+          return await renderScriptError(ctx, page, { code: 'ENOENT' });
         }
 
         await renderScript(ctx, page, this.renderOpts);

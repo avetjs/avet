@@ -8,7 +8,6 @@ const Head = require('avet-shared/lib/head').default;
 const App = require('avet-shared/lib/app').default;
 const ErrorDebug = require('avet-shared/lib/error-debug').default;
 const { flushChunks } = require('avet-shared/lib/dynamic');
-const xssFilters = require('xss-filters');
 const { getHttpClient } = require('avet-shared/lib/httpclient');
 
 const {
@@ -43,41 +42,24 @@ async function renderScript(ctx, page, opts) {
     }
 
     if (err.code === 'ENOENT') {
-      renderScriptError(ctx, page, err, {}, opts);
+      renderScriptError(ctx, page, err);
     }
   }
 }
 
-async function renderScriptError(ctx, page, error, customFields = {}, { dev }) {
+async function renderScriptError(ctx, page, error) {
   // Asks CDNs and others to not to cache the errored page
   ctx.set('Cache-Control', 'no-store, must-revalidate');
-  // prevent XSS attacks by filtering the page before printing it.
-  page = xssFilters.uriInSingleQuotedAttr(page);
 
   if (error.code === 'ENOENT') {
-    ctx.type = 'text/javascript';
-    ctx.body = `
-      window.__APP_REGISTER_PAGE('${page}', function() {
-        var error;
-        error = new Error('Page does not exist: ${page}');
-        error.statusCode = 404;
-
-        return { error: error };
-      });
-    `;
+    ctx.status = 404;
+    ctx.body = '404 - Not Found';
     return;
   }
 
-  ctx.type = 'text/javascript';
-
-  const errorJson = Object.assign({}, serializeError(dev, error), customFields);
-
-  ctx.body = `
-    window.__APP_REGISTER_PAGE('${page}', function() {
-      var error = ${JSON.stringify(errorJson)};
-      return { error: error };
-    });
-  `;
+  ctx.logger.error(error.stack);
+  ctx.status = 500;
+  ctx.body = '500 - Internal Error';
 }
 
 function sendHTML(ctx, html, { dev }) {

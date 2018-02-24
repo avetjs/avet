@@ -7,7 +7,7 @@ import EventEmitter from '../event-emiiter';
 import shallowEquals from '../shallow-equals';
 import PQueue from '../p-queue';
 import { getURL } from '../utils';
-import { _notifyBuildIdMismatch, _rewriteUrlForAvetExport } from './';
+import { _rewriteUrlForAvetExport } from './';
 
 export default class Router {
   constructor(
@@ -213,29 +213,29 @@ export default class Router {
 
       this.components[route] = routeInfo;
     } catch (err) {
-      if (err.cancelled) {
-        return { error: err };
-      }
+      if (err.code === 'PAGE_LOAD_ERROR') {
+        // If we can't load the page it could be one of following reasons
+        //  1. Page doesn't exists
+        //  2. Page does exist in a different zone
+        //  3. Internal error while loading the page
 
-      if (err.buildIdMismatched) {
-        // Now we need to reload the page or do the action asked by the user
-        _notifyBuildIdMismatch(as);
-        // We also need to cancel this current route change.
-        // We do it like this.
+        // So, doing a hard reload is the proper way to deal with this.
+        window.location.href = as;
+
+        // Changing the URL doesn't block executing the current code path.
+        // So, we need to mark it as a cancelled error and stop the routing logic.
         err.cancelled = true;
         return { error: err };
       }
 
-      if (err.statusCode === 404) {
-        // Indicate main error display logic to
-        // ignore rendering this error as a runtime error.
-        err.ignore = true;
+      if (err.cancelled) {
+        return { error: err };
       }
 
       const Component = this.ErrorComponent;
       routeInfo = { Component, err };
       const ctx = { err, pathname, query };
-      const { props, store } = await this.getInitialProps(Component, ctx);
+      const { props, store } = await this.getInitialData(Component, ctx);
       routeInfo.props = props;
       routeInfo.store = store;
 

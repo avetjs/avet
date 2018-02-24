@@ -85,6 +85,7 @@ export default class PageLoader {
     script.src = url;
     script.onerror = () => {
       const error = new Error(`Error when loading route: ${route}`);
+      error.code = 'PAGE_LOAD_ERROR';
       this.pageRegisterEvents.emit(route, { error });
     };
 
