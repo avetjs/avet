@@ -209,7 +209,6 @@ export class AvetScript extends Component {
     return (
       <script
         key={filename}
-        type="text/javascript"
         src={`${assetPrefix}/_app/${hash}/${filename}`}
         {...additionalProps}
       />
@@ -240,7 +239,6 @@ export class AvetScript extends Component {
           <script
             async
             key={chunk}
-            type="text/javascript"
             src={`${assetPrefix}/_app/webpack/chunks/${chunk}`}
           />
         ))}
@@ -281,13 +279,11 @@ export class AvetScript extends Component {
         <script
           async
           id={`__APP_PAGE__${pathname}`}
-          type="text/javascript"
           src={`${assetPrefix}/_app/${buildId}/page${pagePathname}`}
         />
         <script
           async
           id={'__APP_PAGE__/_error'}
-          type="text/javascript"
           src={`${assetPrefix}/_app/${buildId}/page/_error.js`}
         />
         {staticMarkup ? null : this.getDynamicChunks()}
