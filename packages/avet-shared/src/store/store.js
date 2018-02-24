@@ -39,16 +39,22 @@ class StoreModel {
    */
   action = action => {
     const apply = result => {
-      this.setState(result, false, action);
+      if (result != null) {
+        console.log('====result=====', result);
+        this.setState(result, false, action);
+      }
     };
 
     const handler = () => {
       const args = [ this.state ];
       for (let i = 0; i < arguments.length; i++) args.push(arguments[i]);
-      const ret = action.apply(this, args);
+      const ret = action.apply(this.context, args);
       if (ret != null) {
-        if (ret.then) ret.then(apply);
-        else apply(ret);
+        if (ret.then) {
+          return ret.then(apply);
+        } else {
+          return apply(ret);
+        }
       }
     };
 
