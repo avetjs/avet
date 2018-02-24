@@ -1,7 +1,7 @@
 /* global __APP_DATA__ */
 
 import { parse, format } from 'url';
-import { loadGetInitialProps } from 'avet-utils/lib/component';
+import { loadGetInitialProps, loadGetStore } from 'avet-utils/lib/component';
 
 import EventEmitter from '../event-emiiter';
 import shallowEquals from '../shallow-equals';
@@ -207,7 +207,9 @@ export default class Router {
 
       const { Component } = routeInfo;
       const ctx = { pathname, query, asPath: as };
-      routeInfo.props = await this.getInitialProps(Component, ctx);
+      const { props, store } = await this.getInitialProps(Component, ctx);
+      routeInfo.props = props;
+      routeInfo.store = store;
 
       this.components[route] = routeInfo;
     } catch (err) {
@@ -233,7 +235,9 @@ export default class Router {
       const Component = this.ErrorComponent;
       routeInfo = { Component, err };
       const ctx = { err, pathname, query };
-      routeInfo.props = await this.getInitialProps(Component, ctx);
+      const { props, store } = await this.getInitialProps(Component, ctx);
+      routeInfo.props = props;
+      routeInfo.store = store;
 
       routeInfo.error = err;
     }
@@ -332,7 +336,7 @@ export default class Router {
     }
   }
 
-  async getInitialProps(Component, ctx) {
+  async getInitialData(Component, ctx) {
     let cancelled = false;
     const cancel = () => {
       cancelled = true;
@@ -340,18 +344,19 @@ export default class Router {
     this.componentLoadCancel = cancel;
 
     const props = await loadGetInitialProps(Component, ctx);
+    const store = await loadGetStore(Component, ctx);
 
     if (cancel === this.componentLoadCancel) {
       this.componentLoadCancel = null;
     }
 
     if (cancelled) {
-      const err = new Error('Loading initial props cancelled');
+      const err = new Error('Loading initial data cancelled');
       err.cancelled = true;
       throw err;
     }
 
-    return props;
+    return { props, store };
   }
 
   async fetchRoute(route) {

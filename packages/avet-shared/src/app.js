@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import shallowEquals from './shallow-equals';
 import { warn } from './utils';
 import { makePublicRouterInstance } from './router';
+import { Provider, connect } from './store';
 
 export default class App extends Component {
   static childContextTypes = {
@@ -29,7 +30,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { Component, props, hash, router } = this.props;
+    const { Component, props, store, hash, router } = this.props;
     const url = createUrl(router);
     // If there no component exported we can't proceed.
     // We'll tackle that here.
@@ -39,13 +40,9 @@ export default class App extends Component {
       );
     }
 
-    const containerProps = { Component, props, hash, router, url };
+    const containerProps = { Component, props, store, hash, router, url };
 
-    return (
-      <div>
-        <Container {...containerProps} />
-      </div>
-    );
+    return <Container {...containerProps} />;
   }
 }
 
@@ -76,27 +73,25 @@ class Container extends Component {
   }
 
   render() {
-    const { Component, props, url } = this.props;
+    const { Component, store, props, url } = this.props;
+    let child;
 
-    // const modelProps = {};
-    // const modelName = [];
-    // Object.keys(props).forEach(name => {
-    //   const prop = props[name];
-    //   if (prop instanceof Model) {
-    //     modelProps[name] = prop;
-    //     modelName.push(name);
-    //   }
-    // });
+    if (store) {
+      const ConnectedChild = connect()(storeProps => {
+        return <Component {...props} {...storeProps} url={url} />;
+      });
 
-    // const ObserverContainer = inject(...modelName)(observer(Component));
+      child = (
+        <Provider store={store}>
+          <ConnectedChild />
+        </Provider>
+      );
+    } else {
+      child = <Component {...props} url={url} />;
+    }
 
     if (process.env.NODE_ENV === 'production') {
-      // return (
-      //   <Provider {...modelProps}>
-      //     <ObserverContainer {...props} />
-      //   </Provider>
-      // );
-      return <Component {...props} url={url} />;
+      return child;
     }
 
     const ErrorDebug = require('./error-debug').default;
@@ -106,7 +101,7 @@ class Container extends Component {
     // https://github.com/gaearon/react-hot-loader/issues/442
     return (
       <AppContainer warnings={false} errorReporter={ErrorDebug}>
-        <Component {...props} url={url} />
+        {child}
       </AppContainer>
     );
   }

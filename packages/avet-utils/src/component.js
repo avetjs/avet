@@ -17,15 +17,35 @@ async function loadGetInitialProps(Component, ctx) {
 
   if (!props) {
     const compName = getDisplayName(Component);
-    const message = `"${compName}.getInitialProps()" should resolve to an object. But found "${props}" instead.`;
+    const message = `"${compName}.getInitialProps() or ${compName}.getProps" should resolve to an object. But found "${props}" instead.`;
     throw new Error(message);
   }
 
   return props;
 }
 
+async function loadGetStore(Component, ctx) {
+  const { getStore } = Component;
+  if (!getStore) return null;
+
+  const store = await getStore(ctx);
+  if (ctx.res && isResSent(ctx.res)) {
+    return store;
+  }
+
+  if (!store) {
+    const compName = getDisplayName(Component);
+    const message = `"${compName}.getStore()" should resolve to an object. But found "${store}" instead.`;
+    throw new Error(message);
+  }
+
+  return store;
+}
+
 module.exports = {
   isResSent,
   getDisplayName,
+  loadGetStore,
+  loadGetProps: loadGetInitialProps,
   loadGetInitialProps,
 };

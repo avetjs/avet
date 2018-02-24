@@ -15,6 +15,7 @@ const {
   isResSent,
   resolvePath,
   requireModule,
+  loadGetStore,
   loadGetInitialProps,
   getAvailableChunks,
 } = require('avet-utils');
@@ -154,12 +155,22 @@ async function doRender(
   };
 
   const props = await loadGetInitialProps(Component, _ctx);
+  const store = await loadGetStore(Component, _ctx);
+  let storeState = null;
+
+  if (store) {
+    storeState = {};
+    for (const i in store) {
+      storeState[i] = store[i].getState();
+    }
+  }
 
   if (isResSent(ctx.res)) return;
 
   const renderPage = () => {
     const app = createElement(App, {
       props,
+      store,
       Component,
       router: new Router(ctx.path, ctx.query),
     });
@@ -210,6 +221,7 @@ async function doRender(
       {
         __APP_DATA__: {
           props,
+          store: storeState,
           pathname: ctx.path,
           query: ctx.query,
           buildId: dev ? devBuildId : buildId,

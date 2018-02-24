@@ -244,11 +244,18 @@ describe('smoke test', () => {
 
     const testStore = new TestStore();
 
-    const App = connect()(({ testStore }) => (
-      <button id="some_button" onClick={testStore.incrementTwice}>
-        count: {testStore.count}
-      </button>
-    ));
+    class Comp extends Component {
+      render() {
+        const { testStore } = this.props;
+        return (
+          <button id="some_button" onClick={testStore.incrementTwice}>
+            count: {testStore.count}
+          </button>
+        );
+      }
+    }
+
+    const App = connect()(props => <Comp {...props} />);
 
     const provider = (
       <Provider store={{ testStore }}>

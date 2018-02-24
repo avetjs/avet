@@ -6,7 +6,7 @@ import EventEmitter from 'avet-shared/lib/event-emiiter';
 import App from 'avet-shared/lib/app';
 import { getURL } from 'avet-shared/lib/utils';
 import PageLoader from 'avet-shared/lib/page-loader';
-import { loadGetInitialProps } from 'avet-utils/lib/component';
+import { loadGetInitialProps, loadGetStore } from 'avet-utils/lib/component';
 import { getHttpClient } from 'avet-shared/lib/httpclient';
 
 // Polyfill Promise globally
@@ -19,7 +19,16 @@ if (!window.Promise) {
 }
 
 const {
-  __APP_DATA__: { props, err, pathname, query, buildId, chunks, assetPrefix },
+  __APP_DATA__: {
+    props,
+    store,
+    err,
+    pathname,
+    query,
+    buildId,
+    chunks,
+    assetPrefix,
+  },
   location,
 } = window;
 
@@ -43,7 +52,7 @@ const headManager = new HeadManager();
 const appContainer = document.getElementById('__app');
 const errorContainer = document.getElementById('__app-error');
 
-let lastAppProps;
+let lastAppProps = {};
 export let router;
 export let ErrorComponent;
 let ErrorDebugComponent;
@@ -86,12 +95,12 @@ export default async ({
 
   const emitter = new EventEmitter();
 
-  router.subscribe(({ Component, props, hash, err }) => {
-    render({ Component, props, err, hash, emitter });
+  router.subscribe(({ Component, props, store, hash, err }) => {
+    render({ Component, props, store, err, hash, emitter });
   });
 
   const hash = location.hash.substring(1);
-  render({ Component, props, hash, err: _err, emitter });
+  render({ Component, props, store, hash, err: _err, emitter });
 
   return emitter;
 };
@@ -141,26 +150,38 @@ export async function renderError(error) {
 async function doRender({
   Component,
   props,
+  store,
   hash,
   err,
   emitter: emitterProp = emitter,
 }) {
+  // fetch props if ErrorComponent was replaced with a page component by HMR
+  const { pathname, query, asPath } = router;
+  const context = {
+    err,
+    pathname,
+    query,
+    httpclient: getHttpClient(),
+    asPath,
+  };
+  let storeState;
+
   if (
     !props &&
     Component &&
     Component !== ErrorComponent &&
     lastAppProps.Component === ErrorComponent
   ) {
-    // fetch props if ErrorComponent was replaced with a page component by HMR
-    const { pathname, query, asPath } = router;
-    const context = {
-      err,
-      pathname,
-      query,
-      httpclient: getHttpClient(),
-      asPath,
-    };
     props = await loadGetInitialProps(Component, context);
+  }
+
+  if (store && Component && Component !== ErrorComponent) {
+    storeState = Object.assign({}, store);
+    store = await loadGetStore(Component, context);
+    // init store
+    for (const i in store) {
+      store[i].setState(storeState[i]);
+    }
   }
 
   Component = Component || lastAppProps.Component;
@@ -169,6 +190,7 @@ async function doRender({
   const appProps = {
     Component,
     props,
+    store,
     hash,
     err,
     router,

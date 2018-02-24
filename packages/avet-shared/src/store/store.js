@@ -1,6 +1,6 @@
 import devTools from './devTools';
 import { assign } from './util';
-import { isBrowser } from 'avet-utils';
+import { isBrowser } from 'avet-utils/lib/common';
 
 // modifiy by https://github.com/developit/unistore
 export default class Store {

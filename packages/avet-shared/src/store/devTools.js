@@ -1,4 +1,4 @@
-import { isServer } from 'avet-utils';
+import { isServer } from 'avet-utils/lib/common';
 
 export default function devTools(store) {
   if (isServer()) {

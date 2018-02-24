@@ -256,7 +256,7 @@ module.exports = async function createCompiler(
   // 不会使用 babelrc 配置
   const mainBabelOptions = {
     babelrc: false,
-    cacheDirectory: true,
+    cacheDirectory: false,
     presets: [],
     plugins: [],
   };
@@ -368,7 +368,10 @@ module.exports = async function createCompiler(
                     'avet/head': relativeResolve('avet-shared/lib/head'),
                     'avet/router': relativeResolve('avet-shared/lib/router'),
                     'avet/error': relativeResolve('avet-shared/lib/error'),
-                    'avet/httpclient': relativeResolve('avet-shared/lib/httpclient'),
+                    'avet/httpclient': relativeResolve(
+                      'avet-shared/lib/httpclient'
+                    ),
+                    'avet/store': relativeResolve('avet-shared/lib/store'),
                     'avet/document': relativeResolve('../.external/document'),
                     'avet/config': relativeResolve('../.external/config'),
                   },

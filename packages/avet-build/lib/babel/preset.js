@@ -50,6 +50,7 @@ module.exports = (opts = {}) => {
             'avet/router': relativeResolve('avet-shared/lib/router'),
             'avet/error': relativeResolve('avet-shared/lib/error'),
             'avet/httpclient': relativeResolve('avet-shared/lib/httpclient'),
+            'avet/store': relativeResolve('avet-shared/lib/store'),
             'avet/document': relativeResolve('../../.external/document'),
             'avet/config': relativeResolve('../../.external/config'),
           },
