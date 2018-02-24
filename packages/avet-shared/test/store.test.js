@@ -85,6 +85,38 @@ describe('new Store()', () => {
   });
 });
 
+describe('Class Store', () => {
+  class SubStore extends Store {
+    constructor(
+      state = {
+        count: 0,
+      }
+    ) {
+      super(state);
+    }
+
+    increment(state) {
+      this.setState({ count: state.count + 1 });
+    }
+  }
+
+  it('should support action string', () => {
+    const subStore = new SubStore();
+    expect(subStore.getState().count).toEqual(0);
+    subStore.action('increment');
+    expect(subStore.getState().count).toEqual(1);
+  });
+
+  it('should skip action if global store state exists', () => {
+    window.__APP_DATA__ = {};
+    window.__APP_DATA__.store = { subStore: { count: 10 } };
+    const subStore = new SubStore();
+    subStore.action('increment');
+    expect(subStore.getState().count).toEqual(0);
+    window.__APP_DATA__ = null;
+  });
+});
+
 describe('<Provider>', () => {
   const createChild = (storeKey = 'appStore') => {
     class Child extends Component {
@@ -192,11 +224,11 @@ describe('<Provider>', () => {
 describe('smoke test', () => {
   it('should render', done => {
     class TestStore extends Store {
-      constructor() {
-        const state = {
+      constructor(
+        state = {
           count: 0,
-        };
-
+        }
+      ) {
         super(state);
       }
 

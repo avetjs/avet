@@ -1,5 +1,6 @@
 import devTools from './devTools';
 import { assign } from './util';
+import { isBrowser } from 'avet-utils';
 
 // modifiy by https://github.com/developit/unistore
 export default class Store {
@@ -14,8 +15,8 @@ export default class Store {
   createStore() {
     const store =
       process.env.NODE_ENV === 'production'
-        ? new StoreModel(this.state)
-        : devTools(new StoreModel(this.state));
+        ? new StoreModel(this.state, this)
+        : devTools(new StoreModel(this.state, this));
 
     for (const prop in store) {
       this[prop] = store[prop];
@@ -24,9 +25,10 @@ export default class Store {
 }
 
 class StoreModel {
-  constructor(state = {}) {
+  constructor(state = {}, context) {
     this.listeners = [];
     this.state = state;
+    this.context = context;
   }
 
   /** Create a bound copy of the given action function.
@@ -40,8 +42,7 @@ class StoreModel {
       this.setState(result, false, action);
     };
 
-    // Note: perf tests verifying this implementation: https://esbench.com/bench/5a295e6299634800a0349500
-    return () => {
+    const handler = () => {
       const args = [ this.state ];
       for (let i = 0; i < arguments.length; i++) args.push(arguments[i]);
       const ret = action.apply(this, args);
@@ -50,6 +51,29 @@ class StoreModel {
         else apply(ret);
       }
     };
+
+    // support store.action('xxxxxxx', args);
+    if (typeof action === 'string') {
+      // if store data exist in setup and skip.
+      if (isBrowser() && window.__APP_DATA__ && window.__APP_DATA__.store) {
+        return;
+      }
+
+      action = this.context[action];
+      if (typeof action !== 'function') {
+        throw Error(`${arguments[0]} action not exist in store`);
+      }
+      const args = [ this.state ];
+      for (let i = 1; i < arguments.length; i++) args.push(arguments[i]);
+      return handler(...args);
+    } else {
+      // Note: perf tests verifying this implementation: https://esbench.com/bench/5a295e6299634800a0349500
+      return () => {
+        const args = [ this.state ];
+        for (let i = 0; i < arguments.length; i++) args.push(arguments[i]);
+        handler(...args);
+      };
+    }
   };
 
   /** Apply a partial state object to the current state, invoking registered listeners.
