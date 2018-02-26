@@ -6,8 +6,16 @@ import { loadGetInitialProps, loadGetStore } from 'avet-utils/lib/component';
 import EventEmitter from '../event-emiiter';
 import shallowEquals from '../shallow-equals';
 import PQueue from '../p-queue';
-import { getURL } from '../utils';
+import { getURL, execOnce } from '../utils';
 import { _rewriteUrlForAvetExport } from './';
+
+const historyUnavailableWarning = execOnce(() => {
+  console.warn('Warning: window.history is not available.');
+});
+
+const historyMethodWarning = execOnce(method => {
+  console.warn(`Warning: window.history.${method} is not available`);
+});
 
 export default class Router {
   constructor(
@@ -191,6 +199,16 @@ export default class Router {
   }
 
   changeState(method, url, as, options = {}) {
+    if (typeof window.history === 'undefined') {
+      historyUnavailableWarning();
+      return;
+    }
+
+    if (typeof window.history[method] === 'undefined') {
+      historyMethodWarning(method);
+      return;
+    }
+
     if (method !== 'pushState' || getURL() !== as) {
       window.history[method]({ url, as, options }, null, as);
     }
