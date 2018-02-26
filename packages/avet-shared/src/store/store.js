@@ -12,7 +12,7 @@ export default class Store {
     this.createStore();
   }
 
-  createStore() {
+  createStore = () => {
     const store =
       process.env.NODE_ENV === 'production'
         ? new StoreModel(this.state, this)
@@ -21,7 +21,7 @@ export default class Store {
     for (const prop in store) {
       this[prop] = store[prop];
     }
-  }
+  };
 }
 
 class StoreModel {
@@ -37,10 +37,9 @@ class StoreModel {
    *  @param {Function} action	An action of the form `action(state, ...args) -> stateUpdate`
    *  @returns {Function} boundAction()
    */
-  action = action => {
+  dispatch = action => {
     const apply = result => {
       if (result != null) {
-        console.log('====result=====', result);
         this.setState(result, false, action);
       }
     };
@@ -61,7 +60,7 @@ class StoreModel {
     // support store.action('xxxxxxx', args);
     if (typeof action === 'string') {
       // if store data exist in setup and skip.
-      if (isBrowser() && window.__APP_DATA__ && window.__APP_DATA__.store) {
+      if (isBrowser() && window.__IS_INIT__) {
         return;
       }
 

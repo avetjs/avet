@@ -175,12 +175,16 @@ async function doRender({
     props = await loadGetInitialProps(Component, context);
   }
 
-  if (store && Component && Component !== ErrorComponent) {
-    storeState = Object.assign({}, store);
-    store = await loadGetStore(Component, context);
-    // init store
-    for (const i in store) {
-      store[i].setState(storeState[i]);
+  if (Component && Component !== ErrorComponent) {
+    if (store && Object.keys(store).length > 0) {
+      storeState = Object.assign({}, store);
+      store = await loadGetStore(Component, context);
+      // init store
+      for (const i in store) {
+        store[i].setState(storeState[i]);
+      }
+    } else {
+      store = await loadGetStore(Component, context);
     }
   }
 
@@ -209,6 +213,8 @@ async function doRender({
   // We need to clear any existing runtime error messages
   ReactDOM.unmountComponentAtNode(errorContainer);
   renderReactElement(createElement(App, appProps), appContainer);
+
+  window.__IS_INIT__ = false;
 
   emitterProp.emit('after-reactdom-render', {
     Component,

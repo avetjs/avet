@@ -103,7 +103,7 @@ describe('Class Store', () => {
   it('should support action string', () => {
     const subStore = new SubStore();
     expect(subStore.getState().count).toEqual(0);
-    subStore.action('increment');
+    subStore.dispatch('increment');
     expect(subStore.getState().count).toEqual(1);
   });
 
@@ -111,7 +111,7 @@ describe('Class Store', () => {
     window.__APP_DATA__ = {};
     window.__APP_DATA__.store = { subStore: { count: 10 } };
     const subStore = new SubStore();
-    subStore.action('increment');
+    subStore.dispatch('increment');
     expect(subStore.getState().count).toEqual(0);
     window.__APP_DATA__ = null;
   });
@@ -248,7 +248,10 @@ describe('smoke test', () => {
       render() {
         const { testStore } = this.props;
         return (
-          <button id="some_button" onClick={testStore.incrementTwice}>
+          <button
+            id="some_button"
+            onClick={() => testStore.dispatch('incrementTwice')}
+          >
             count: {testStore.count}
           </button>
         );

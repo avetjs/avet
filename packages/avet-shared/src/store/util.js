@@ -34,13 +34,15 @@ export function select(properties) {
     const selected = {};
     const currentSelectProps = props[storename];
     if (!currentSelectProps || !currentSelectProps.length) {
-      for (const s in store) {
-        if (!excludeProps.includes(s)) {
-          if (typeof store[s] === 'function') {
-            selected[s] = store.action(store[s]);
-          }
-        }
-      }
+      // for (const s in store) {
+      //   if (!excludeProps.includes(s)) {
+      //     if (typeof store[s] === 'function') {
+      //       selected[s] = store.dispatch(store[s]);
+      //     }
+      //   }
+      // }
+      selected.dispatch = store.dispatch;
+
       for (const k in state) {
         selected[k] = state[k];
       }

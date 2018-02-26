@@ -26,7 +26,7 @@ async function loadGetInitialProps(Component, ctx) {
 
 async function loadGetStore(Component, ctx) {
   const { getStore } = Component;
-  if (!getStore) return null;
+  if (!getStore) return {};
 
   const store = await getStore(ctx);
   if (ctx.res && isResSent(ctx.res)) {

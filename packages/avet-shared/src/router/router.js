@@ -207,7 +207,7 @@ export default class Router {
 
       const { Component } = routeInfo;
       const ctx = { pathname, query, asPath: as };
-      const { props, store } = await this.getInitialProps(Component, ctx);
+      const { props, store } = await this.getInitialData(Component, ctx);
       routeInfo.props = props;
       routeInfo.store = store;
 

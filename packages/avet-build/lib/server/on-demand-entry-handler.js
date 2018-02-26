@@ -2,6 +2,7 @@ const { join } = require('path');
 const { EventEmitter } = require('events');
 const DynamicEntryPlugin = require('webpack/lib/DynamicEntryPlugin');
 const touch = require('touch');
+const debounce = require('debounce');
 const {
   resolvePath,
   MATCH_ROUTE_NAME,
@@ -11,6 +12,13 @@ const {
 const ADDED = 'symbol_added';
 const BUILDING = 'symbol_building';
 const BUILT = 'symbol_built';
+
+const reloadWorker = debounce(() => {
+  process.send({
+    to: 'master',
+    action: 'reload-worker',
+  });
+}, 200);
 
 // Make sure only one invalidation happens at a time
 // Otherwise, webpack hash gets changed and it'll force the client to reload.
@@ -196,6 +204,8 @@ module.exports = function onDemandEntryHandler(
             return;
           }
         }
+
+        reloadWorker();
 
         console.log(`> Building page: ${page}`);
 

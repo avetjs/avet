@@ -4,12 +4,12 @@ import IndexStore from '../store/pageindex';
 
 class IndexPage extends React.Component {
   static async getProps() {
-    return { title: 'hello world' };
+    return { title: 'hello worldssss' };
   }
 
   static async getStore() {
     const store = new IndexStore();
-    await store.action('dynamicLoad');
+    await store.dispatch('dynamicLoad');
     return { store };
   }
 
@@ -18,7 +18,11 @@ class IndexPage extends React.Component {
     return (
       <div className="container">
         <Header title={title} />
-        <button onClick={store.increment} />
+        <button
+          onClick={() => {
+            store.dispatch('increment');
+          }}
+        />
         <p>click {store.count} times</p>
         <p>totalPage: {store.totalPage}</p>
       </div>

@@ -138,9 +138,9 @@ async function doRender(
 
   const props = await loadGetInitialProps(Component, _ctx);
   const store = await loadGetStore(Component, _ctx);
-  let storeState = null;
+  let storeState = {};
 
-  if (store) {
+  if (store && Object.keys(store).length > 0) {
     storeState = {};
     for (const i in store) {
       storeState[i] = store[i].getState();
@@ -201,6 +201,7 @@ async function doRender(
     Object.assign(
       {},
       {
+        __IS_INIT__: true,
         __APP_DATA__: {
           props,
           store: storeState,
