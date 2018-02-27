@@ -157,9 +157,9 @@ class BuildCommand extends Command {
     if (!existsSync(join(context.cwd, 'index.js'))) return;
     let promise = Promise.resolve();
 
+    const deps = this.modulePkg.dependencies;
     const rollupOptions = {
-      input: 'index.js',
-      external: [ Object.keys(this.modulePkg.dependencies) ],
+      input: join(context.cwd, 'index.js'),
       plugins: [
         babel(
           Object.assign({
@@ -184,6 +184,10 @@ class BuildCommand extends Command {
         ),
       ],
     };
+
+    if (deps) {
+      rollupOptions.external = [ Object.keys(this.modulePkg.dependencies) ];
+    }
 
     [ 'es', 'cjs', 'umd' ].forEach(format => {
       promise = promise.then(() => {
