@@ -1,7 +1,13 @@
 const path = require('path');
+const moduleAlias = require('module-alias');
+const aliasModules = require('avet-build/lib/alias-modules');
 
 module.exports = Loader => {
   class AvetLoader extends Loader {
+    loadAlias() {
+      moduleAlias.addAliases(aliasModules);
+    }
+
     loadPlugin() {
       this.loadPlugin();
     }

@@ -5,10 +5,9 @@ module.exports = () => {
     });
     const isStaticRoute = /static/.test(ctx.path);
     const isPublicRoute = /public/.test(ctx.path);
-    const isPassportRoute = /passport/.test(ctx.path);
 
     // if route define in app/router.js or static route or public route
-    if (!isAppRoute && !isStaticRoute && !isPublicRoute && !isPassportRoute) {
+    if (!isAppRoute && !isStaticRoute && !isPublicRoute) {
       await ctx.avetServer.run(ctx);
     }
 

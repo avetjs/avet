@@ -22,6 +22,7 @@
     "avet-build": "1.2.10",
     "avet-server": "1.2.14",
     "avet-styled-jsx": "^0.2.1",
+    "avet-theme": "^1.0.0",
     "avet-utils": "1.2.1",
     "egg": "^2.2.0",
     "module-alias": "^2.0.3",

@@ -1,0 +1,24 @@
+{
+  "name": "avet-example-with-theme",
+  "version": "1.2.14",
+  "description": "this is a avet theme example",
+  "scripts": {
+    "start": "NODE_ENV=production EGG_SERVER_ENV=prod node index.js",
+    "dev": "avet-bin dev"
+  },
+  "dependencies": {
+    "avet": "1.2.14",
+    "eslint-config-avet": "0.4.2",
+    "styled-jsx": "^2.2.5"
+  },
+  "devDependencies": {
+    "avet-bin": "1.2.7"
+  },
+  "tnpm": {
+    "mode": "npm"
+  },
+  "engines": {
+    "node": ">= 8"
+  },
+  "license": "MIT"
+}
