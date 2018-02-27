@@ -133,7 +133,7 @@ class BuildCommand extends Command {
     files.forEach(filepath => {
       rollupOptions.input = filepath;
 
-      [ 'es', 'cjs', 'umd' ].forEach(format => {
+      [ 'es', 'cjs' ].forEach(format => {
         promise = promise.then(() =>
           rollup.rollup(rollupOptions).then(bundle =>
             bundle.write({
@@ -142,8 +142,7 @@ class BuildCommand extends Command {
                 `output/${filepath.replace('.js', '')}.${format}.js`
               ),
               format,
-              sourceMap: true,
-              moduleName: format === 'umd' ? this.modulePkg.name : undefined,
+              sourcemap: true,
             })
           )
         );
@@ -172,9 +171,10 @@ class BuildCommand extends Command {
                   targets: {
                     browsers: '>1%',
                   },
+                  modules: false,
                 },
               ],
-              require.resolve('babel-preset-stage-2'),
+              require.resolve('babel-preset-stage-0'),
               require.resolve('babel-preset-react'),
             ],
             plugins: [ require.resolve('babel-plugin-transform-runtime') ],
@@ -186,23 +186,24 @@ class BuildCommand extends Command {
     };
 
     if (deps) {
-      rollupOptions.external = [ Object.keys(this.modulePkg.dependencies) ];
+      rollupOptions.external = Object.keys(deps);
     }
 
-    [ 'es', 'cjs', 'umd' ].forEach(format => {
-      promise = promise.then(() => {
-        rollup.rollup(rollupOptions).then(async bundle => {
-          await bundle.write({
+    [ 'es', 'cjs' ].forEach(format => {
+      promise = promise.then(() =>
+        rollup.rollup(rollupOptions).then(bundle =>
+          bundle.write({
             file: join(context.cwd, `output/index.${format}.js`),
             format,
-            sourceMap: true,
-            moduleName: format === 'umd' ? this.modulePkg.name : undefined,
-          });
-        });
-      });
+            sourcemap: true,
+          })
+        )
+      );
     });
 
-    promise.catch(err => console.error(err.stack));
+    promise.catch(err => {
+      console.error(err.stack);
+    });
   }
 }
 
