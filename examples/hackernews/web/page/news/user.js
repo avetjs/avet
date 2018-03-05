@@ -3,7 +3,7 @@ import Layout from '../../component/layout';
 import { relativeTime } from '../../service/util';
 
 export default class User extends React.Component {
-  static async getInitialProps({ httpclient, query }) {
+  static async getProps({ httpclient, query }) {
     return (await httpclient.get('/api/getNewsUser', { params: query })).data;
   }
 

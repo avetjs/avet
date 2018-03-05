@@ -3,7 +3,7 @@ import Layout from '../../component/layout';
 import NewsItem from '../../component/news-item';
 
 export default class NewsIndex extends React.Component {
-  static async getInitialProps({ httpclient, query }) {
+  static async getProps({ httpclient, query }) {
     return (await httpclient.get('/api/getNewsList', { params: query })).data;
   }
 

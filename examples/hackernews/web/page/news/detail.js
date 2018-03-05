@@ -4,7 +4,7 @@ import NewsItem from '../../component/news-item';
 import { relativeTime } from '../../service/util';
 
 export default class Detail extends React.Component {
-  static async getInitialProps({ httpclient, query }) {
+  static async getProps({ httpclient, query }) {
     return (await httpclient.get('/api/getNewsDetail', { params: query })).data;
   }
 
