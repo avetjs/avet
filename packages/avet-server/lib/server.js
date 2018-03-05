@@ -1,5 +1,5 @@
 const { resolve, join, sep } = require('path');
-const { readFileSync } = require('fs');
+const { readFileSync, existsSync } = require('fs');
 const { STATUS_CODES } = require('http');
 const fsAsync = require('mz/fs');
 const Router = require('./router');
@@ -50,7 +50,10 @@ class Server {
       : null;
     this.buildId = !this.dev ? this.readBuildId() : '-';
 
-    this.customRoutes = require(join(this.dir, 'route.js'));
+    const customRouteFile = join(this.dir, 'route.js');
+    if (existsSync(customRouteFile)) {
+      this.customRoutes = require(customRouteFile);
+    }
 
     this.renderOpts = {
       dev: this.dev,
