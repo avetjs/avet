@@ -3,6 +3,9 @@ const { readFileSync } = require('fs');
 const { STATUS_CODES } = require('http');
 const fsAsync = require('mz/fs');
 const Router = require('./router');
+const pathMatch = require('path-match');
+
+const route = pathMatch();
 
 const {
   renderToHTML,
@@ -46,6 +49,8 @@ class Server {
       ? require(join(this.dir, this.dist, 'build-stats.json'))
       : null;
     this.buildId = !this.dev ? this.readBuildId() : '-';
+
+    this.customRoutes = require(join(this.dir, 'route.js'));
 
     this.renderOpts = {
       dev: this.dev,
@@ -129,7 +134,17 @@ class Server {
 
       '/_app/:buildId/page/:path*': async (ctx, params) => {
         const paths = params.path || [ '' ];
-        const page = `/${paths.join('/')}`;
+        let page = `/${paths.join('/')}`;
+
+        if (this.customRoutes) {
+          for (const p of Object.keys(this.customRoutes)) {
+            const match = route(p);
+            const params = match(page);
+            if (params) {
+              page = this.customRoutes[p];
+            }
+          }
+        }
 
         if (!this.handleBuildId(params.buildId, ctx)) {
           const error = new Error('INVALID_BUILD_ID');
@@ -161,6 +176,14 @@ class Server {
         await renderScript(ctx, page, this.renderOpts);
       },
     };
+
+    if (this.customRoutes) {
+      for (const p of Object.keys(this.customRoutes)) {
+        routes[p] = async ctx => {
+          await this.render(ctx, { page: this.customRoutes[p] });
+        };
+      }
+    }
 
     if (this.options.appConfig.useFileSystemPublicRoutes) {
       routes['/:path*'] = async ctx => {
@@ -210,7 +233,7 @@ class Server {
     }
   }
 
-  async render(ctx) {
+  async render(ctx, opts = {}) {
     if (this.isInternalUrl(ctx)) {
       return this.handleRequest(ctx);
     }
@@ -220,13 +243,16 @@ class Server {
       return;
     }
 
-    const html = await this.renderToHTML(ctx);
+    const html = await this.renderToHTML(ctx, { page: opts.page });
     return sendHTML(ctx, html, this.renderOpts);
   }
 
-  async renderToHTML(ctx) {
+  async renderToHTML(ctx, { page }) {
     try {
-      return await renderToHTML(ctx, this.renderOpts);
+      return await renderToHTML(
+        ctx,
+        Object.assign({}, this.renderOpts, { page })
+      );
     } catch (err) {
       if (err.code === 'ENOENT') {
         ctx.status = 404;
