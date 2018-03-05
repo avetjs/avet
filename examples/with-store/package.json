@@ -1,17 +1,17 @@
 {
   "name": "avet-example-with-store",
-  "version": "1.2.14",
+  "version": "1.3.0",
   "description": "this is a avet example",
   "scripts": {
     "start": "NODE_ENV=production EGG_SERVER_ENV=prod node index.js",
     "dev": "avet-bin dev"
   },
   "dependencies": {
-    "avet": "1.2.14",
+    "avet": "1.3.0",
     "eslint-config-avet": "0.4.2"
   },
   "devDependencies": {
-    "avet-bin": "1.2.7"
+    "avet-bin": "1.3.0"
   },
   "tnpm": {
     "mode": "npm"
