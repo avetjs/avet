@@ -50,6 +50,7 @@ class Server {
       : null;
     this.buildId = !this.dev ? this.readBuildId() : '-';
 
+    this.customRoutes = null;
     const customRouteFile = join(this.dir, 'route.js');
     if (existsSync(customRouteFile)) {
       this.customRoutes = require(customRouteFile);
@@ -167,7 +168,7 @@ class Server {
             this.dist,
             'bundles',
             'page',
-            `${page || 'index'}.js`
+            `/${page.replace(/^\//i, '') || 'index'}.js`
           );
           // [production] If the page is not exists, we need to send a proper Next.js style 404
           // Otherwise, it'll affect the multi-zones feature.

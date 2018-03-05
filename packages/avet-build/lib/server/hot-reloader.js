@@ -263,7 +263,7 @@ module.exports = class HotReloader {
     if (!this.compilationErrors) {
       this.compilationErrors = new Map();
 
-      if (this.stats.hasErrors()) {
+      if (this.stats && this.stats.hasErrors()) {
         const { compiler, errors } = this.stats.compilation;
 
         for (const err of errors) {
