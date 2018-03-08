@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { isServer } from 'avet-utils';
 
 function getBaseURL(ctx) {
-  if (ctx) {
+  if (isServer() && ctx) {
     let port = '7001';
     if (process.env.NODE_ENV === 'production' && process.env.PORT) {
       port = process.env.PORT;
@@ -13,7 +14,7 @@ function getBaseURL(ctx) {
 }
 
 export function getHttpClient(ctx, options = {}) {
-  if (ctx) {
+  if (isServer() && ctx) {
     const { headers } = ctx.request;
     Object.keys(headers).forEach(key => {
       axios.defaults.headers.common[key] = headers[key];
@@ -32,3 +33,5 @@ export function getHttpClient(ctx, options = {}) {
 
   return axios;
 }
+
+export default getHttpClient();
