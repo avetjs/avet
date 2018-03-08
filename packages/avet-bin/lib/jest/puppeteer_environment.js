@@ -1,5 +1,4 @@
 const NodeEnvironment = require('jest-environment-node');
-const puppeteer = require('puppeteer');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -13,9 +12,17 @@ class PuppeteerEnvironment extends NodeEnvironment {
     if (!wsEndpoint) {
       throw new Error('wsEndpoint not found');
     }
-    this.global.browser = await puppeteer.connect({
-      browserWSEndpoint: wsEndpoint,
-    });
+    let puppeteer;
+
+    try {
+      puppeteer = require('puppeteer');
+
+      this.global.browser = await puppeteer.connect({
+        browserWSEndpoint: wsEndpoint,
+      });
+    } catch (err) {
+      console.warn('You should need to install puppeteer.');
+    }
   }
 
   async teardown() {
