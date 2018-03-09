@@ -2,7 +2,7 @@ import axios from 'axios';
 import { isServer } from 'avet-utils';
 
 function getBaseURL(ctx) {
-  if (isServer() && ctx) {
+  if (isServer() || ctx) {
     let port = '7001';
     if (process.env.NODE_ENV === 'production' && process.env.PORT) {
       port = process.env.PORT;
