@@ -7,10 +7,7 @@
     "test": "avet-bin test",
     "postinstall": "node ./scripts/init.js"
   },
-  "files": [
-    "lib",
-    "index.js"
-  ],
+  "files": ["lib", "scripts", "index.js"],
   "dependencies": {
     "@koa/cors": "^2.2.1",
     "@taskr/babel": "^1.1.0",
