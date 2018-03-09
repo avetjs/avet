@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { isServer } from 'avet-utils';
+import { isServer } from 'avet-utils/lib/common';
 
 function getBaseURL(ctx) {
   if (isServer() || ctx) {
