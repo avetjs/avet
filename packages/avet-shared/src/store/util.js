@@ -8,16 +8,7 @@ export function mapActions(actions, store) {
   return mapped;
 }
 
-const excludeProps = [
-  'state',
-  'action',
-  'setState',
-  'getState',
-  'getStore',
-  'setStore',
-  'subscribe',
-  'unsubscribe',
-];
+const excludeProps = [ 'state', 'action' ];
 
 // select('foo,bar') creates a function of the form: ({ foo, bar }) => ({ foo, bar })
 export function select(properties) {
@@ -44,6 +35,12 @@ export function select(properties) {
       //   }
       // }
       selected.dispatch = store.dispatch;
+      selected.setState = store.setState;
+      selected.getState = store.getState;
+      selected.setStore = store.setStore;
+      selected.getStore = store.getStore;
+      selected.subscribe = store.subscribe;
+      selected.unsubscribe = store.unsubscribe;
 
       for (const k in state) {
         selected[k] = state[k];

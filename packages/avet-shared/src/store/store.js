@@ -1,6 +1,7 @@
 import devTools from './devTools';
 import { assign } from './util';
 import { isBrowser } from 'avet-utils/lib/common';
+import get from 'lodash.get';
 
 const stores = {};
 
@@ -98,7 +99,10 @@ class StoreModel {
   /** Retrieve the current state object.
    *  @returns {Object} state
    */
-  getState = () => {
+  getState = objectpath => {
+    if (objectpath) {
+      return get(this.state, objectpath);
+    }
     return this.state;
   };
 

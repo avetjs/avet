@@ -5,6 +5,9 @@ export default class PageIndex extends Store {
     state = {
       count: 0,
       totalPage: 0,
+      deepobject: {
+        a: 'xxx',
+      },
     }
   ) {
     super(state);

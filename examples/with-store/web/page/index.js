@@ -25,6 +25,7 @@ class IndexPage extends React.Component {
         />
         <p>click {store.count} times</p>
         <p>totalPage: {store.totalPage}</p>
+        <p>deepObject: {store.getState('deepobject.a')}</p>
       </div>
     );
   }
