@@ -13,6 +13,8 @@ const excludeProps = [
   'action',
   'setState',
   'getState',
+  'getStore',
+  'setStore',
   'subscribe',
   'unsubscribe',
 ];

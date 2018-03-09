@@ -2,6 +2,8 @@ import devTools from './devTools';
 import { assign } from './util';
 import { isBrowser } from 'avet-utils/lib/common';
 
+const stores = {};
+
 // modifiy by https://github.com/developit/unistore
 export default class Store {
   constructor(state) {
@@ -98,6 +100,20 @@ class StoreModel {
    */
   getState = () => {
     return this.state;
+  };
+
+  /**
+   * 缓存 store
+   */
+  setStore = (storeName, store) => {
+    stores[storeName] = store;
+  };
+
+  getStore = storeName => {
+    if (storeName) {
+      return stores[storeName];
+    }
+    return stores;
   };
 
   /** Register a listener function to be called whenever state is changed. Returns an `unsubscribe()` function.

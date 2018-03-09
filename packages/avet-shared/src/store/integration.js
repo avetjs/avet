@@ -38,6 +38,7 @@ export function connect(mapStoreToProps) {
 
       for (const s in appStore) {
         const store = appStore[s];
+        store.setStore(s, store);
 
         const state = mapStoreToProps(store ? store.getState() : {}, s, store);
         stores[s] = assign({}, state);
