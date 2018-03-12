@@ -113,6 +113,7 @@ class BuildCommand extends Command {
                   targets: {
                     browsers: '>1%',
                   },
+                  modules: false,
                 },
               ],
               require.resolve('babel-preset-stage-2'),
