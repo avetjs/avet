@@ -256,7 +256,7 @@ module.exports = async function createCompiler(
   // 不会使用 babelrc 配置
   const mainBabelOptions = {
     babelrc: false,
-    cacheDirectory: false,
+    cacheDirectory: true,
     presets: [],
     plugins: [],
   };
