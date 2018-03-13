@@ -15,13 +15,14 @@ export default class PageIndex extends Store {
 
   increment(state) {
     this.setState({ count: state.count + 1 });
+    this.dispatch('currentStore.setCurrent', state.count + 100);
   }
 
   dynamicLoad(state) {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve({ totalPage: state.totalPage + 4 });
-      }, 5000);
+      }, 1000);
     });
   }
 }

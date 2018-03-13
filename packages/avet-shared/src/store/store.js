@@ -40,17 +40,15 @@ class StoreModel {
    *  @param {Function} action	An action of the form `action(state, ...args) -> stateUpdate`
    *  @returns {Function} boundAction()
    */
-  dispatch = action => {
+  dispatch = (action, ...args) => {
     const apply = result => {
       if (result != null) {
         this.setState(result, false, action);
       }
     };
 
-    const handler = () => {
-      const args = [ this.state ];
-      for (let i = 0; i < arguments.length; i++) args.push(arguments[i]);
-      const ret = action.apply(this.context, args);
+    const handler = (context, ...args) => {
+      const ret = action.apply(context, args);
       if (ret != null) {
         if (ret.then) {
           return ret.then(apply);
@@ -60,6 +58,8 @@ class StoreModel {
       }
     };
 
+    let ctx = this.context;
+
     // support store.action('xxxxxxx', args);
     if (typeof action === 'string') {
       // if store data exist in setup and skip.
@@ -67,19 +67,27 @@ class StoreModel {
         return;
       }
 
-      action = this.context[action];
-      if (typeof action !== 'function') {
-        throw Error(`${arguments[0]} action not exist in store`);
+      const actionPath = action.split('.');
+      if (actionPath.length === 2) {
+        const store = this.getStore(actionPath[0]);
+        action = store[actionPath[1]];
+        args.unshift(store.getState());
+        ctx = store.context;
+      } else {
+        action = this.context[actionPath[0]];
+        args.unshift(this.state);
       }
-      const args = [ this.state ];
-      for (let i = 1; i < arguments.length; i++) args.push(arguments[i]);
-      return handler(...args);
+
+      if (typeof action !== 'function') {
+        throw Error(`action: ${arguments[0]} not exist in store`);
+      }
+
+      return handler(ctx, ...args);
     } else {
       // Note: perf tests verifying this implementation: https://esbench.com/bench/5a295e6299634800a0349500
       return () => {
-        const args = [ this.state ];
-        for (let i = 0; i < arguments.length; i++) args.push(arguments[i]);
-        handler(...args);
+        args.unshift(this.state);
+        handler(ctx, ...args);
       };
     }
   };

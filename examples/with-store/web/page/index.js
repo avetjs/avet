@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../component/header';
 import IndexStore from '../store/pageindex';
+import CurrentStore from '../store/current';
 
 class IndexPage extends React.Component {
   static async getProps() {
@@ -8,24 +9,26 @@ class IndexPage extends React.Component {
   }
 
   static async getStore() {
-    const store = new IndexStore();
-    await store.dispatch('dynamicLoad');
-    return { store };
+    const indexStore = new IndexStore();
+    const currentStore = new CurrentStore();
+    await indexStore.dispatch('dynamicLoad');
+    return { indexStore, currentStore };
   }
 
   render() {
-    const { store, title } = this.props;
+    const { indexStore, currentStore, title } = this.props;
     return (
       <div className="container">
         <Header title={title} />
         <button
           onClick={() => {
-            store.dispatch('increment');
+            indexStore.dispatch('increment');
           }}
         />
-        <p>click {store.count} times</p>
-        <p>totalPage: {store.totalPage}</p>
-        <p>deepObject: {store.getState('deepobject.a')}</p>
+        <p>click {indexStore.count} times</p>
+        <p>totalPage: {indexStore.totalPage}</p>
+        <p>deepObject: {indexStore.getState('deepobject.a')}</p>
+        <p>current: {currentStore.current}</p>
       </div>
     );
   }
