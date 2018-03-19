@@ -8,7 +8,9 @@ const mkdirp = require('mkdirp');
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 
 module.exports = async function() {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: [ '--no-sandbox', '--disable-setuid-sandbox' ],
+  });
   // store the browser instance so we can teardown it later
   global.browser = browser;
   global.puppeteer = puppeteer;
