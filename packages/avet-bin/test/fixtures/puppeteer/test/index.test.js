@@ -1,6 +1,6 @@
 /* global browser */
 
-const timeout = 10000;
+const timeout = 20000;
 
 describe(
   'puppeteer',
@@ -9,12 +9,12 @@ describe(
 
     beforeAll(async () => {
       page = await browser.newPage();
-      await page.goto('https://www.baidu.com/');
+      await page.goto('https://github.com/');
     }, timeout);
 
     it('should load without error', async () => {
       const text = await page.evaluate(() => document.body.textContent);
-      expect(text).toContain('baidu');
+      expect(text).toContain('github');
     });
   },
   timeout
