@@ -6,5 +6,13 @@
 
 A graceful isomorphic framework build top of [Next.js] and [Egg.js]
 
+---
+
+## 社区
+
+扫码加钉钉群。
+
+<img src="https://raw.githubusercontent.com/avetjs/avet/master/docs/resource/dingtalk.jpg" width="200"/>
+
 [next.js]: https://github.com/zeit/next.js
 [egg.js]: https://github.com/eggjs/egg
