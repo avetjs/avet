@@ -14,7 +14,7 @@ describe(
 
     it('should load without error', async () => {
       const text = await page.evaluate(() => document.body.textContent);
-      expect(text).toContain('github');
+      expect(text).toContain('GitHub');
     });
   },
   timeout
