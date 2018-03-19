@@ -106,15 +106,6 @@ describe('Class Store', () => {
     subStore.dispatch('increment');
     expect(subStore.getState().count).toEqual(1);
   });
-
-  it('should skip action if global store state exists', () => {
-    window.__APP_DATA__ = {};
-    window.__APP_DATA__.store = { subStore: { count: 10 } };
-    const subStore = new SubStore();
-    subStore.dispatch('increment');
-    expect(subStore.getState().count).toEqual(0);
-    window.__APP_DATA__ = null;
-  });
 });
 
 describe('<Provider>', () => {

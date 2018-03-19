@@ -23,6 +23,8 @@ describe('Router', () => {
   describe('prefetch', () => {
     it('should prefetch a given page', async () => {
       global.__APP_DATA__ = {};
+      global.window = undefined;
+
       const pageLoader = new PageLoader();
       const router = new Router('/', {}, '/', { pageLoader });
       const route = '/routex';
@@ -33,8 +35,9 @@ describe('Router', () => {
 
     it('should only run two jobs at a time', async () => {
       global.__APP_DATA__ = {};
-      // delay loading pages for an hour
-      const pageLoader = new PageLoader({ delay: 1000 * 3600 });
+      global.window = undefined;
+
+      const pageLoader = new PageLoader({ delay: 1000 });
       const router = new Router('/', {}, '/', { pageLoader });
 
       router.prefetch('route1');
@@ -43,7 +46,7 @@ describe('Router', () => {
       router.prefetch('route4');
 
       // Wait for a bit
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(() => resolve({}), 50));
 
       expect(Object.keys(pageLoader.loaded).length).toBe(2);
       expect(Object.keys(pageLoader.loaded)).toEqual([ 'route1', 'route2' ]);
@@ -51,6 +54,8 @@ describe('Router', () => {
 
     it('should run all the jobs', async () => {
       global.__APP_DATA__ = {};
+      global.window = undefined;
+
       const pageLoader = new PageLoader();
       const router = new Router('/', {}, '/', { pageLoader });
       const routes = [ 'route1', 'route2', 'route3', 'route4' ];

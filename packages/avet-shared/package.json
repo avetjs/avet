@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "taskr dev",
     "build": "taskr release",
-    "test": "TESTS=./test/store.test.js avet-bin test"
+    "test": "avet-bin test"
   },
   "dependencies": {
     "ansi-html": "^0.0.7",

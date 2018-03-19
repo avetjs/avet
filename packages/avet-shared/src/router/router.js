@@ -313,8 +313,7 @@ export default class Router {
   }
 
   async prefetch(url) {
-    // We don't add support for prefetch in the development mode.
-    // If we do that, our on-demand-entries optimization won't performs better
+    // prefetch 不会再开发环境进行开放，这样的话 on-demand-entries 的优化就不会起作用
     if (process.env.NODE_ENV === 'development') return;
 
     const { pathname } = parse(url);

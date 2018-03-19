@@ -56,7 +56,7 @@ describe('Real project', () => {
     fork(avetBin, [ 'build' ], {
       cwd: join(__dirname, '../../fixtures/example'),
     })
-      .expect('stdout', /build done/)
+      .expect('stdout', /Build project done/)
       .expect('code', 0)
       .end(done);
   });
