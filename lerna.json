@@ -14,21 +14,11 @@
     "cacheDir": ".changelog"
   },
   "commands": {
-    "build": {
-      "scope": [
-        "avet-shared",
-        "avet-client",
-        "avet-utils"
-      ]
+    "run": {
+      "scope": ["avet-bin", "avet-client", "avet-shared", "avet-utils"]
     }
   },
-  "packages": [
-    "packages/*",
-    "bench/*",
-    "examples/*"
-  ],
+  "packages": ["packages/*", "bench/*", "examples/*"],
   "npmClient": "npm",
-  "npmClientArgs": [
-    "--no-lockfile"
-  ]
+  "npmClientArgs": ["--no-lockfile"]
 }
