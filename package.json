@@ -1,14 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "dev": "lerna bootstrap && npm run build",
+    "build": "lerna bootstrap && lerna run build",
     "clean": "lerna clean",
     "changelog": "lerna-changelog",
-    "build": "lerna run build",
     "publish": "lerna publish --exact",
     "test": "lerna run test",
     "debug": "lerna run debug",
-    "release": "npm run changelog && npm run build && npm run publish",
+    "release": "npm run changelog && lerna run build && npm run publish",
     "lint": "eslint --ext .js packages",
     "doc:start":
       "cross-env NODE_ENV=development && bisheng start -c ./site/bisheng.config.js",
