@@ -9,7 +9,33 @@ class AvetTestCommand extends TestCommand {
     super(rawArgv);
 
     this.usage = 'Usage: avet-bin test [files] [options]';
-    this.options = {};
+    this.options = {
+      runInBand: {
+        description: 'run jest in band',
+        type: 'boolean',
+        default: true,
+      },
+      coverage: {
+        description: 'show coverage',
+        type: 'boolean',
+        default: true,
+      },
+      forceExit: {
+        description: 'force exit',
+        type: 'boolean',
+        default: true,
+      },
+      verbose: {
+        description: 'show verbose',
+        type: 'boolean',
+        default: true,
+      },
+      bail: {
+        description: 'bail',
+        type: 'boolean',
+        default: true,
+      },
+    };
 
     this.jestDefaultConfig = {
       testEnvironment: require.resolve('../jest/puppeteer_environment.js'),
@@ -73,7 +99,8 @@ class AvetTestCommand extends TestCommand {
     testArgv.t = undefined;
     testArgv.g = undefined;
 
-    return this.helper.unparseArgv(testArgv);
+    // 由于 jest 的 options 是支持驼峰的，所以需要传允许驼峰
+    return this.helper.unparseArgv(testArgv, { allowCamelCase: true });
   }
 }
 
