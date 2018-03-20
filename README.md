@@ -2,6 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/avet.svg?style=flat)](https://npmjs.org/package/avet)
 [![Build Status](https://img.shields.io/travis/avetjs/avet.svg?style=flat)](https://travis-ci.org/avetjs/avet)
+[![Build status](https://ci.appveyor.com/api/projects/status/3y0h48ruda583tvj/branch/master?svg=true)](https://ci.appveyor.com/project/okoala/avet/branch/master)
 [![NPM downloads](http://img.shields.io/npm/dm/avet.svg?style=flat)](https://npmjs.org/package/avet)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
