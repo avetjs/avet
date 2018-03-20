@@ -6,11 +6,12 @@
     "changelog": "lerna-changelog",
     "build": "lerna run build",
     "publish": "lerna publish --exact",
-    "test": "lerna run test",
+    "test": "lerna run --loglevel verbose test",
     "debug": "lerna run debug",
     "release": "npm run changelog && npm run build && npm run publish",
     "lint": "eslint --ext .js packages",
-    "doc:start": "cross-env NODE_ENV=development && bisheng start -c ./site/bisheng.config.js",
+    "doc:start":
+      "cross-env NODE_ENV=development && bisheng start -c ./site/bisheng.config.js",
     "doc:build": "bisheng build --ssr -c ./site/bisheng.config.js",
     "doc:deploy": "bisheng gh-pages --ssr -c ./site/bisheng.config.js",
     "bench": "loadtest -c 10 -n 50 http://127.0.0.1:3000"

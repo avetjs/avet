@@ -7,6 +7,7 @@ const qs = require('querystring');
 const { fork } = require('child_process');
 const mm = require('egg-mock');
 const urllib = require('urllib');
+const coffee = require('coffee');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const avetPath = path.join(__dirname, '..');
@@ -37,10 +38,10 @@ exports.startApp = async name => {
   const port = 7001;
 
   return new Promise((resolve, reject) => {
-    const instance = fork(
+    const instance = coffee.fork(
       'node_modules/.bin/avet-bin',
-      [ 'dev', '--baseDir', baseDir, '--port', port ],
-      { cwd, env: { NODE_ENV: 'development' }, silent: true }
+      [ 'dev', '--baseDir', baseDir, '--port', port, '--workers', 1 ],
+      { cwd, env: { NODE_ENV: 'test' }, silent: true }
     );
 
     function handleStdout(data) {
@@ -52,20 +53,15 @@ exports.startApp = async name => {
           url: serverUrl,
         });
       }
-      // process.stdout.write(message);
+      process.stdout.write(message);
     }
 
-    function handleStderr() {
-      // process.stderr.write(data.toString());
+    function handleStderr(data) {
+      process.stderr.write(data.toString());
     }
 
-    instance.stdout.on('data', handleStdout);
-    instance.stderr.on('data', handleStderr);
-
-    instance.on('close', () => {
-      instance.stdout.removeListener('data', handleStdout);
-      instance.stderr.removeListener('data', handleStderr);
-    });
+    instance.on('stdout_data', handleStdout);
+    instance.on('stderr_data', handleStderr);
 
     instance.on('error', err => {
       reject(err);

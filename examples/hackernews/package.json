@@ -2,6 +2,9 @@
   "name": "avet-example-hackernews",
   "version": "1.3.4",
   "description": "hackernews showcase using async/await for avet",
+  "scripts": {
+    "dev": "avet-bin dev"
+  },
   "dependencies": {
     "avet": "1.3.4",
     "moment": "^2.20.1"
@@ -17,9 +20,5 @@
   },
   "engines": {
     "node": ">=8.9.0"
-  },
-  "scripts": {
-    "dev": "avet-bin dev",
-    "test": "avet-bin test"
   }
 }

@@ -3,6 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/avet.svg?style=flat)](https://npmjs.org/package/avet)
 [![Build Status](https://img.shields.io/travis/avetjs/avet.svg?style=flat)](https://travis-ci.org/avetjs/avet)
 [![NPM downloads](http://img.shields.io/npm/dm/avet.svg?style=flat)](https://npmjs.org/package/avet)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
 A graceful isomorphic framework build top of [Next.js] and [Egg.js]
 

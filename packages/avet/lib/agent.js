@@ -11,7 +11,7 @@ class AvetAgent extends EggAgent {
     super(...opts);
 
     // don't run in build env
-    if (this.config.env === 'local') {
+    if (this.config.env === 'local' || this.config.env === 'unittest') {
       const config = getAverConfiguration(this);
       const AvetBuildServer = require('avet-build/lib/server');
       this.avetBuildServer = new AvetBuildServer(this, config);
