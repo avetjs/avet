@@ -6,7 +6,7 @@
     "changelog": "lerna-changelog",
     "build": "lerna run build",
     "publish": "lerna publish --exact",
-    "test": "lerna run --loglevel verbose test",
+    "test": "lerna run test",
     "debug": "lerna run debug",
     "release": "npm run changelog && npm run build && npm run publish",
     "lint": "eslint --ext .js packages",
