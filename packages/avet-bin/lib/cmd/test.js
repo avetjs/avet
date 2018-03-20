@@ -13,17 +13,18 @@ class AvetTestCommand extends TestCommand {
       runInBand: {
         description: 'run jest in band',
         type: 'boolean',
-        default: true,
+        default: false,
       },
+      // 目前 puppeteer 还不支持 coverage，先屏蔽
       coverage: {
         description: 'show coverage',
         type: 'boolean',
-        default: true,
+        default: false,
       },
       forceExit: {
         description: 'force exit',
         type: 'boolean',
-        default: true,
+        default: false,
       },
       verbose: {
         description: 'show verbose',
