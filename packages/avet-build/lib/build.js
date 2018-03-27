@@ -7,7 +7,7 @@ const md5File = require('md5-file/promise');
 const createCompiler = require('./compiler');
 
 module.exports = async function build(dir, options) {
-  const { distDir } = options.buildConfig;
+  const { distDir, buildId } = options.buildConfig;
   const dist = join(dir, distDir);
   // remove pre distdir.
   del(dist, { force: true });
@@ -19,7 +19,7 @@ module.exports = async function build(dir, options) {
   try {
     await runCompiler(compiler);
     await writeBuildStats(dist);
-    await writeBuildId(dist);
+    await writeBuildId(dist, buildId);
   } catch (err) {
     console.error(`> Failed to build on ${dist}`);
     throw err;
@@ -62,8 +62,8 @@ async function writeBuildStats(dist) {
   await fs.writeFile(buildStatsPath, JSON.stringify(assetHashMap), 'utf8');
 }
 
-async function writeBuildId(dist) {
+async function writeBuildId(dist, buildId) {
   const buildIdPath = join(dist, 'BUILD_ID');
-  const buildId = uuid.v4();
-  await fs.writeFile(buildIdPath, buildId, 'utf8');
+  const _buildId = buildId || uuid.v4();
+  await fs.writeFile(buildIdPath, _buildId, 'utf8');
 }
