@@ -21,6 +21,10 @@ class AvetAppWorkerLoader extends createLoader(AppWorkerLoader) {
     this.loadLayout();
     this.loadAlias();
 
+    if (process.env.AVET_RUN_ENV === 'build') {
+      this.loadCustomBuild();
+    }
+
     if (process.env.AVET_RUN_ENV !== 'build') {
       // app > plugin
       this.loadCustomApp();

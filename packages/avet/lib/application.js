@@ -21,7 +21,9 @@ class Application extends EggApplication {
   }
 
   afterBuild(fn) {
-    this._onafter_build_fn.push(fn);
+    process.nextTick(() => {
+      this._onafter_build_fn.push(fn);
+    });
   }
 
   get afterBuildFnList() {

@@ -57,6 +57,7 @@ module.exports = Loader => {
     require('./mixin/config'),
     require('./mixin/layout'),
     require('./mixin/plugin'),
+    require('./mixin/custom'),
   ];
 
   for (const mixin of mixins) {

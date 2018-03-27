@@ -8,8 +8,17 @@ module.exports = options => {
   const config = getAverConfiguration(app);
 
   (async () => {
-    await createBuild(dir, config);
-    await Promise.all(app.afterBuildFnList);
-    process.exit(0);
+    try {
+      await createBuild(dir, config);
+      await Promise.all(
+        app.afterBuildFnList.map(async fn => {
+          await fn();
+        })
+      );
+      process.exit(0);
+    } catch (err) {
+      console.error(err);
+      process.exit(1);
+    }
   })();
 };
