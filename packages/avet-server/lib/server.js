@@ -62,6 +62,7 @@ class Server {
       dist: this.dist,
       hotReloader: this.hotReloader,
       staticMarkup: options.appConfig.staticMarkup,
+      avetExport: options.buildConfig.avetExport,
       buildStats: this.buildStats,
       buildId: this.buildId,
       assetPrefix: options.buildConfig.assetPrefix.replace(/\/$/, ''),
