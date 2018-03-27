@@ -1,13 +1,13 @@
 {
   "name": "avet-example-with-theme",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "this is a avet theme example",
   "scripts": {
     "start": "NODE_ENV=production EGG_SERVER_ENV=prod node index.js",
     "dev": "avet-bin dev"
   },
   "dependencies": {
-    "avet": "1.4.0"
+    "avet": "1.4.1"
   },
   "devDependencies": {
     "avet-bin": "1.3.5",
