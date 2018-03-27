@@ -26,8 +26,6 @@ module.exports = async function build(dir, options) {
   }
 
   console.log('> Build project done.');
-  process.exit(0);
-  // await replaceCurrentBuild(dir, dist);
 };
 
 function runCompiler(compiler) {

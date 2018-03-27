@@ -16,6 +16,16 @@ class Application extends EggApplication {
       const AvetServer = require('avet-server/lib/server');
       this.avetServer = new AvetServer(config, this);
     }
+
+    this._onafter_build_fn = [];
+  }
+
+  afterBuild(fn) {
+    this._onafter_build_fn.push(fn);
+  }
+
+  get afterBuildFnList() {
+    return this._onafter_build_fn;
   }
 
   get layouts() {

@@ -7,5 +7,9 @@ module.exports = options => {
   const { dir } = app.config.app;
   const config = getAverConfiguration(app);
 
-  createBuild(dir, config);
+  (async () => {
+    await createBuild(dir, config);
+    await Promise.all(app.afterBuildFnList);
+    process.exit(0);
+  })();
 };
