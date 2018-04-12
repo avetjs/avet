@@ -1,13 +1,13 @@
 {
   "name": "avet-example-with-route",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "this is a avet route example",
   "scripts": {
     "start": "NODE_ENV=production EGG_SERVER_ENV=prod node index.js",
     "dev": "avet-bin dev"
   },
   "dependencies": {
-    "avet": "1.4.2"
+    "avet": "1.4.3"
   },
   "devDependencies": {
     "avet-bin": "1.3.5",
