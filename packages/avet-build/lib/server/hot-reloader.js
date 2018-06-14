@@ -175,6 +175,10 @@ module.exports = class HotReloader {
           ...succeeded,
         ])) {
           const route = toRoute(relative(rootDir, n));
+          process.send({
+            to: 'master',
+            action: 'reload-worker',
+          });
           this.send('reload', route);
         }
 
