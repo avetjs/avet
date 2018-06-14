@@ -1,7 +1,7 @@
 {
   "name": "avet-build",
   "description": "avet build",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "scripts": {
     "autod": "autod",
     "test": "avet-bin test",
